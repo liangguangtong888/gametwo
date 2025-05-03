@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="spaceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#050A30"/>
+      <stop offset="100%" stop-color="#0F1642"/>
+    </linearGradient>
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="600" height="300" fill="url(#spaceGradient)"/>
+  
+  <!-- 星星 -->
+  <circle cx="50" cy="50" r="1" fill="white"/>
+  <circle cx="120" cy="80" r="1.5" fill="white"/>
+  <circle cx="200" cy="30" r="1" fill="white"/>
+  <circle cx="280" cy="70" r="1.5" fill="white"/>
+  <circle cx="350" cy="40" r="1" fill="white"/>
+  <circle cx="420" cy="90" r="1" fill="white"/>
+  <circle cx="490" cy="60" r="1.5" fill="white"/>
+  <circle cx="550" cy="20" r="1" fill="white"/>
+  <circle cx="80" cy="150" r="1" fill="white"/>
+  <circle cx="150" cy="180" r="1.5" fill="white"/>
+  <circle cx="220" cy="130" r="1" fill="white"/>
+  <circle cx="300" cy="170" r="0.5" fill="white"/>
+  <circle cx="380" cy="140" r="1" fill="white"/>
+  <circle cx="450" cy="190" r="1.5" fill="white"/>
+  <circle cx="520" cy="160" r="1" fill="white"/>
+  <circle cx="580" cy="200" r="0.5" fill="white"/>
+  <circle cx="100" cy="250" r="1" fill="white"/>
+  <circle cx="180" cy="230" r="0.5" fill="white"/>
+  <circle cx="260" cy="270" r="1" fill="white"/>
+  <circle cx="330" cy="240" r="1.5" fill="white"/>
+  <circle cx="400" cy="280" r="1" fill="white"/>
+  <circle cx="470" cy="250" r="0.5" fill="white"/>
+  <circle cx="540" cy="290" r="1" fill="white"/>
+  
+  <!-- 游戏标题 -->
+  <text x="300" y="80" font-family="Arial" font-size="40" fill="white" text-anchor="middle" font-weight="bold">Space Shooter</text>
+  <text x="300" y="110" font-family="Arial" font-size="20" fill="#5AC8FA" text-anchor="middle">Defend against alien invaders!</text>
+  
+  <!-- 太空船 -->
+  <path d="M280 180 L300 160 L320 180 L310 190 L290 190 Z" fill="#5AC8FA"/>
+  <rect x="295" y="190" width="10" height="15" fill="#5AC8FA"/>
+  <circle cx="300" cy="175" r="5" fill="#007AFF"/>
+  
+  <!-- 激光束 -->
+  <rect x="295" y="120" width="2" height="35" fill="#FF3B30" opacity="0.8"/>
+  <rect x="303" y="110" width="2" height="45" fill="#FF3B30" opacity="0.8"/>
+  
+  <!-- 敌人飞船 -->
+  <path d="M230 140 L250 150 L230 160 L220 150 Z" fill="#FF9500"/>
+  <path d="M370 130 L390 140 L370 150 L360 140 Z" fill="#FF9500"/>
+  <path d="M270 110 L290 120 L270 130 L260 120 Z" fill="#FF9500"/>
+  <path d="M330 120 L350 130 L330 140 L320 130 Z" fill="#FF9500"/>
+  
+  <!-- 爆炸效果 -->
+  <circle cx="250" cy="150" r="15" fill="url(#starGlow)" opacity="0.8"/>
+  <circle cx="350" cy="130" r="12" fill="url(#starGlow)" opacity="0.7"/>
+  
+  <text x="300" y="270" font-family="Arial" font-size="14" fill="#888" text-anchor="middle">特色游戏横幅图片</text>
+</svg> 

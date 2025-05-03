@@ -1,0 +1,78 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="#1a1a2e" />
+  
+  <!-- 主界面背景 -->
+  <rect x="50" y="50" width="700" height="350" fill="#0f3460" rx="10" ry="10" />
+  
+  <!-- 标题 -->
+  <rect x="200" y="70" width="400" height="40" fill="#533483" rx="5" ry="5" />
+  <text x="400" y="100" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">Select Your Heroes</text>
+  
+  <!-- 英雄卡片区域 -->
+  <g transform="translate(100, 130)">
+    <!-- 英雄卡片 1 - 战士 -->
+    <rect x="0" y="0" width="120" height="160" fill="#533483" rx="8" ry="8" stroke="#E94560" stroke-width="2" />
+    <circle cx="60" cy="40" r="30" fill="#4361ee" />
+    <text x="60" y="48" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">W</text>
+    <text x="60" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Warrior</text>
+    <line x1="20" y1="95" x2="100" y2="95" stroke="#fff" stroke-width="1" opacity="0.5" />
+    <text x="60" y="115" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">ATK: 8</text>
+    <text x="60" y="135" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">HP: 100</text>
+    <text x="60" y="155" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">Range: 1</text>
+  </g>
+  
+  <g transform="translate(250, 130)">
+    <!-- 英雄卡片 2 - 法师 -->
+    <rect x="0" y="0" width="120" height="160" fill="#533483" rx="8" ry="8" />
+    <circle cx="60" cy="40" r="30" fill="#4cc9f0" />
+    <text x="60" y="48" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">M</text>
+    <text x="60" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Mage</text>
+    <line x1="20" y1="95" x2="100" y2="95" stroke="#fff" stroke-width="1" opacity="0.5" />
+    <text x="60" y="115" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">ATK: 12</text>
+    <text x="60" y="135" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">HP: 60</text>
+    <text x="60" y="155" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">Range: 3</text>
+  </g>
+  
+  <g transform="translate(400, 130)">
+    <!-- 英雄卡片 3 - 弓箭手 -->
+    <rect x="0" y="0" width="120" height="160" fill="#533483" rx="8" ry="8" />
+    <circle cx="60" cy="40" r="30" fill="#f72585" />
+    <text x="60" y="48" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">A</text>
+    <text x="60" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Archer</text>
+    <line x1="20" y1="95" x2="100" y2="95" stroke="#fff" stroke-width="1" opacity="0.5" />
+    <text x="60" y="115" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">ATK: 10</text>
+    <text x="60" y="135" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">HP: 70</text>
+    <text x="60" y="155" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">Range: 4</text>
+  </g>
+  
+  <g transform="translate(550, 130)">
+    <!-- 英雄卡片 4 - 坦克 -->
+    <rect x="0" y="0" width="120" height="160" fill="#533483" rx="8" ry="8" />
+    <circle cx="60" cy="40" r="30" fill="#fb8500" />
+    <text x="60" y="48" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#fff" text-anchor="middle">T</text>
+    <text x="60" y="85" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Tank</text>
+    <line x1="20" y1="95" x2="100" y2="95" stroke="#fff" stroke-width="1" opacity="0.5" />
+    <text x="60" y="115" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">ATK: 6</text>
+    <text x="60" y="135" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">HP: 150</text>
+    <text x="60" y="155" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle">Range: 1</text>
+  </g>
+  
+  <!-- 资源显示 -->
+  <rect x="100" y="310" width="220" height="30" fill="#E94560" rx="5" ry="5" opacity="0.8" />
+  <text x="210" y="330" font-family="Arial, sans-serif" font-size="16" fill="#fff" text-anchor="middle">Gold: 1000</text>
+  
+  <rect x="340" y="310" width="140" height="30" fill="#E94560" rx="5" ry="5" opacity="0.8" />
+  <text x="410" y="330" font-family="Arial, sans-serif" font-size="16" fill="#fff" text-anchor="middle">Exp: 0</text>
+  
+  <rect x="500" y="310" width="140" height="30" fill="#E94560" rx="5" ry="5" opacity="0.8" />
+  <text x="570" y="330" font-family="Arial, sans-serif" font-size="16" fill="#fff" text-anchor="middle">Turn: 1</text>
+  
+  <!-- 开始按钮 -->
+  <rect x="300" y="350" width="200" height="40" fill="#E94560" rx="20" ry="20" />
+  <text x="400" y="375" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#fff" text-anchor="middle">Start Battle</text>
+  
+  <!-- 游戏名称 -->
+  <rect x="300" y="10" width="200" height="30" fill="#6096B4" rx="5" ry="5" opacity="0.8" />
+  <text x="400" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Hero Commander</text>
+</svg> 

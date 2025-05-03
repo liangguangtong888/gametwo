@@ -1,0 +1,27 @@
+这是一个占位文件，表示图片目录结构已创建。
+
+要完成网站的图片展示，请添加以下真实图片：
+
+1. 游戏卡片图片：
+   - assets/images/game1/ - Space Shooter游戏图片
+   - assets/images/game2/ - Match Stars游戏图片
+   - assets/images/game7/ - Monster Survivors游戏图片
+
+2. 特色游戏横幅：
+   - assets/images/featured1/ - Space Shooter特色横幅
+   - assets/images/featured2/ - Match Stars特色横幅
+   - assets/images/featured3/ - Monster Survivors特色横幅
+
+3. 最新游戏图片：
+   - assets/images/latest1/ - 最新游戏1图片
+   - assets/images/latest2/ - 最新游戏2图片
+   - assets/images/latest3/ - 最新游戏3图片
+   - assets/images/latest4/ - Monster Survivors最新游戏图片
+
+4. 分类图标（已创建SVG格式）：
+   - assets/images/category_icons/action.svg
+   - assets/images/category_icons/adventure.svg
+   - assets/images/category_icons/puzzle.svg
+   - assets/images/category_icons/strategy.svg
+
+您可以使用自己的游戏截图或从网络上下载相关主题的游戏图片，替换这些占位文件。 

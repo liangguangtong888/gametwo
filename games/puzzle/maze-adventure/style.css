@@ -1,0 +1,183 @@
+/* 迷宫冒险游戏特定样式 */
+
+/* 游戏截图样式 */
+.maze-screenshots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 25px 0;
+}
+
+@media (max-width: 768px) {
+    .maze-screenshots {
+        grid-template-columns: 1fr;
+    }
+}
+
+.maze-screenshot {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.maze-screenshot:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 评论区域样式优化 */
+.comment-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    resize: none;
+    height: 120px;
+    font-family: inherit;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.comment-form textarea:focus {
+    border-color: #0d6efd;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+.comment-form button {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+}
+
+.comment-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(13, 110, 253, 0.35);
+}
+
+.comment {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    font-weight: bold;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comment-content {
+    flex: 1;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.comment-date {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.comment-content p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.comment-actions button {
+    background: none;
+    border: none;
+    color: #6c757d;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.comment-actions button:hover {
+    color: #0d6efd;
+    background-color: #f8f9fa;
+}
+
+/* 按钮悬停效果增强 */
+.game-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4);
+}
+
+.play-btn:hover {
+    letter-spacing: 1px;
+    transform: translateY(-2px);
+}
+
+/* iframe加载中样式 */
+.game-frame {
+    position: relative;
+}
+
+.game-frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+}
+
+.game-frame iframe {
+    position: relative;
+    z-index: 1;
+} 

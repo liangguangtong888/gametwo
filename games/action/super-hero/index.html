@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Hero Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0a0e23;
+            overflow: hidden;
+            touch-action: none;
+        }
+        
+        #game-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(0deg, #1e3c72 0%, #2a5298 100%);
+            overflow: hidden;
+        }
+        
+        #city-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: url('../../../assets/images/game4.svg') repeat-x;
+            background-size: auto 100%;
+            z-index: 1;
+            animation: scrollCity 60s linear infinite;
+        }
+        
+        #hero {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+            background-color: #ff4757;
+            border-radius: 10px;
+            z-index: 3;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s ease;
+            box-shadow: 0 5px 20px rgba(255, 71, 87, 0.5);
+        }
+        
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: #ff9ff3;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff9ff3;
+        }
+        
+        #hero::after {
+            content: 'S';
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .enemy {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #333;
+            border-radius: 8px;
+            z-index: 2;
+        }
+        
+        .enemy::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            background-color: #ff6b6b;
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+        }
+        
+        .civilian {
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            background-color: #55efc4;
+            border-radius: 5px;
+            z-index: 2;
+        }
+        
+        .civilian::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background-color: #55efc4;
+            border-radius: 50%;
+        }
+        
+        .projectile {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #00cec9;
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 10px #00cec9;
+        }
+        
+        .explosion {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ff9ff3 0%, #ff9ff3 30%, transparent 70%);
+            border-radius: 50%;
+            z-index: 4;
+            animation: explode 0.5s ease-out forwards;
+        }
+        
+        .score-board {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .power-meter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            z-index: 10;
+        }
+        
+        .power-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #74b9ff 0%, #0984e3 100%);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .game-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .control-btn:active {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .game-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+            z-index: 20;
+            display: none;
+        }
+        
+        .game-message button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        @keyframes scrollCity {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: -1000px 0;
+            }
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .game-controls {
+                bottom: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="city-bg"></div>
+        <div id="hero"></div>
+        
+        <div class="score-board">Score: <span id="score">0</span></div>
+        <div class="power-meter">
+            <div class="power-fill" id="power-fill"></div>
+        </div>
+        
+        <div class="game-controls">
+            <div class="control-btn" id="left-btn">←</div>
+            <div class="control-btn" id="right-btn">→</div>
+            <div class="control-btn" id="up-btn">↑</div>
+            <div class="control-btn" id="down-btn">↓</div>
+            <div class="control-btn" id="power-btn">⚡</div>
+        </div>
+        
+        <div class="game-message" id="game-message">
+            <p id="message-text">Game Start!</p>
+            <button id="restart-game">Restart</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hero = document.getElementById('hero');
+            const gameContainer = document.getElementById('game-container');
+            const scoreElement = document.getElementById('score');
+            const powerFill = document.getElementById('power-fill');
+            const gameMessage = document.getElementById('game-message');
+            const messageText = document.getElementById('message-text');
+            const restartBtn = document.getElementById('restart-game');
+            
+            // 控制按钮
+            const leftBtn = document.getElementById('left-btn');
+            const rightBtn = document.getElementById('right-btn');
+            const upBtn = document.getElementById('up-btn');
+            const downBtn = document.getElementById('down-btn');
+            const powerBtn = document.getElementById('power-btn');
+            
+            let score = 0;
+            let power = 100;
+            let gameRunning = true;
+            let heroX = gameContainer.clientWidth / 2;
+            let heroY = gameContainer.clientHeight / 2;
+            let entities = [];
+            let projectiles = [];
+            let heroSpeed = 5;
+            let lastEnemySpawn = 0;
+            let lastCivilianSpawn = 0;
+            let enemySpawnRate = 2000;
+            let civilianSpawnRate = 3000;
+            
+            // 初始化hero位置
+            updateHeroPosition();
+            
+            // 游戏开始显示信息
+            showMessage('Save the city! Move your hero and use superpowers to fight enemies!', true);
+            
+            // 游戏循环
+            function gameLoop() {
+                if (!gameRunning) return;
+                
+                const now = Date.now();
+                
+                // 生成敌人
+                if (now - lastEnemySpawn > enemySpawnRate) {
+                    spawnEnemy();
+                    lastEnemySpawn = now;
+                    
+                    // 逐渐增加难度
+                    enemySpawnRate = Math.max(500, enemySpawnRate - 50);
+                }
+                
+                // 生成平民
+                if (now - lastCivilianSpawn > civilianSpawnRate) {
+                    spawnCivilian();
+                    lastCivilianSpawn = now;
+                }
+                
+                // 移动所有实体
+                moveEntities();
+                
+                // 移动所有投射物
+                moveProjectiles();
+                
+                // 检测碰撞
+                checkCollisions();
+                
+                // 恢复能量
+                recoverPower();
+                
+                requestAnimationFrame(gameLoop);
+            }
+            
+            // 开始游戏循环
+            gameLoop();
+            
+            // 更新英雄位置
+            function updateHeroPosition() {
+                // 边界检查
+                heroX = Math.max(40, Math.min(gameContainer.clientWidth - 40, heroX));
+                heroY = Math.max(60, Math.min(gameContainer.clientHeight - 60, heroY));
+                
+                hero.style.left = heroX + 'px';
+                hero.style.top = heroY + 'px';
+            }
+            
+            // 生成敌人
+            function spawnEnemy() {
+                const side = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+                let x, y;
+                
+                switch(side) {
+                    case 0: // top
+                        x = Math.random() * gameContainer.clientWidth;
+                        y = -50;
+                        break;
+                    case 1: // right
+                        x = gameContainer.clientWidth + 50;
+                        y = Math.random() * gameContainer.clientHeight;
+                        break;
+                    case 2: // bottom
+                        x = Math.random() * gameContainer.clientWidth;
+                        y = gameContainer.clientHeight + 50;
+                        break;
+                    case 3: // left
+                        x = -50;
+                        y = Math.random() * gameContainer.clientHeight;
+                        break;
+                }
+                
+                const enemyElement = document.createElement('div');
+                enemyElement.className = 'enemy';
+                gameContainer.appendChild(enemyElement);
+                
+                entities.push({
+                    type: 'enemy',
+                    element: enemyElement,
+                    x: x,
+                    y: y,
+                    angle: Math.atan2(heroY - y, heroX - x),
+                    speed: 2 + Math.random()
+                });
+            }
+            
+            // 生成平民
+            function spawnCivilian() {
+                const x = Math.random() * (gameContainer.clientWidth - 100) + 50;
+                const y = Math.random() * (gameContainer.clientHeight - 100) + 50;
+                
+                const civilianElement = document.createElement('div');
+                civilianElement.className = 'civilian';
+                gameContainer.appendChild(civilianElement);
+                
+                entities.push({
+                    type: 'civilian',
+                    element: civilianElement,
+                    x: x,
+                    y: y,
+                    angle: Math.random() * Math.PI * 2,
+                    speed: 1 + Math.random()
+                });
+            }
+            
+            // 移动实体
+            function moveEntities() {
+                for (let i = 0; i < entities.length; i++) {
+                    const entity = entities[i];
+                    
+                    if (entity.type === 'enemy') {
+                        // 敌人朝向英雄移动
+                        entity.angle = Math.atan2(heroY - entity.y, heroX - entity.x);
+                    } else if (entity.type === 'civilian') {
+                        // 平民随机移动，偶尔改变方向
+                        if (Math.random() < 0.01) {
+                            entity.angle = Math.random() * Math.PI * 2;
+                        }
+                    }
+                    
+                    entity.x += Math.cos(entity.angle) * entity.speed;
+                    entity.y += Math.sin(entity.angle) * entity.speed;
+                    
+                    // 边界检查（平民）
+                    if (entity.type === 'civilian') {
+                        if (entity.x < 0 || entity.x > gameContainer.clientWidth || 
+                            entity.y < 0 || entity.y > gameContainer.clientHeight) {
+                            entity.angle = Math.atan2(gameContainer.clientHeight/2 - entity.y, 
+                                                    gameContainer.clientWidth/2 - entity.x);
+                        }
+                    }
+                    
+                    entity.element.style.left = entity.x + 'px';
+                    entity.element.style.top = entity.y + 'px';
+                }
+            }
+            
+            // 使用超能力（发射投射物）
+            function usePower() {
+                if (power < 20) return; // 能量不足
+                
+                // 减少能量
+                power -= 20;
+                updatePowerMeter();
+                
+                // 创建4个投射物向不同方向发射
+                const directions = [0, Math.PI/2, Math.PI, Math.PI*1.5];
+                
+                directions.forEach(angle => {
+                    const projectileElement = document.createElement('div');
+                    projectileElement.className = 'projectile';
+                    gameContainer.appendChild(projectileElement);
+                    
+                    projectiles.push({
+                        element: projectileElement,
+                        x: heroX,
+                        y: heroY,
+                        angle: angle,
+                        speed: 8
+                    });
+                });
+            }
+            
+            // 移动投射物
+            function moveProjectiles() {
+                for (let i = projectiles.length - 1; i >= 0; i--) {
+                    const projectile = projectiles[i];
+                    
+                    projectile.x += Math.cos(projectile.angle) * projectile.speed;
+                    projectile.y += Math.sin(projectile.angle) * projectile.speed;
+                    
+                    projectile.element.style.left = projectile.x + 'px';
+                    projectile.element.style.top = projectile.y + 'px';
+                    
+                    // 检查投射物是否超出边界
+                    if (projectile.x < -20 || projectile.x > gameContainer.clientWidth + 20 ||
+                        projectile.y < -20 || projectile.y > gameContainer.clientHeight + 20) {
+                        gameContainer.removeChild(projectile.element);
+                        projectiles.splice(i, 1);
+                    }
+                }
+            }
+            
+            // 检查碰撞
+            function checkCollisions() {
+                // 检查投射物与敌人的碰撞
+                for (let i = projectiles.length - 1; i >= 0; i--) {
+                    const projectile = projectiles[i];
+                    
+                    for (let j = entities.length - 1; j >= 0; j--) {
+                        const entity = entities[j];
+                        
+                        if (entity.type === 'enemy') {
+                            const dx = projectile.x - entity.x;
+                            const dy = projectile.y - entity.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            
+                            if (distance < 40) { // 碰撞半径
+                                // 创建爆炸效果
+                                const explosion = document.createElement('div');
+                                explosion.className = 'explosion';
+                                explosion.style.left = entity.x + 'px';
+                                explosion.style.top = entity.y + 'px';
+                                gameContainer.appendChild(explosion);
+                                
+                                setTimeout(() => {
+                                    gameContainer.removeChild(explosion);
+                                }, 500);
+                                
+                                // 移除敌人和投射物
+                                gameContainer.removeChild(entity.element);
+                                entities.splice(j, 1);
+                                
+                                gameContainer.removeChild(projectile.element);
+                                projectiles.splice(i, 1);
+                                
+                                // 增加分数
+                                score += 10;
+                                scoreElement.textContent = score;
+                                
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                // 检查英雄与敌人的碰撞
+                for (let i = entities.length - 1; i >= 0; i--) {
+                    const entity = entities[i];
+                    
+                    const dx = heroX - entity.x;
+                    const dy = heroY - entity.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (entity.type === 'enemy' && distance < 60) { // 英雄与敌人碰撞
+                        gameOver();
+                        return;
+                    } else if (entity.type === 'civilian' && distance < 50) { // 英雄与平民碰撞（拯救平民）
+                        // 移除平民
+                        gameContainer.removeChild(entity.element);
+                        entities.splice(i, 1);
+                        
+                        // 增加分数和能量
+                        score += 5;
+                        scoreElement.textContent = score;
+                        power = Math.min(100, power + 10);
+                        updatePowerMeter();
+                    }
+                }
+            }
+            
+            // 更新能量条
+            function updatePowerMeter() {
+                powerFill.style.width = power + '%';
+            }
+            
+            // 恢复能量
+            function recoverPower() {
+                if (power < 100) {
+                    power += 0.1;
+                    updatePowerMeter();
+                }
+            }
+            
+            // 游戏结束
+            function gameOver() {
+                gameRunning = false;
+                showMessage(`Game Over! Your Score: ${score}`, false);
+            }
+            
+            // 显示游戏消息
+            function showMessage(text, isStart) {
+                messageText.textContent = text;
+                gameMessage.style.display = 'block';
+                
+                if (isStart) {
+                    restartBtn.textContent = 'Start Game';
+                } else {
+                    restartBtn.textContent = 'Restart';
+                }
+            }
+            
+            // 重新开始游戏
+            function restartGame() {
+                score = 0;
+                power = 100;
+                gameRunning = true;
+                heroX = gameContainer.clientWidth / 2;
+                heroY = gameContainer.clientHeight / 2;
+                updateHeroPosition();
+                updatePowerMeter();
+                scoreElement.textContent = '0';
+                enemySpawnRate = 2000;
+                gameMessage.style.display = 'none';
+                
+                // 清除所有实体和投射物
+                entities.forEach(entity => {
+                    gameContainer.removeChild(entity.element);
+                });
+                entities = [];
+                
+                projectiles.forEach(projectile => {
+                    gameContainer.removeChild(projectile.element);
+                });
+                projectiles = [];
+                
+                // 开始游戏循环
+                gameLoop();
+            }
+            
+            // 事件监听
+            restartBtn.addEventListener('click', restartGame);
+            
+            // 键盘控制
+            document.addEventListener('keydown', function(e) {
+                if (!gameRunning) return;
+                
+                switch(e.key) {
+                    case 'ArrowLeft':
+                    case 'a':
+                    case 'A':
+                        heroX -= heroSpeed;
+                        break;
+                    case 'ArrowRight':
+                    case 'd':
+                    case 'D':
+                        heroX += heroSpeed;
+                        break;
+                    case 'ArrowUp':
+                    case 'w':
+                    case 'W':
+                        heroY -= heroSpeed;
+                        break;
+                    case 'ArrowDown':
+                    case 's':
+                    case 'S':
+                        heroY += heroSpeed;
+                        break;
+                    case ' ':
+                    case 'e':
+                    case 'E':
+                        usePower();
+                        break;
+                }
+                
+                updateHeroPosition();
+            });
+            
+            // 触摸控制 - 按钮
+            leftBtn.addEventListener('touchstart', function() {
+                if (!gameRunning) return;
+                touchInterval.left = setInterval(() => {
+                    heroX -= heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            leftBtn.addEventListener('touchend', function() {
+                clearInterval(touchInterval.left);
+            });
+            
+            rightBtn.addEventListener('touchstart', function() {
+                if (!gameRunning) return;
+                touchInterval.right = setInterval(() => {
+                    heroX += heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            rightBtn.addEventListener('touchend', function() {
+                clearInterval(touchInterval.right);
+            });
+            
+            upBtn.addEventListener('touchstart', function() {
+                if (!gameRunning) return;
+                touchInterval.up = setInterval(() => {
+                    heroY -= heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            upBtn.addEventListener('touchend', function() {
+                clearInterval(touchInterval.up);
+            });
+            
+            downBtn.addEventListener('touchstart', function() {
+                if (!gameRunning) return;
+                touchInterval.down = setInterval(() => {
+                    heroY += heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            downBtn.addEventListener('touchend', function() {
+                clearInterval(touchInterval.down);
+            });
+            
+            powerBtn.addEventListener('touchstart', function() {
+                if (!gameRunning) return;
+                usePower();
+            });
+            
+            // 鼠标控制 - 按钮
+            leftBtn.addEventListener('mousedown', function() {
+                if (!gameRunning) return;
+                touchInterval.left = setInterval(() => {
+                    heroX -= heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            leftBtn.addEventListener('mouseup', function() {
+                clearInterval(touchInterval.left);
+            });
+            
+            rightBtn.addEventListener('mousedown', function() {
+                if (!gameRunning) return;
+                touchInterval.right = setInterval(() => {
+                    heroX += heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            rightBtn.addEventListener('mouseup', function() {
+                clearInterval(touchInterval.right);
+            });
+            
+            upBtn.addEventListener('mousedown', function() {
+                if (!gameRunning) return;
+                touchInterval.up = setInterval(() => {
+                    heroY -= heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            upBtn.addEventListener('mouseup', function() {
+                clearInterval(touchInterval.up);
+            });
+            
+            downBtn.addEventListener('mousedown', function() {
+                if (!gameRunning) return;
+                touchInterval.down = setInterval(() => {
+                    heroY += heroSpeed;
+                    updateHeroPosition();
+                }, 30);
+            });
+            
+            downBtn.addEventListener('mouseup', function() {
+                clearInterval(touchInterval.down);
+            });
+            
+            powerBtn.addEventListener('click', function() {
+                if (!gameRunning) return;
+                usePower();
+            });
+            
+            // 监听全屏消息
+            window.addEventListener('message', function(event) {
+                if (event.data === 'fullscreen') {
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen();
+                    } else if (document.documentElement.msRequestFullscreen) {
+                        document.documentElement.msRequestFullscreen();
+                    }
+                }
+            });
+            
+            // 移除鼠标离开窗口时的监听
+            document.addEventListener('mouseleave', function() {
+                clearInterval(touchInterval.left);
+                clearInterval(touchInterval.right);
+                clearInterval(touchInterval.up);
+                clearInterval(touchInterval.down);
+            });
+            
+            // 自适应窗口大小
+            window.addEventListener('resize', function() {
+                hero.style.left = '50%';
+                hero.style.top = '50%';
+                heroX = gameContainer.clientWidth / 2;
+                heroY = gameContainer.clientHeight / 2;
+                updateHeroPosition();
+            });
+        });
+    </script>
+</body>
+</html> 

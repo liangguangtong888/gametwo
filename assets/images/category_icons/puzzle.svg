@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5AC8FA"/>
+      <stop offset="100%" stop-color="#AF52DE"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="55" fill="url(#bgGradient)" opacity="0.9"/>
+  <circle cx="60" cy="60" r="50" fill="#333" opacity="0.9"/>
+  
+  <!-- 拼图图标 -->
+  <path d="M40 40 L55 40 L55 55 L70 55 L70 40 L85 40 L85 55 L70 70 L85 70 L85 85 L70 85 L70 70 L55 70 L55 85 L40 85 L40 70 L55 55 L40 55 Z" fill="#5AC8FA"/>
+  
+  <!-- 拼图片块突出部分 -->
+  <circle cx="47.5" cy="47.5" r="5" fill="#AF52DE"/>
+  <circle cx="77.5" cy="47.5" r="5" fill="#AF52DE"/>
+  <circle cx="77.5" cy="77.5" r="5" fill="#AF52DE"/>
+  <circle cx="47.5" cy="77.5" r="5" fill="#AF52DE"/>
+</svg> 

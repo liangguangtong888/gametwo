@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Adventure</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #000;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            max-width: 100%;
+            max-height: 100vh;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+            color: white;
+            z-index: 10;
+        }
+        .key {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        .game-status {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+        
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            z-index: 20;
+        }
+        
+        #game-over h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        #restart-game {
+            background: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        #restart-game:hover {
+            background: #0a58ca;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="game-canvas" width="800" height="500"></canvas>
+    
+    <div class="game-status">
+        Level: <span id="level">1</span> | Health: <span id="health">100</span> | Score: <span id="score">0</span>
+    </div>
+    
+    <div class="controls">
+        <div class="key">← → Move</div>
+        <div class="key">Space Jump</div>
+        <div class="key">E Special</div>
+        <div class="key">F Throw</div>
+    </div>
+    
+    <div id="game-over">
+        <h2>Game Over!</h2>
+        <p>Your final score: <span id="final-score">0</span></p>
+        <button id="restart-game">Restart Game</button>
+    </div>
+
+    <script>
+        // 游戏画布和上下文
+        const canvas = document.getElementById('game-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // 自适应画布大小
+        function resizeCanvas() {
+            // 维持16:10的宽高比
+            const parentWidth = window.innerWidth;
+            const parentHeight = window.innerHeight;
+            const aspectRatio = 16 / 10;
+            
+            let newWidth, newHeight;
+            if (parentWidth / parentHeight > aspectRatio) {
+                // 如果父容器更宽，则高度成为限制因素
+                newHeight = parentHeight * 0.9; // 保留一些边距
+                newWidth = newHeight * aspectRatio;
+            } else {
+                // 如果父容器更高，则宽度成为限制因素
+                newWidth = parentWidth * 0.9; // 保留一些边距
+                newHeight = newWidth / aspectRatio;
+            }
+            
+            canvas.style.width = `${newWidth}px`;
+            canvas.style.height = `${newHeight}px`;
+        }
+        
+        // 页面加载和调整大小时调整画布
+        window.addEventListener('load', resizeCanvas);
+        window.addEventListener('resize', resizeCanvas);
+        
+        // 处理来自父页面的消息
+        window.addEventListener('message', function(event) {
+            if (event.data === 'fullscreen') {
+                // 尝试进入全屏
+                if (canvas.requestFullscreen) {
+                    canvas.requestFullscreen();
+                } else if (canvas.webkitRequestFullscreen) {
+                    canvas.webkitRequestFullscreen();
+                } else if (canvas.msRequestFullscreen) {
+                    canvas.msRequestFullscreen();
+                }
+            } else if (event.data === 'restart') {
+                // 重启游戏
+                resetGame();
+            }
+        });
+        
+        // 游戏状态
+        let gameStarted = true;
+        let gamePaused = false;
+        let level = 1;
+        
+        // 游戏元素
+        const ninja = {
+            x: 50,
+            y: 400,
+            width: 40,
+            height: 60,
+            speed: 5,
+            jumping: false,
+            jumpHeight: 15,
+            gravity: 0.8,
+            velocityY: 0,
+            facingRight: true,
+            health: 100,
+            score: 0
+        };
+        
+        // 敌人
+        const enemies = [
+            { x: 300, y: 400, width: 40, height: 60, speed: 2, direction: -1 },
+            { x: 600, y: 400, width: 40, height: 60, speed: 3, direction: -1 }
+        ];
+
+        // 忍者星手里剑
+        const shurikens = [];
+        
+        // 地面
+        const ground = {
+            y: 460,
+            width: canvas.width,
+            height: 40
+        };
+        
+        // 平台
+        const platforms = [
+            { x: 150, y: 350, width: 100, height: 20 },
+            { x: 350, y: 300, width: 100, height: 20 },
+            { x: 550, y: 250, width: 100, height: 20 }
+        ];
+        
+        // 控制键
+        const keys = {
+            left: false,
+            right: false,
+            up: false,
+            special: false,
+            throw: false
+        };
+        
+        // 事件监听 - 键盘按下
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.key === ' ') keys.up = true;
+            if (e.key === 'e' || e.key === 'E') keys.special = true;
+            if (e.key === 'f' || e.key === 'F') keys.throw = true;
+            
+            // 防止空格键滚动页面
+            if (e.key === ' ') {
+                e.preventDefault();
+            }
+        });
+        
+        // 事件监听 - 键盘松开
+        window.addEventListener('keyup', function(e) {
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
+            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.key === ' ') keys.up = false;
+            if (e.key === 'e' || e.key === 'E') keys.special = false;
+            if (e.key === 'f' || e.key === 'F') {
+                if (keys.throw) {
+                    throwShuriken();
+                }
+                keys.throw = false;
+            }
+        });
+        
+        // 碰撞检测
+        function checkCollision(obj1, obj2) {
+            return obj1.x < obj2.x + obj2.width &&
+                   obj1.x + obj1.width > obj2.x &&
+                   obj1.y < obj2.y + obj2.height &&
+                   obj1.y + obj1.height > obj2.y;
+        }
+        
+        // 处理移动和跳跃
+        function handleMovement() {
+            // 左右移动
+            if (keys.left) {
+                ninja.x -= ninja.speed;
+                ninja.facingRight = false;
+            }
+            if (keys.right) {
+                ninja.x += ninja.speed;
+                ninja.facingRight = true;
+            }
+            
+            // 边界检查
+            if (ninja.x < 0) ninja.x = 0;
+            if (ninja.x + ninja.width > canvas.width) ninja.x = canvas.width - ninja.width;
+            
+            // 跳跃处理
+            ninja.y += ninja.velocityY;
+            ninja.velocityY += ninja.gravity;
+            
+            // 地面碰撞
+            if (ninja.y + ninja.height > ground.y) {
+                ninja.y = ground.y - ninja.height;
+                ninja.velocityY = 0;
+                ninja.jumping = false;
+            }
+            
+            // 平台碰撞
+            let onPlatform = false;
+            platforms.forEach(platform => {
+                if (checkCollision(ninja, platform) && ninja.velocityY > 0 && ninja.y + ninja.height - ninja.velocityY <= platform.y) {
+                    ninja.y = platform.y - ninja.height;
+                    ninja.velocityY = 0;
+                    ninja.jumping = false;
+                    onPlatform = true;
+                }
+            });
+            
+            // 跳跃
+            if (keys.up && !ninja.jumping) {
+                ninja.velocityY = -ninja.jumpHeight;
+                ninja.jumping = true;
+            }
+            
+            // 特殊能力
+            if (keys.special) {
+                // 在此处实现特殊能力 - 目前使用冲刺能力
+                const dashPower = 15;
+                if (ninja.facingRight) {
+                    ninja.x += dashPower;
+                } else {
+                    ninja.x -= dashPower;
+                }
+                
+                // 重新检查边界
+                if (ninja.x < 0) ninja.x = 0;
+                if (ninja.x + ninja.width > canvas.width) ninja.x = canvas.width - ninja.width;
+            }
+        }
+        
+        // 敌人移动
+        function moveEnemies() {
+            enemies.forEach(enemy => {
+                enemy.x += enemy.speed * enemy.direction;
+                
+                // 改变方向
+                if (enemy.x <= 0 || enemy.x + enemy.width >= canvas.width) {
+                    enemy.direction *= -1;
+                }
+                
+                // 检测与忍者的碰撞
+                if (checkCollision(ninja, enemy)) {
+                    // 减少忍者生命值
+                    ninja.health -= 1;
+                    
+                    // 更新显示的生命值
+                    document.getElementById('health').textContent = ninja.health;
+                    
+                    // 击退忍者
+                    if (ninja.x < enemy.x) {
+                        ninja.x -= 10;
+                    } else {
+                        ninja.x += 10;
+                    }
+                }
+            });
+        }
+        
+        // 投掷手里剑
+        function throwShuriken() {
+            const direction = ninja.facingRight ? 1 : -1;
+            shurikens.push({
+                x: ninja.facingRight ? ninja.x + ninja.width : ninja.x,
+                y: ninja.y + 20,
+                size: 15,
+                speed: 10 * direction,
+                active: true
+            });
+        }
+        
+        // 更新手里剑位置
+        function updateShurikens() {
+            for (let i = 0; i < shurikens.length; i++) {
+                const shuriken = shurikens[i];
+                
+                if (shuriken.active) {
+                    shuriken.x += shuriken.speed;
+                    
+                    // 检查手里剑是否超出屏幕
+                    if (shuriken.x < 0 || shuriken.x > canvas.width) {
+                        shuriken.active = false;
+                        continue;
+                    }
+                    
+                    // 检查与敌人的碰撞
+                    for (let j = 0; j < enemies.length; j++) {
+                        const enemy = enemies[j];
+                        
+                        if (shuriken.x > enemy.x && 
+                            shuriken.x < enemy.x + enemy.width && 
+                            shuriken.y > enemy.y && 
+                            shuriken.y < enemy.y + enemy.height) {
+                            
+                            // 命中敌人
+                            shuriken.active = false;
+                            ninja.score += 10;
+                            
+                            // 更新显示的分数
+                            document.getElementById('score').textContent = ninja.score;
+                            
+                            // 重置敌人位置 (简化处理)
+                            enemy.x = Math.random() * (canvas.width - 100) + 50;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            // 移除非活动手里剑
+            const activeShurikens = shurikens.filter(shuriken => shuriken.active);
+            shurikens.length = 0;
+            activeShurikens.forEach(shuriken => shurikens.push(shuriken));
+        }
+        
+        // 绘制游戏元素
+        function draw() {
+            // 清空画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制背景
+            ctx.fillStyle = '#87CEEB';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制地面
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(0, ground.y, ground.width, ground.height);
+            
+            // 绘制平台
+            ctx.fillStyle = '#663399';
+            platforms.forEach(platform => {
+                ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+            });
+            
+            // 绘制忍者
+            if (ninja.facingRight) {
+                ctx.fillStyle = '#FF0000';
+            } else {
+                ctx.fillStyle = '#CC0000'; // 稍微深一点的红色表示面向左侧
+            }
+            ctx.fillRect(ninja.x, ninja.y, ninja.width, ninja.height);
+            
+            // 绘制敌人
+            ctx.fillStyle = '#333333';
+            enemies.forEach(enemy => {
+                ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+            });
+            
+            // 绘制手里剑
+            ctx.fillStyle = '#CCCCCC';
+            shurikens.forEach(shuriken => {
+                if (shuriken.active) {
+                    ctx.beginPath();
+                    ctx.arc(shuriken.x, shuriken.y, shuriken.size / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+            
+            // 更新UI显示
+            document.getElementById('level').textContent = level;
+            document.getElementById('health').textContent = ninja.health;
+            document.getElementById('score').textContent = ninja.score;
+        }
+        
+        // 重置游戏
+        function resetGame() {
+            // 隐藏游戏结束屏幕
+            document.getElementById('game-over').style.display = 'none';
+            
+            // 重置忍者
+            ninja.x = 50;
+            ninja.y = 400;
+            ninja.velocityY = 0;
+            ninja.facingRight = true;
+            ninja.health = 100;
+            ninja.score = 0;
+            
+            // 重置敌人
+            enemies.length = 0;
+            enemies.push(
+                { x: 300, y: 400, width: 40, height: 60, speed: 2, direction: -1 },
+                { x: 600, y: 400, width: 40, height: 60, speed: 3, direction: -1 }
+            );
+            
+            // 清空手里剑
+            shurikens.length = 0;
+            
+            // 重置级别
+            level = 1;
+            
+            // 重新开始游戏
+            gameStarted = true;
+            gamePaused = false;
+            
+            // 更新显示
+            document.getElementById('level').textContent = level;
+            document.getElementById('health').textContent = ninja.health;
+            document.getElementById('score').textContent = ninja.score;
+        }
+        
+        // 显示游戏结束
+        function showGameOver() {
+            document.getElementById('game-over').style.display = 'block';
+            document.getElementById('final-score').textContent = ninja.score;
+        }
+        
+        // 游戏循环
+        function gameLoop() {
+            if (gameStarted && !gamePaused) {
+                handleMovement();
+                moveEnemies();
+                updateShurikens();
+                
+                // 检查游戏状态
+                if (ninja.health <= 0) {
+                    gameStarted = false;
+                    showGameOver();
+                }
+                
+                // 更新等级
+                if (ninja.score >= level * 100) {
+                    level++;
+                    // 增加难度
+                    enemies.push({ 
+                        x: Math.random() * (canvas.width - 100) + 50, 
+                        y: 400, 
+                        width: 40, 
+                        height: 60, 
+                        speed: 2 + level * 0.5, 
+                        direction: Math.random() > 0.5 ? 1 : -1 
+                    });
+                    
+                    // 更新显示
+                    document.getElementById('level').textContent = level;
+                }
+            }
+            
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+        
+        // 添加重新开始按钮事件监听
+        document.getElementById('restart-game').addEventListener('click', resetGame);
+        
+        // 尝试获取焦点，这样可以立即响应键盘输入
+        window.addEventListener('load', function() {
+            canvas.focus();
+            
+            // 点击画布时获取焦点
+            canvas.addEventListener('click', function() {
+                this.focus();
+            });
+        });
+        
+        // 启动游戏
+        gameLoop();
+    </script>
+</body>
+</html> 

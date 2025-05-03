@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A2A06"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+    </filter>
+  </defs>
+  
+  <rect width="300" height="180" fill="url(#bgGradient)"/>
+  
+  <!-- 新游戏标识 -->
+  <rect x="10" y="10" width="50" height="25" rx="5" ry="5" fill="#FF3B30"/>
+  <text x="35" y="27" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">NEW</text>
+  
+  <text x="150" y="40" font-family="Arial" font-size="18" fill="white" text-anchor="middle" font-weight="bold">Battle Arena</text>
+  <text x="150" y="60" font-family="Arial" font-size="12" fill="#CCCCCC" text-anchor="middle">Coming Soon</text>
+  
+  <!-- 战斗场景 -->
+  <rect x="50" y="70" width="200" height="80" rx="5" ry="5" fill="#8B4513" stroke="#A0522D" stroke-width="3"/>
+  
+  <!-- 战斗单位 - 左方阵营 -->
+  <circle cx="80" cy="100" r="12" fill="#FF3B30"/>
+  <circle cx="110" cy="90" r="10" fill="#FF3B30"/>
+  <circle cx="110" cy="120" r="10" fill="#FF3B30"/>
+  <circle cx="90" cy="120" r="8" fill="#FF3B30"/>
+  
+  <!-- 战斗单位 - 右方阵营 -->
+  <circle cx="220" cy="100" r="12" fill="#5AC8FA"/>
+  <circle cx="190" cy="90" r="10" fill="#5AC8FA"/>
+  <circle cx="190" cy="120" r="10" fill="#5AC8FA"/>
+  <circle cx="210" cy="120" r="8" fill="#5AC8FA"/>
+  
+  <!-- 战斗特效 -->
+  <rect x="140" y="80" width="20" height="60" fill="#FFCC00" opacity="0.5" filter="url(#glow)"/>
+  <path d="M140 80 L160 140" stroke="#FFCC00" stroke-width="2"/>
+  <path d="M160 80 L140 140" stroke="#FFCC00" stroke-width="2"/>
+  <circle cx="150" cy="110" r="15" fill="#FFCC00" opacity="0.3" filter="url(#glow)"/>
+</svg> 

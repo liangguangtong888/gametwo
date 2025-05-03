@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Challenge - GameHaven</title>
+    <meta name="description" content="Play Sudoku Challenge - the classic number logic game that tests your reasoning and problem-solving skills!">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <link rel="stylesheet" href="../../../styles/game-details.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="game-page">
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>GameHaven</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../categories.html">Categories</a></li>
+                    <li><a href="../../../ranking.html">Rankings</a></li>
+                    <li><a href="../../../new-games.html">New Games</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" placeholder="Search games...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="game-page-wrapper">
+        <div class="container">
+            <div class="game-header">
+                <h1>Sudoku Challenge</h1>
+                <div class="game-meta">
+                    <div class="game-rating">
+                        <span class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </span>
+                        <span class="rating-value">4.4</span>
+                        <span class="rating-count">(168 ratings)</span>
+                    </div>
+                    <div class="game-category">
+                        <a href="../../../categories.html#puzzle">Puzzle</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="game-main">
+                    <div class="game-frame">
+                        <iframe id="game-iframe" src="index.html" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button id="fullscreen-btn"><i class="fas fa-expand"></i> Fullscreen</button>
+                        <button id="restart-btn"><i class="fas fa-redo"></i> Restart</button>
+                    </div>
+
+                    <div class="game-description">
+                        <h2>About Sudoku Challenge</h2>
+                        <p>Sudoku Challenge is the classic number logic puzzle game that has captivated millions of players worldwide. Fill a 9×9 grid with numbers so that each column, each row, and each of the nine 3×3 subgrids contains all of the digits from 1 to 9.</p>
+                        <p>This digital version offers multiple difficulty levels, from beginner to expert, making it suitable for both newcomers and Sudoku masters. Challenge yourself, improve your logical thinking, and enjoy hours of brain-stimulating fun!</p>
+
+                        <h3>How to Play</h3>
+                        <ul>
+                            <li><strong>Basic Rules:</strong>
+                                <ul>
+                                    <li>Fill in the empty cells with numbers from 1 to 9</li>
+                                    <li>Each number can only appear once in each row</li>
+                                    <li>Each number can only appear once in each column</li>
+                                    <li>Each number can only appear once in each 3×3 box</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Features</h3>
+                        <ul>
+                            <li>Multiple difficulty levels (Easy, Medium, Hard, Expert)</li>
+                            <li>Hint system for when you get stuck</li>
+                            <li>Note-taking functionality</li>
+                            <li>Timer to track your speed</li>
+                            <li>Error checking option</li>
+                            <li>Clean and intuitive interface</li>
+                        </ul>
+                    </div>
+
+                    <div class="social-share">
+                        <h3>Share This Game</h3>
+                        <div class="share-buttons">
+                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="pinterest"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="game-comments">
+                        <h3>Comments (12)</h3>
+                        <div class="comment-form">
+                            <textarea placeholder="Write your comment..."></textarea>
+                            <button>Post Comment</button>
+                        </div>
+                        <div class="comments-list">
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="" alt="User avatar">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h4>Alex Johnson</h4>
+                                        <span class="comment-date">3 days ago</span>
+                                    </div>
+                                    <p>Perfect way to keep my brain active! I love the different difficulty levels. The expert puzzles are really challenging but so satisfying when solved.</p>
+                                    <div class="comment-actions">
+                                        <button><i class="fas fa-thumbs-up"></i> 15</button>
+                                        <button><i class="fas fa-thumbs-down"></i> 1</button>
+                                        <button>Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="" alt="User avatar">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h4>Sarah Miller</h4>
+                                        <span class="comment-date">1 week ago</span>
+                                    </div>
+                                    <p>I play this every morning with my coffee. The interface is clean and easy to use. The note-taking feature is especially helpful for the harder puzzles.</p>
+                                    <div class="comment-actions">
+                                        <button><i class="fas fa-thumbs-up"></i> 9</button>
+                                        <button><i class="fas fa-thumbs-down"></i> 0</button>
+                                        <button>Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-games">
+                    <h2>You May Also Like</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image" style="background-image: url('../../../assets/images/game2/game-card.svg');">
+                                <div class="game-card-rating">4.3</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Match Stars</h3>
+                                <p>Puzzle, Strategy</p>
+                                <a href="../match-stars/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image" style="background-image: url('../../../assets/images/game-maze/game-card.svg');">
+                                <div class="game-card-rating">4.1</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Maze Adventure</h3>
+                                <p>Puzzle, Adventure</p>
+                                <a href="../maze-adventure/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image" style="background-image: url('../../../assets/images/latest1.svg');">
+                                <div class="game-card-rating">4.2</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Block Puzzle</h3>
+                                <p>Puzzle, Strategy</p>
+                                <a href="#" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-compact">
+            <div class="footer-container">
+                <div class="footer-row">
+                    <div class="footer-col">
+                        <h3>GameHaven</h3>
+                        <p>The ultimate destination for free online games. Play thousands of high-quality games instantly!</p>
+                        <div class="social-compact">
+                            <a href="#" aria-label="Facebook" class="social-icon facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" aria-label="Twitter" class="social-icon twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-icon instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" aria-label="YouTube" class="social-icon youtube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="../../../index.html">Home</a></li>
+                                <li><a href="../../../categories.html">Categories</a></li>
+                                <li><a href="../../../ranking.html">Rankings</a></li>
+                                <li><a href="../../../new-games.html">New Games</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Support</h4>
+                            <ul>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 GameHaven. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const gameIframe = document.getElementById('game-iframe');
+            
+            fullscreenBtn.addEventListener('click', function() {
+                if (gameIframe.requestFullscreen) {
+                    gameIframe.requestFullscreen();
+                } else if (gameIframe.mozRequestFullScreen) {
+                    gameIframe.mozRequestFullScreen();
+                } else if (gameIframe.webkitRequestFullscreen) {
+                    gameIframe.webkitRequestFullscreen();
+                } else if (gameIframe.msRequestFullscreen) {
+                    gameIframe.msRequestFullscreen();
+                }
+            });
+            
+            restartBtn.addEventListener('click', function() {
+                gameIframe.src = gameIframe.src;
+            });
+        });
+    </script>
+</body>
+</html> 

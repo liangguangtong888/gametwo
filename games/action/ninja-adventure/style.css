@@ -1,0 +1,211 @@
+/* Ninja Adventure游戏特定样式 */
+
+/* 游戏画布样式 */
+#game-canvas {
+    background-color: #000;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* 游戏UI元素样式 */
+.ninja-game-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.ninja-game-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.ninja-game-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 游戏状态显示 */
+.game-status {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+/* 移动方向键样式（用于移动设备） */
+.mobile-controls {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.direction-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dir-row {
+    display: flex;
+    gap: 10px;
+}
+
+.dir-btn {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+.action-btns {
+    display: flex;
+    gap: 15px;
+}
+
+.jump-btn, .throw-btn {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+/* 媒体查询 - 在移动设备上显示屏幕控制 */
+@media (max-width: 768px) {
+    .mobile-controls {
+        display: flex;
+    }
+    
+    .ninja-game-controls {
+        display: none;
+    }
+    
+    .game-status {
+        top: 10px;
+        left: 10px;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+
+/* 游戏页面特定样式 */
+.ninja-screenshots {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.ninja-screenshot {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.ninja-screenshot img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.ninja-screenshot:hover {
+    transform: scale(1.05);
+}
+
+/* 忍者技能描述样式 */
+.ninja-abilities {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    border-left: 4px solid #007aff;
+}
+
+.ninja-abilities h4 {
+    color: #007aff;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.ability-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.ability-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ability-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #007aff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.ability-info h5 {
+    margin: 0 0 5px;
+    font-size: 16px;
+}
+
+.ability-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* 媒体查询 - 响应式布局 */
+@media (max-width: 768px) {
+    .ninja-screenshots {
+        grid-template-columns: 1fr;
+    }
+    
+    .ability-list {
+        grid-template-columns: 1fr;
+    }
+} 

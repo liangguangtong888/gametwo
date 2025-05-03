@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <rect width="300" height="180" fill="#121826"/>
+  <text x="150" y="80" font-family="Arial" font-size="20" fill="white" text-anchor="middle">Space Shooter</text>
+  <path d="M150 40 L160 60 L180 65 L160 70 L150 90 L140 70 L120 65 L140 60 Z" fill="#5ac8fa" />
+  <circle cx="200" cy="50" r="8" fill="#ff9500" />
+  <circle cx="220" cy="70" r="4" fill="#ffffff" />
+  <circle cx="100" cy="60" r="5" fill="#ffffff" />
+  <circle cx="80" cy="40" r="3" fill="#ffffff" />
+  <path d="M140 130 L160 130 L155 120 L145 120 Z" fill="#5ac8fa" />
+  <rect x="148" y="130" width="4" height="10" fill="#5ac8fa" />
+</svg> 

@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Builder Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background-color: #87CEEB;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .game-ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+            font-size: 14px;
+        }
+        
+        .resources {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .resource {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .resource img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .toolbar {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px;
+            border-radius: 5px;
+            display: flex;
+            gap: 6px;
+            z-index: 100;
+        }
+        
+        .tool {
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border: 2px solid #333;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 20px;
+        }
+        
+        .tool:hover {
+            background-color: #ddd;
+            transform: scale(1.05);
+        }
+        
+        .tool.active {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .game-map {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #8BC34A;
+            overflow: hidden;
+        }
+        
+        .grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3000px;
+            height: 3000px;
+            background-image: 
+                linear-gradient(#00000015 1px, transparent 1px),
+                linear-gradient(90deg, #00000015 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform-origin: 0 0;
+        }
+        
+        .building {
+            position: absolute;
+            background-color: #795548;
+            border: 2px solid #5D4037;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+        
+        .building.residential {
+            background-color: #2196F3;
+            border-color: #1976D2;
+        }
+        
+        .building.commercial {
+            background-color: #FF9800;
+            border-color: #F57C00;
+        }
+        
+        .building.industrial {
+            background-color: #FFEB3B;
+            border-color: #FBC02D;
+        }
+        
+        .building:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .road {
+            position: absolute;
+            background-color: #616161;
+            z-index: 5;
+        }
+        
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 220px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+            font-size: 13px;
+        }
+        
+        .info-panel h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .info-panel p {
+            margin: 5px 0;
+        }
+        
+        .status-message {
+            position: absolute;
+            bottom: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            z-index: 100;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* 确保游戏在各种容器尺寸中都能正常工作 */
+        @media (max-height: 500px) {
+            .toolbar {
+                bottom: 10px;
+            }
+            
+            .tool {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+            
+            .info-panel {
+                width: 170px;
+                padding: 8px;
+                font-size: 12px;
+            }
+            
+            .info-panel h3 {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            
+            .status-message {
+                bottom: 55px;
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-ui">
+            <div class="resources">
+                <div class="resource">
+                    <span>💰</span>
+                    <span id="money">10000</span>
+                </div>
+                <div class="resource">
+                    <span>👥</span>
+                    <span id="population">0</span>
+                </div>
+                <div class="resource">
+                    <span>😊</span>
+                    <span id="happiness">100%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-map">
+            <div class="grid" id="grid"></div>
+            <div id="buildings"></div>
+            <div id="roads"></div>
+        </div>
+        
+        <div class="toolbar">
+            <div class="tool" data-tool="residential" title="Residential">🏠</div>
+            <div class="tool" data-tool="commercial" title="Commercial">🏪</div>
+            <div class="tool" data-tool="industrial" title="Industrial">🏭</div>
+            <div class="tool" data-tool="road" title="Road">🛣️</div>
+            <div class="tool" data-tool="park" title="Park">🌳</div>
+            <div class="tool" data-tool="delete" title="Delete">❌</div>
+        </div>
+        
+        <div class="info-panel">
+            <h3>City Information</h3>
+            <p>Residents: <span id="residents">0</span></p>
+            <p>Jobs: <span id="jobs">0</span></p>
+            <p>Income: <span id="income">+0</span>/day</p>
+            <p>Expenses: <span id="expenses">-0</span>/day</p>
+            <hr>
+            <p>Tip: Drag to move the map, use mouse wheel to zoom.</p>
+        </div>
+        
+        <div class="status-message hidden" id="statusMessage"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Game state
+            const gameState = {
+                money: 10000,
+                population: 0,
+                happiness: 100,
+                residents: 0,
+                jobs: 0,
+                income: 0,
+                expenses: 0,
+                selectedTool: null,
+                mapScale: 1,
+                mapOffsetX: 0,
+                mapOffsetY: 0,
+                isDragging: false,
+                dragStartX: 0,
+                dragStartY: 0,
+                buildings: [],
+                roads: []
+            };
+            
+            // DOM elements
+            const grid = document.getElementById('grid');
+            const buildingsContainer = document.getElementById('buildings');
+            const roadsContainer = document.getElementById('roads');
+            const moneyDisplay = document.getElementById('money');
+            const populationDisplay = document.getElementById('population');
+            const happinessDisplay = document.getElementById('happiness');
+            const residentsDisplay = document.getElementById('residents');
+            const jobsDisplay = document.getElementById('jobs');
+            const incomeDisplay = document.getElementById('income');
+            const expensesDisplay = document.getElementById('expenses');
+            const statusMessage = document.getElementById('statusMessage');
+            const tools = document.querySelectorAll('.tool');
+            
+            // Initialize tool selection
+            tools.forEach(tool => {
+                tool.addEventListener('click', function() {
+                    // Remove active state from other tools
+                    tools.forEach(t => t.classList.remove('active'));
+                    // Set current tool as active
+                    this.classList.add('active');
+                    // Update selected tool
+                    gameState.selectedTool = this.dataset.tool;
+                    // Show status message
+                    showStatusMessage(`Selected: ${this.title}`);
+                });
+            });
+            
+            // Map dragging functionality
+            grid.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+            
+            // Map zooming functionality
+            grid.addEventListener('wheel', zoom);
+            
+            // Map click functionality
+            grid.addEventListener('click', handleMapClick);
+            
+            // Show status message
+            function showStatusMessage(message, duration = 3000) {
+                statusMessage.textContent = message;
+                statusMessage.classList.remove('hidden');
+                
+                // Set timer to automatically hide message
+                setTimeout(() => {
+                    statusMessage.classList.add('hidden');
+                }, duration);
+            }
+            
+            // Start dragging
+            function startDrag(e) {
+                if (gameState.selectedTool) return; // If a tool is selected, don't drag
+                
+                gameState.isDragging = true;
+                gameState.dragStartX = e.clientX - gameState.mapOffsetX;
+                gameState.dragStartY = e.clientY - gameState.mapOffsetY;
+                grid.style.cursor = 'grabbing';
+            }
+            
+            // Dragging
+            function drag(e) {
+                if (!gameState.isDragging) return;
+                
+                gameState.mapOffsetX = e.clientX - gameState.dragStartX;
+                gameState.mapOffsetY = e.clientY - gameState.dragStartY;
+                
+                updateMapTransform();
+            }
+            
+            // End dragging
+            function endDrag() {
+                gameState.isDragging = false;
+                grid.style.cursor = 'default';
+            }
+            
+            // Zooming
+            function zoom(e) {
+                e.preventDefault();
+                
+                // Determine zoom direction
+                const delta = Math.sign(e.deltaY) * -0.1;
+                const newScale = Math.max(0.5, Math.min(2, gameState.mapScale + delta));
+                
+                // Zoom relative to mouse position
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                
+                // Calculate mouse position relative to map origin
+                const mouseMapX = (mouseX - gameState.mapOffsetX) / gameState.mapScale;
+                const mouseMapY = (mouseY - gameState.mapOffsetY) / gameState.mapScale;
+                
+                // Update map offset to keep mouse position relative to map constant
+                gameState.mapOffsetX = mouseX - mouseMapX * newScale;
+                gameState.mapOffsetY = mouseY - mouseMapY * newScale;
+                
+                // Update zoom scale
+                gameState.mapScale = newScale;
+                
+                updateMapTransform();
+            }
+            
+            // Update map transform
+            function updateMapTransform() {
+                grid.style.transform = `translate(${gameState.mapOffsetX}px, ${gameState.mapOffsetY}px) scale(${gameState.mapScale})`;
+                buildingsContainer.style.transform = grid.style.transform;
+                roadsContainer.style.transform = grid.style.transform;
+            }
+            
+            // Handle map click
+            function handleMapClick(e) {
+                if (!gameState.selectedTool) return;
+                
+                // Calculate position relative to map origin
+                const mapX = (e.clientX - gameState.mapOffsetX) / gameState.mapScale;
+                const mapY = (e.clientY - gameState.mapOffsetY) / gameState.mapScale;
+                
+                // Align to grid
+                const gridSize = 50;
+                const gridX = Math.floor(mapX / gridSize) * gridSize;
+                const gridY = Math.floor(mapY / gridSize) * gridSize;
+                
+                // Execute different actions based on selected tool
+                switch (gameState.selectedTool) {
+                    case 'residential':
+                        placeBuilding('residential', gridX, gridY);
+                        break;
+                    case 'commercial':
+                        placeBuilding('commercial', gridX, gridY);
+                        break;
+                    case 'industrial':
+                        placeBuilding('industrial', gridX, gridY);
+                        break;
+                    case 'road':
+                        placeRoad(gridX, gridY);
+                        break;
+                    case 'park':
+                        placeBuilding('park', gridX, gridY);
+                        break;
+                    case 'delete':
+                        deleteItem(mapX, mapY);
+                        break;
+                }
+                
+                updateDisplay();
+            }
+            
+            // Place building
+            function placeBuilding(type, x, y) {
+                const costs = {
+                    residential: 500,
+                    commercial: 800,
+                    industrial: 1200,
+                    park: 300
+                };
+                
+                const populations = {
+                    residential: 20,
+                    commercial: 0,
+                    industrial: 0,
+                    park: 0
+                };
+                
+                const jobs = {
+                    residential: 0,
+                    commercial: 15,
+                    industrial: 30,
+                    park: 2
+                };
+                
+                const income = {
+                    residential: 50,
+                    commercial: 100,
+                    industrial: 150,
+                    park: 0
+                };
+                
+                const expenses = {
+                    residential: 10,
+                    commercial: 20,
+                    industrial: 30,
+                    park: 10
+                };
+                
+                // Check if funds are sufficient
+                if (gameState.money < costs[type]) {
+                    showStatusMessage('Not enough funds!', 2000);
+                    return;
+                }
+                
+                // Check if location is already occupied
+                for (const building of gameState.buildings) {
+                    if (building.x === x && building.y === y) {
+                        showStatusMessage('This location already has a building!', 2000);
+                        return;
+                    }
+                }
+                
+                for (const road of gameState.roads) {
+                    if (road.x === x && road.y === y) {
+                        showStatusMessage('This location already has a road!', 2000);
+                        return;
+                    }
+                }
+                
+                // Create building object
+                const building = {
+                    type: type,
+                    x: x,
+                    y: y,
+                    width: 50,
+                    height: 50,
+                    population: populations[type],
+                    jobs: jobs[type],
+                    income: income[type],
+                    expenses: expenses[type]
+                };
+                
+                // Update game state
+                gameState.money -= costs[type];
+                gameState.population += populations[type];
+                gameState.residents += populations[type];
+                gameState.jobs += jobs[type];
+                gameState.income += income[type];
+                gameState.expenses += expenses[type];
+                gameState.buildings.push(building);
+                
+                // Render building
+                renderBuilding(building);
+                
+                // Show message
+                showStatusMessage(`Built ${type}, cost ${costs[type]} money`, 2000);
+            }
+            
+            // Place road
+            function placeRoad(x, y) {
+                const roadCost = 100;
+                
+                // Check if funds are sufficient
+                if (gameState.money < roadCost) {
+                    showStatusMessage('Not enough funds!', 2000);
+                    return;
+                }
+                
+                // Check if location is already occupied
+                for (const building of gameState.buildings) {
+                    if (building.x === x && building.y === y) {
+                        showStatusMessage('This location already has a building!', 2000);
+                        return;
+                    }
+                }
+                
+                for (const road of gameState.roads) {
+                    if (road.x === x && road.y === y) {
+                        showStatusMessage('This location already has a road!', 2000);
+                        return;
+                    }
+                }
+                
+                // Create road object
+                const road = {
+                    x: x,
+                    y: y,
+                    width: 50,
+                    height: 50
+                };
+                
+                // Update game state
+                gameState.money -= roadCost;
+                gameState.expenses += 5;
+                gameState.roads.push(road);
+                
+                // Render road
+                renderRoad(road);
+                
+                // Show message
+                showStatusMessage(`Built road, cost ${roadCost} money`, 2000);
+            }
+            
+            // Delete item
+            function deleteItem(mapX, mapY) {
+                // Check if a building was clicked
+                for (let i = 0; i < gameState.buildings.length; i++) {
+                    const building = gameState.buildings[i];
+                    if (
+                        mapX >= building.x &&
+                        mapX <= building.x + building.width &&
+                        mapY >= building.y &&
+                        mapY <= building.y + building.height
+                    ) {
+                        // Update game state
+                        gameState.population -= building.population;
+                        gameState.residents -= building.population;
+                        gameState.jobs -= building.jobs;
+                        gameState.income -= building.income;
+                        gameState.expenses -= building.expenses;
+                        
+                        // Remove from array
+                        gameState.buildings.splice(i, 1);
+                        
+                        // Re-render
+                        renderAllBuildings();
+                        
+                        // Show message
+                        showStatusMessage('Building removed', 2000);
+                        return;
+                    }
+                }
+                
+                // Check if a road was clicked
+                for (let i = 0; i < gameState.roads.length; i++) {
+                    const road = gameState.roads[i];
+                    if (
+                        mapX >= road.x &&
+                        mapX <= road.x + road.width &&
+                        mapY >= road.y &&
+                        mapY <= road.y + road.height
+                    ) {
+                        // Update game state
+                        gameState.expenses -= 5;
+                        
+                        // Remove from array
+                        gameState.roads.splice(i, 1);
+                        
+                        // Re-render
+                        renderAllRoads();
+                        
+                        // Show message
+                        showStatusMessage('Road removed', 2000);
+                        return;
+                    }
+                }
+                
+                showStatusMessage('Nothing to remove here', 2000);
+            }
+            
+            // Render building
+            function renderBuilding(building) {
+                const element = document.createElement('div');
+                element.className = `building ${building.type}`;
+                element.style.left = `${building.x}px`;
+                element.style.top = `${building.y}px`;
+                element.style.width = `${building.width}px`;
+                element.style.height = `${building.height}px`;
+                
+                // Add different building type icons
+                if (building.type === 'residential') {
+                    element.textContent = '🏠';
+                } else if (building.type === 'commercial') {
+                    element.textContent = '🏪';
+                } else if (building.type === 'industrial') {
+                    element.textContent = '🏭';
+                } else if (building.type === 'park') {
+                    element.textContent = '🌳';
+                }
+                
+                element.style.fontSize = '30px';
+                element.style.display = 'flex';
+                element.style.alignItems = 'center';
+                element.style.justifyContent = 'center';
+                
+                buildingsContainer.appendChild(element);
+            }
+            
+            // Render road
+            function renderRoad(road) {
+                const element = document.createElement('div');
+                element.className = 'road';
+                element.style.left = `${road.x}px`;
+                element.style.top = `${road.y}px`;
+                element.style.width = `${road.width}px`;
+                element.style.height = `${road.height}px`;
+                element.textContent = '🛣️';
+                element.style.fontSize = '30px';
+                element.style.display = 'flex';
+                element.style.alignItems = 'center';
+                element.style.justifyContent = 'center';
+                
+                roadsContainer.appendChild(element);
+            }
+            
+            // Render all buildings
+            function renderAllBuildings() {
+                buildingsContainer.innerHTML = '';
+                for (const building of gameState.buildings) {
+                    renderBuilding(building);
+                }
+            }
+            
+            // Render all roads
+            function renderAllRoads() {
+                roadsContainer.innerHTML = '';
+                for (const road of gameState.roads) {
+                    renderRoad(road);
+                }
+            }
+            
+            // Update display
+            function updateDisplay() {
+                moneyDisplay.textContent = gameState.money;
+                populationDisplay.textContent = gameState.population;
+                happinessDisplay.textContent = `${gameState.happiness}%`;
+                residentsDisplay.textContent = gameState.residents;
+                jobsDisplay.textContent = gameState.jobs;
+                incomeDisplay.textContent = `+${gameState.income}`;
+                expensesDisplay.textContent = `-${gameState.expenses}`;
+            }
+            
+            // Game loop
+            function gameLoop() {
+                // Daily update
+                gameState.money += gameState.income - gameState.expenses;
+                
+                // Calculate happiness
+                const jobRatio = gameState.residents > 0 ? Math.min(1, gameState.jobs / gameState.residents) : 1;
+                gameState.happiness = Math.round(Math.max(50, Math.min(100, 70 + jobRatio * 30)));
+                
+                updateDisplay();
+                
+                // Run every 10 seconds (simulating a day)
+                setTimeout(gameLoop, 10000);
+            }
+            
+            // Initialize game
+            function initGame() {
+                showStatusMessage('Welcome to City Builder! Select a building type from the toolbar and click on the map to place buildings.', 5000);
+                updateDisplay();
+                gameLoop();
+                
+                // Initialize map position to center
+                gameState.mapOffsetX = window.innerWidth / 2 - 750;
+                gameState.mapOffsetY = window.innerHeight / 2 - 750;
+                updateMapTransform();
+            }
+            
+            // Start game
+            initGame();
+        });
+    </script>
+</body>
+</html> 

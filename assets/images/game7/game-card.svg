@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A0E61"/>
+      <stop offset="100%" stop-color="#1B063B"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="300" height="180" fill="url(#bgGradient)"/>
+  
+  <text x="150" y="40" font-family="Arial" font-size="20" fill="white" text-anchor="middle" font-weight="bold">Monster Survivors</text>
+  
+  <!-- 怪物 -->
+  <circle cx="120" cy="100" r="25" fill="#AF52DE"/>
+  <circle cx="110" cy="90" r="5" fill="white"/>
+  <circle cx="130" cy="90" r="5" fill="white"/>
+  <path d="M110 110 L130 110" stroke="white" stroke-width="2" fill="none"/>
+  
+  <circle cx="180" cy="100" r="20" fill="#FF3B30"/>
+  <circle cx="173" cy="95" r="4" fill="white"/>
+  <circle cx="187" cy="95" r="4" fill="white"/>
+  <path d="M173 108 L187 108" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- 武器 -->
+  <rect x="145" y="85" width="5" height="40" fill="#5AC8FA"/>
+  <circle cx="147.5" cy="80" r="10" fill="#5AC8FA"/>
+  
+  <!-- 光效 -->
+  <circle cx="150" cy="90" r="40" fill="none" stroke="#AF52DE" stroke-width="2" opacity="0.5"/>
+  <circle cx="150" cy="90" r="50" fill="none" stroke="#AF52DE" stroke-width="1" opacity="0.3"/>
+</svg> 

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2F0A6A"/>
+      <stop offset="100%" stop-color="#5B1A9D"/>
+    </linearGradient>
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="600" height="300" fill="url(#bgGradient)"/>
+  
+  <!-- 装饰粒子 -->
+  <circle cx="50" cy="50" r="2" fill="white" opacity="0.4"/>
+  <circle cx="150" cy="30" r="1" fill="white" opacity="0.5"/>
+  <circle cx="250" cy="40" r="1.5" fill="white" opacity="0.3"/>
+  <circle cx="350" cy="20" r="1" fill="white" opacity="0.4"/>
+  <circle cx="450" cy="50" r="2" fill="white" opacity="0.3"/>
+  <circle cx="550" cy="30" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="100" cy="270" r="1" fill="white" opacity="0.4"/>
+  <circle cx="200" cy="280" r="2" fill="white" opacity="0.3"/>
+  <circle cx="300" cy="260" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="400" cy="270" r="1" fill="white" opacity="0.4"/>
+  <circle cx="500" cy="280" r="2" fill="white" opacity="0.3"/>
+  
+  <!-- 游戏标题 -->
+  <text x="300" y="70" font-family="Arial" font-size="40" fill="white" text-anchor="middle" font-weight="bold">Match Stars</text>
+  <text x="300" y="100" font-family="Arial" font-size="20" fill="#FF9500" text-anchor="middle">Match 3 or more to win!</text>
+  
+  <!-- 游戏棋盘 -->
+  <rect x="150" y="120" width="300" height="140" fill="#3A1E78" rx="10" ry="10"/>
+  
+  <!-- 第一行星星 -->
+  <circle cx="180" cy="150" r="15" fill="#FF9500"/>
+  <circle cx="230" cy="150" r="15" fill="#34C759"/>
+  <circle cx="280" cy="150" r="15" fill="#FF3B30"/>
+  <circle cx="330" cy="150" r="15" fill="#5AC8FA"/>
+  <circle cx="380" cy="150" r="15" fill="#AF52DE"/>
+  
+  <!-- 第二行星星 -->
+  <circle cx="180" cy="190" r="15" fill="#5AC8FA"/>
+  <circle cx="230" cy="190" r="15" fill="#FF9500"/>
+  <circle cx="280" cy="190" r="15" fill="#5AC8FA"/>
+  <circle cx="330" cy="190" r="15" fill="#34C759"/>
+  <circle cx="380" cy="190" r="15" fill="#FF3B30"/>
+  
+  <!-- 第三行星星 -->
+  <circle cx="180" cy="230" r="15" fill="#AF52DE"/>
+  <circle cx="230" cy="230" r="15" fill="#FF3B30"/>
+  <circle cx="280" cy="230" r="15" fill="#FF9500"/>
+  <circle cx="330" cy="230" r="15" fill="#5AC8FA"/>
+  <circle cx="380" cy="230" r="15" fill="#34C759"/>
+  
+  <!-- 高亮效果 -->
+  <circle cx="280" cy="150" r="20" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.7"/>
+  <circle cx="280" cy="190" r="20" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.7"/>
+  <circle cx="280" cy="230" r="20" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.7"/>
+  
+  <!-- 发光效果 -->
+  <circle cx="280" cy="190" r="30" fill="url(#starGlow)" opacity="0.7"/>
+  
+  <text x="300" y="290" font-family="Arial" font-size="14" fill="#CCC" text-anchor="middle">特色游戏横幅图片</text>
+</svg> 

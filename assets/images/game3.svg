@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#232325"/>
+      <stop offset="100%" stop-color="#3F3F43"/>
+    </linearGradient>
+    <linearGradient id="roadGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#555555"/>
+      <stop offset="100%" stop-color="#333333"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="300" height="180" fill="url(#bgGradient)"/>
+  
+  <!-- 赛道 -->
+  <path d="M0 90 C60 20, 240 20, 300 90 C240 160, 60 160, 0 90" fill="url(#roadGradient)"/>
+  
+  <!-- 赛道标记线 -->
+  <path d="M60 90 L75 90" stroke="white" stroke-width="3" stroke-dasharray="10 10"/>
+  <path d="M95 90 L110 90" stroke="white" stroke-width="3" stroke-dasharray="10 10"/>
+  <path d="M130 90 L145 90" stroke="white" stroke-width="3" stroke-dasharray="10 10"/>
+  <path d="M165 90 L180 90" stroke="white" stroke-width="3" stroke-dasharray="10 10"/>
+  <path d="M200 90 L215 90" stroke="white" stroke-width="3" stroke-dasharray="10 10"/>
+  <path d="M235 90 L250 90" stroke="white" stroke-width="3" stroke-dasharray="10 10"/>
+  
+  <!-- 首要赛车 -->
+  <rect x="70" y="75" width="30" height="15" rx="5" ry="5" fill="#FF3B30"/>
+  <circle cx="75" cy="90" r="5" fill="#333333"/>
+  <circle cx="95" cy="90" r="5" fill="#333333"/>
+  
+  <!-- 第二赛车 -->
+  <rect x="120" y="80" width="30" height="15" rx="5" ry="5" fill="#5AC8FA"/>
+  <circle cx="125" cy="95" r="5" fill="#333333"/>
+  <circle cx="145" cy="95" r="5" fill="#333333"/>
+  
+  <!-- 第三赛车 -->
+  <rect x="170" y="70" width="30" height="15" rx="5" ry="5" fill="#34C759"/>
+  <circle cx="175" cy="85" r="5" fill="#333333"/>
+  <circle cx="195" cy="85" r="5" fill="#333333"/>
+  
+  <!-- 速度线 -->
+  <line x1="60" y1="70" x2="40" y2="70" stroke="white" stroke-width="1"/>
+  <line x1="60" y1="75" x2="45" y2="75" stroke="white" stroke-width="1"/>
+  <line x1="60" y1="80" x2="50" y2="80" stroke="white" stroke-width="1"/>
+  <line x1="115" y1="80" x2="100" y2="80" stroke="white" stroke-width="1"/>
+  <line x1="115" y1="85" x2="105" y2="85" stroke="white" stroke-width="1"/>
+  <line x1="160" y1="70" x2="145" y2="70" stroke="white" stroke-width="1"/>
+  <line x1="160" y1="75" x2="150" y2="75" stroke="white" stroke-width="1"/>
+  
+  <text x="150" y="40" font-family="Arial" font-size="18" fill="white" text-anchor="middle" font-weight="bold">Racing Extreme</text>
+</svg> 

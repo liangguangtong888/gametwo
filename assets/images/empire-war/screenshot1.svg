@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="#a5d6a7"/>
+  
+  <!-- 地形 -->
+  <rect x="0" y="0" width="60" height="60" fill="#90caf9"/>
+  <rect x="60" y="0" width="60" height="60" fill="#90caf9"/>
+  <rect x="120" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="180" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="240" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="300" y="0" width="60" height="60" fill="#66bb6a"/>
+  <rect x="360" y="0" width="60" height="60" fill="#66bb6a"/>
+  <rect x="420" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="480" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="540" y="0" width="60" height="60" fill="#bcaaa4"/>
+  <rect x="600" y="0" width="60" height="60" fill="#bcaaa4"/>
+  <rect x="660" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="720" y="0" width="60" height="60" fill="#a5d6a7"/>
+  
+  <rect x="0" y="60" width="60" height="60" fill="#90caf9"/>
+  <rect x="60" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="120" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="180" y="60" width="60" height="60" fill="#66bb6a"/>
+  <rect x="240" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="300" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="360" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="420" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="480" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="540" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="600" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="660" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="720" y="60" width="60" height="60" fill="#a5d6a7"/>
+  
+  <!-- 更多地形 -->
+  <rect x="0" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="60" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="120" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="180" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="240" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="300" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="360" y="120" width="60" height="60" fill="#66bb6a"/>
+  <rect x="420" y="120" width="60" height="60" fill="#66bb6a"/>
+  <rect x="480" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="540" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="600" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="660" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="720" y="120" width="60" height="60" fill="#90caf9"/>
+  
+  <!-- 玩家城堡 -->
+  <rect x="120" y="180" width="54" height="54" fill="#5d4037" stroke="#3e2723" stroke-width="3" rx="5" ry="5"/>
+  
+  <!-- 玩家建筑 -->
+  <rect x="180" y="180" width="54" height="54" fill="#795548" stroke="#4e342e" stroke-width="3" rx="3" ry="3"/>
+  <circle cx="210" cy="300" r="27" fill="#9e9e9e" stroke="#757575" stroke-width="3"/>
+  <rect x="120" y="300" width="54" height="54" fill="#8bc34a" stroke="#689f38" stroke-width="3" rx="3" ry="3"/>
+  
+  <!-- 玩家单位 -->
+  <circle cx="240" cy="210" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="270" cy="210" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="300" cy="210" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="240" cy="240" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="270" cy="240" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  
+  <!-- 敌人城堡 -->
+  <rect x="600" y="180" width="54" height="54" fill="#f44336" stroke="#d32f2f" stroke-width="3" rx="5" ry="5"/>
+  
+  <!-- 敌人单位 -->
+  <circle cx="540" cy="210" r="15" fill="#f44336" stroke="#d32f2f" stroke-width="3"/>
+  <circle cx="510" cy="210" r="15" fill="#f44336" stroke="#d32f2f" stroke-width="3"/>
+  <circle cx="480" cy="210" r="15" fill="#f44336" stroke="#d32f2f" stroke-width="3"/>
+  
+  <!-- UI元素 -->
+  <rect x="10" y="10" width="200" height="40" fill="rgba(93, 64, 55, 0.8)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  <rect x="250" y="380" width="300" height="50" fill="rgba(93, 64, 55, 0.8)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  <rect x="610" y="10" width="180" height="100" fill="rgba(93, 64, 55, 0.8)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  <rect x="610" y="300" width="180" height="140" fill="rgba(93, 64, 55, 0.7)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  
+  <!-- 资源图标 -->
+  <circle cx="30" cy="30" r="10" fill="#ffca28"/>
+  <circle cx="90" cy="30" r="10" fill="#ffca28"/>
+  <circle cx="150" cy="30" r="10" fill="#ffca28"/>
+  
+  <!-- 单位按钮 -->
+  <rect x="270" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="320" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="370" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="420" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="470" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+</svg> 

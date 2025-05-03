@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <!-- 背景 -->
+  <rect width="800" height="450" fill="#a5d6a7"/>
+  
+  <!-- 地形 -->
+  <rect x="0" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="60" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="120" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="180" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="240" y="0" width="60" height="60" fill="#66bb6a"/>
+  <rect x="300" y="0" width="60" height="60" fill="#66bb6a"/>
+  <rect x="360" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="420" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="480" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="540" y="0" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="600" y="0" width="60" height="60" fill="#bcaaa4"/>
+  <rect x="660" y="0" width="60" height="60" fill="#bcaaa4"/>
+  <rect x="720" y="0" width="60" height="60" fill="#a5d6a7"/>
+  
+  <!-- 中央战场地形 -->
+  <rect x="0" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="60" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="120" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="180" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="240" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="300" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="360" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="420" y="60" width="60" height="60" fill="#90caf9"/>
+  <rect x="480" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="540" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="600" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="660" y="60" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="720" y="60" width="60" height="60" fill="#a5d6a7"/>
+  
+  <rect x="0" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="60" y="120" width="60" height="60" fill="#66bb6a"/>
+  <rect x="120" y="120" width="60" height="60" fill="#66bb6a"/>
+  <rect x="180" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="240" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="300" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="360" y="120" width="60" height="60" fill="#90caf9"/>
+  <rect x="420" y="120" width="60" height="60" fill="#90caf9"/>
+  <rect x="480" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="540" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="600" y="120" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="660" y="120" width="60" height="60" fill="#66bb6a"/>
+  <rect x="720" y="120" width="60" height="60" fill="#66bb6a"/>
+  
+  <rect x="0" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="60" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="120" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="180" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="240" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="300" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="360" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="420" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="480" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="540" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="600" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="660" y="180" width="60" height="60" fill="#a5d6a7"/>
+  <rect x="720" y="180" width="60" height="60" fill="#a5d6a7"/>
+  
+  <!-- 玩家建筑和单位 -->
+  <rect x="120" y="300" width="54" height="54" fill="#5d4037" stroke="#3e2723" stroke-width="3" rx="5" ry="5"/>
+  <rect x="180" y="300" width="54" height="54" fill="#795548" stroke="#4e342e" stroke-width="3" rx="3" ry="3"/>
+  <circle cx="240" cy="360" r="27" fill="#9e9e9e" stroke="#757575" stroke-width="3"/>
+  <rect x="60" y="360" width="54" height="54" fill="#8bc34a" stroke="#689f38" stroke-width="3" rx="3" ry="3"/>
+  
+  <!-- 进行中的战斗 -->
+  <circle cx="390" cy="210" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="420" cy="210" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="360" cy="210" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="390" cy="240" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  <circle cx="420" cy="240" r="15" fill="#2196f3" stroke="#1976d2" stroke-width="3"/>
+  
+  <circle cx="390" cy="150" r="15" fill="#f44336" stroke="#d32f2f" stroke-width="3"/>
+  <circle cx="420" cy="150" r="15" fill="#f44336" stroke="#d32f2f" stroke-width="3"/>
+  <circle cx="450" cy="150" r="15" fill="#f44336" stroke="#d32f2f" stroke-width="3"/>
+  <circle cx="390" cy="120" r="15" fill="#f44336" stroke="#d32f2f" stroke-width="3"/>
+  
+  <!-- 爆炸效果 -->
+  <circle cx="405" cy="180" r="20" fill="#ff9800" opacity="0.7"/>
+  <circle cx="405" cy="180" r="12" fill="#ffeb3b" opacity="0.9"/>
+  
+  <!-- 敌人建筑 -->
+  <rect x="600" y="300" width="54" height="54" fill="#f44336" stroke="#d32f2f" stroke-width="3" rx="5" ry="5"/>
+  <rect x="660" y="300" width="54" height="54" fill="#f44336" stroke="#d32f2f" stroke-width="3" rx="3" ry="3"/>
+  
+  <!-- UI元素 -->
+  <rect x="10" y="10" width="200" height="40" fill="rgba(93, 64, 55, 0.8)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  <rect x="250" y="380" width="300" height="50" fill="rgba(93, 64, 55, 0.8)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  <rect x="610" y="10" width="180" height="100" fill="rgba(93, 64, 55, 0.8)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  <rect x="610" y="120" width="180" height="100" fill="rgba(93, 64, 55, 0.9)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  
+  <!-- 建造菜单 -->
+  <rect x="330" y="280" width="200" height="180" fill="rgba(93, 64, 55, 0.9)" stroke="#8d6e63" stroke-width="2" rx="5" ry="5"/>
+  <rect x="340" y="300" width="180" height="40" fill="rgba(255, 255, 255, 0.1)" stroke="none" rx="3" ry="3"/>
+  <rect x="340" y="350" width="180" height="40" fill="rgba(255, 255, 255, 0.1)" stroke="none" rx="3" ry="3"/>
+  <rect x="340" y="400" width="180" height="40" fill="rgba(255, 255, 255, 0.1)" stroke="none" rx="3" ry="3"/>
+  
+  <rect x="350" y="305" width="30" height="30" fill="#5d4037" stroke="#3e2723" stroke-width="1" rx="3" ry="3"/>
+  <rect x="350" y="355" width="30" height="30" fill="#8bc34a" stroke="#689f38" stroke-width="1" rx="3" ry="3"/>
+  <circle cx="365" cy="420" r="15" fill="#9e9e9e" stroke="#757575" stroke-width="1"/>
+  
+  <!-- 资源图标 -->
+  <circle cx="30" cy="30" r="10" fill="#ffca28"/>
+  <circle cx="90" cy="30" r="10" fill="#ffca28"/>
+  <circle cx="150" cy="30" r="10" fill="#ffca28"/>
+  
+  <!-- 单位按钮 -->
+  <rect x="270" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="320" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="370" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="420" y="390" width="40" height="30" fill="#a1887f" stroke="#8d6e63" stroke-width="1" rx="3" ry="3"/>
+  <rect x="470" y="390" width="40" height="30" fill="#6d4c41" stroke="#5d4037" stroke-width="1" rx="3" ry="3"/>
+  
+  <!-- 小地图 -->
+  <rect x="610" y="350" width="180" height="90" fill="#a5d6a7" stroke="#8d6e63" stroke-width="2"/>
+  <rect x="650" y="370" width="10" height="10" fill="#2196f3"/>
+  <rect x="730" y="370" width="10" height="10" fill="#f44336"/>
+</svg> 

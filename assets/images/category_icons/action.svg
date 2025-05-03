@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF3B30"/>
+      <stop offset="100%" stop-color="#FF9500"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="55" fill="url(#bgGradient)" opacity="0.9"/>
+  <circle cx="60" cy="60" r="50" fill="#333" opacity="0.9"/>
+  
+  <!-- 游戏手柄图标 -->
+  <rect x="30" y="45" width="60" height="30" rx="15" ry="15" fill="#FF3B30"/>
+  <circle cx="40" cy="60" r="10" fill="#333"/>
+  <circle cx="80" cy="60" r="10" fill="#333"/>
+  <circle cx="40" cy="60" r="6" fill="#FF3B30"/>
+  <circle cx="80" cy="60" r="6" fill="#FF3B30"/>
+  <rect x="45" y="55" width="30" height="10" fill="#FF3B30"/>
+  
+  <!-- 按钮 -->
+  <circle cx="65" cy="52" r="3" fill="#333"/>
+  <circle cx="72" cy="52" r="3" fill="#333"/>
+  <circle cx="65" cy="67" r="3" fill="#333"/>
+  <circle cx="72" cy="67" r="3" fill="#333"/>
+</svg> 

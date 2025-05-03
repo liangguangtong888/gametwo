@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Commander</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .text-center {
+            text-align: center;
+        }
+        
+        h3 {
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .resource {
+            text-align: center;
+        }
+        
+        .hero-stats {
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        #selected-hero-stats p {
+            text-align: center;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <div class="game-title">Hero Commander</div>
+            <div class="resources">
+                <div class="resource">
+                    <div class="resource-icon"></div>
+                    <span>Gold: <span id="gold">1000</span></span>
+                </div>
+                <div class="resource">
+                    <div class="resource-icon"></div>
+                    <span>EXP: <span id="exp">0</span></span>
+                </div>
+                <div class="resource">
+                    <div class="resource-icon"></div>
+                    <span>Turn: <span id="turn">1</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-area">
+            <div class="heroes-list">
+                <h3>Available Heroes</h3>
+                <div class="hero-card" onclick="selectHero('warrior')">
+                    <div class="hero-name">Warrior</div>
+                    <div class="hero-stats">
+                        <span>ATK: 8</span>
+                        <span>HP: 100</span>
+                    </div>
+                </div>
+                <div class="hero-card" onclick="selectHero('mage')">
+                    <div class="hero-name">Mage</div>
+                    <div class="hero-stats">
+                        <span>ATK: 12</span>
+                        <span>HP: 60</span>
+                    </div>
+                </div>
+                <div class="hero-card" onclick="selectHero('archer')">
+                    <div class="hero-name">Archer</div>
+                    <div class="hero-stats">
+                        <span>ATK: 10</span>
+                        <span>HP: 70</span>
+                    </div>
+                </div>
+                <div class="hero-card" onclick="selectHero('healer')">
+                    <div class="hero-name">Healer</div>
+                    <div class="hero-stats">
+                        <span>ATK: 5</span>
+                        <span>HP: 80</span>
+                    </div>
+                </div>
+                <div class="hero-card" onclick="selectHero('tank')">
+                    <div class="hero-name">Tank</div>
+                    <div class="hero-stats">
+                        <span>ATK: 6</span>
+                        <span>HP: 150</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="battlefield">
+                <div class="battle-grid" id="battle-grid">
+                    <!-- Battle grid will be generated dynamically by JavaScript -->
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="hero-detail" id="hero-detail">
+                    <div class="hero-portrait"></div>
+                    <div class="hero-info">
+                        <h3 id="selected-hero-name">Select a Hero</h3>
+                        <div id="selected-hero-stats">
+                            <p>Attack: -</p>
+                            <p>Health: -</p>
+                            <p>Range: -</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="abilities">
+                    <div class="ability" onclick="useAbility(1)">
+                        <h4>Basic Attack</h4>
+                        <p>Deal basic damage to an enemy</p>
+                    </div>
+                    <div class="ability" onclick="useAbility(2)">
+                        <h4>Special Ability</h4>
+                        <p>Use a special ability based on hero type</p>
+                    </div>
+                    <div class="ability" onclick="useAbility(3)">
+                        <h4>Defensive Stance</h4>
+                        <p>Reduce incoming damage</p>
+                    </div>
+                    <div class="ability" onclick="useAbility(4)">
+                        <h4>Move</h4>
+                        <p>Move to a different position on the battlefield</p>
+                    </div>
+                </div>
+
+                <div class="battle-buttons">
+                    <button class="battle-btn" onclick="startBattle()">Start Battle</button>
+                    <button class="battle-btn" onclick="endTurn()">End Turn</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global game state
+        let gameState = {
+            gold: 1000,
+            exp: 0,
+            turn: 1,
+            selectedHero: null,
+            heroes: {
+                warrior: { name: 'Warrior', attack: 8, health: 100, range: 1, abilities: ['Heavy Strike', 'Whirlwind'] },
+                mage: { name: 'Mage', attack: 12, health: 60, range: 3, abilities: ['Fireball', 'Frost Nova'] },
+                archer: { name: 'Archer', attack: 10, health: 70, range: 4, abilities: ['Piercing Shot', 'Arrow Rain'] },
+                healer: { name: 'Healer', attack: 5, health: 80, range: 2, abilities: ['Heal', 'Group Recovery'] },
+                tank: { name: 'Tank', attack: 6, health: 150, range: 1, abilities: ['Taunt', 'Shield Block'] }
+            },
+            deployedHeroes: [],
+            enemies: []
+        };
+
+        // Initialize game
+        document.addEventListener('DOMContentLoaded', function() {
+            updateResources();
+            createBattleGrid();
+        });
+
+        // Update resource display
+        function updateResources() {
+            document.getElementById('gold').textContent = gameState.gold;
+            document.getElementById('exp').textContent = gameState.exp;
+            document.getElementById('turn').textContent = gameState.turn;
+        }
+
+        // Create battlefield grid
+        function createBattleGrid() {
+            const battleGrid = document.getElementById('battle-grid');
+            battleGrid.innerHTML = '';
+            
+            for(let row = 0; row < 4; row++) {
+                for(let col = 0; col < 6; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+                    cell.addEventListener('click', () => placeHero(row, col));
+                    battleGrid.appendChild(cell);
+                }
+            }
+            
+            // Place some random enemies
+            placeEnemies();
+        }
+        
+        // Place random enemies
+        function placeEnemies() {
+            // Clear existing enemies
+            gameState.enemies = [];
+            
+            // Place 2-3 random enemies
+            const enemyCount = Math.floor(Math.random() * 2) + 2;
+            const enemyTypes = ['warrior', 'mage', 'archer'];
+            
+            for(let i = 0; i < enemyCount; i++) {
+                const row = Math.floor(Math.random() * 2) + 1; // Place enemies in rows 1-2
+                const col = Math.floor(Math.random() * 6); // Random column
+                const enemyType = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
+                
+                // Check if position already has a unit
+                const existingEnemy = gameState.enemies.find(e => e.row === row && e.col === col);
+                if(existingEnemy) {
+                    i--; // Retry
+                    continue;
+                }
+                
+                // Add enemy
+                gameState.enemies.push({
+                    type: enemyType,
+                    row: row,
+                    col: col,
+                    health: gameState.heroes[enemyType].health,
+                    attack: gameState.heroes[enemyType].attack
+                });
+                
+                // Display enemy on the UI
+                const cell = document.querySelector(`.grid-cell[data-row="${row}"][data-col="${col}"]`);
+                const enemyUnit = document.createElement('div');
+                enemyUnit.className = 'hero-unit enemy';
+                enemyUnit.textContent = enemyType.charAt(0).toUpperCase();
+                cell.appendChild(enemyUnit);
+            }
+        }
+
+        // Select a hero
+        function selectHero(heroType) {
+            gameState.selectedHero = heroType;
+            const hero = gameState.heroes[heroType];
+            
+            // Update hero details display
+            document.getElementById('selected-hero-name').textContent = hero.name;
+            document.getElementById('selected-hero-stats').innerHTML = `
+                <p>Attack: ${hero.attack}</p>
+                <p>Health: ${hero.health}</p>
+                <p>Range: ${hero.range}</p>
+            `;
+        }
+
+        // Place hero on the battlefield
+        function placeHero(row, col) {
+            if(!gameState.selectedHero) {
+                alert('Please select a hero first');
+                return;
+            }
+            
+            // Check if position already has a unit
+            const existingHero = gameState.deployedHeroes.find(h => h.row === row && h.col === col);
+            const existingEnemy = gameState.enemies.find(e => e.row === row && e.col === col);
+            
+            if(existingHero || existingEnemy) {
+                alert('This position already has a unit');
+                return;
+            }
+            
+            // Check if in allowed position (player can only place heroes in rows 3-4)
+            if(row < 2) {
+                alert('You can only place heroes in your territory (bottom rows)');
+                return;
+            }
+            
+            // Check if enough gold
+            const cost = 200; // Set recruitment cost to 200 gold
+            if(gameState.gold < cost) {
+                alert('Not enough gold');
+                return;
+            }
+            
+            gameState.gold -= cost;
+            updateResources();
+            
+            // Add hero to deployed list
+            gameState.deployedHeroes.push({
+                type: gameState.selectedHero,
+                row: row,
+                col: col,
+                health: gameState.heroes[gameState.selectedHero].health,
+                attack: gameState.heroes[gameState.selectedHero].attack
+            });
+            
+            // Display hero on the UI
+            const cell = document.querySelector(`.grid-cell[data-row="${row}"][data-col="${col}"]`);
+            const heroUnit = document.createElement('div');
+            heroUnit.className = 'hero-unit friendly';
+            heroUnit.textContent = gameState.selectedHero.charAt(0).toUpperCase();
+            cell.appendChild(heroUnit);
+        }
+
+        // Use ability
+        function useAbility(abilityId) {
+            if(!gameState.selectedHero) {
+                alert('Please select a hero first');
+                return;
+            }
+            
+            // Just simulate ability effect
+            alert(`Used ${gameState.heroes[gameState.selectedHero].name}'s ability ${abilityId}`);
+        }
+
+        // Start battle
+        function startBattle() {
+            if(gameState.deployedHeroes.length === 0) {
+                alert('Please place at least one hero first');
+                return;
+            }
+            
+            // Simple battle simulation
+            alert('Battle started!');
+            simulateBattle();
+        }
+
+        // Simulate battle process
+        function simulateBattle() {
+            // This is just a simple battle simulation
+            // In a real game, there would be more complex battle logic
+            
+            let heroWon = Math.random() > 0.4; // 60% chance to win
+            
+            if(heroWon) {
+                alert('Congratulations! Your hero team won!');
+                gameState.exp += 50;
+                gameState.gold += 300;
+                updateResources();
+                
+                // Clear battlefield
+                setTimeout(() => {
+                    resetBattlefield();
+                }, 1000);
+            } else {
+                alert('Battle lost! Please redeploy your heroes.');
+                gameState.exp += 10;
+                updateResources();
+                
+                // Clear battlefield
+                setTimeout(() => {
+                    resetBattlefield();
+                }, 1000);
+            }
+        }
+
+        // Reset battlefield
+        function resetBattlefield() {
+            gameState.deployedHeroes = [];
+            gameState.enemies = [];
+            createBattleGrid();
+        }
+
+        // End turn
+        function endTurn() {
+            gameState.turn++;
+            updateResources();
+            
+            // Simple resource gain
+            gameState.gold += 200;
+            
+            alert(`Turn ${gameState.turn} begins! You gained 200 gold.`);
+        }
+    </script>
+</body>
+</html> 

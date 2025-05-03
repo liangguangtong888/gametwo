@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cd6133"/>
+      <stop offset="100%" stop-color="#e15f41"/>
+    </linearGradient>
+    <linearGradient id="chestGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a87732"/>
+      <stop offset="100%" stop-color="#cd8c32"/>
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd32a"/>
+      <stop offset="100%" stop-color="#ffba00"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  
+  <!-- 背景 -->
+  <rect width="300" height="180" fill="url(#bgGradient)"/>
+  
+  <!-- 金色线条装饰 -->
+  <path d="M20 20 L280 20 L280 160 L20 160 Z" fill="none" stroke="#ffba00" stroke-width="3" stroke-dasharray="10 5"/>
+  
+  <!-- 宝藏地图线条背景 -->
+  <path d="M50 40 Q100 30, 150 70 Q200 100, 250 50 Q220 120, 180 110 Q140 100, 100 130 Q70 140, 50 100 Z" fill="none" stroke="#7d5a29" stroke-width="2" stroke-dasharray="5 3"/>
+  
+  <!-- 宝藏箱 -->
+  <rect x="110" y="60" width="80" height="60" rx="5" fill="url(#chestGradient)"/>
+  <rect x="110" y="60" width="80" height="15" rx="5" fill="#8e5f24"/>
+  <rect x="110" y="90" width="80" height="5" fill="#755320"/>
+  
+  <!-- 宝箱盖 -->
+  <path d="M110 60 L110 45 C110 40, 190 40, 190 45 L190 60" fill="#8e5f24"/>
+  
+  <!-- 宝箱金属部分 -->
+  <rect x="145" y="70" width="10" height="20" rx="2" fill="#daa520"/>
+  <circle cx="150" cy="80" r="3" fill="#333"/>
+  
+  <!-- 宝箱内的金币和宝石 -->
+  <circle cx="130" cy="70" r="8" fill="url(#goldGradient)" filter="url(#glow)"/>
+  <circle cx="170" cy="75" r="7" fill="url(#goldGradient)" filter="url(#glow)"/>
+  <path d="M125 120 L135 105 L145 120" fill="#4cd137"/> <!-- 绿宝石 -->
+  <path d="M155 120 L165 105 L175 120" fill="#e84393"/> <!-- 粉宝石 -->
+  
+  <!-- 指南针 -->
+  <circle cx="50" cy="50" r="15" fill="white" stroke="#333" stroke-width="1"/>
+  <path d="M50 40 L50 60" stroke="#333" stroke-width="1"/>
+  <path d="M40 50 L60 50" stroke="#333" stroke-width="1"/>
+  <path d="M50 40 L45 45 L50 50 L55 45 Z" fill="red"/>
+  <path d="M50 50 L45 55 L50 60 L55 55 Z" fill="#333"/>
+  
+  <!-- X标记 -->
+  <path d="M235 95 L255 115 M235 115 L255 95" stroke="#ff3838" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="245" cy="105" r="20" fill="none" stroke="#ff3838" stroke-width="2" stroke-dasharray="5 2"/>
+  
+  <!-- 金币 -->
+  <circle cx="70" cy="120" r="8" fill="url(#goldGradient)" filter="url(#glow)"/>
+  <circle cx="90" cy="130" r="6" fill="url(#goldGradient)" filter="url(#glow)"/>
+  <circle cx="220" cy="130" r="7" fill="url(#goldGradient)" filter="url(#glow)"/>
+  <circle cx="240" cy="140" r="5" fill="url(#goldGradient)" filter="url(#glow)"/>
+  <circle cx="200" cy="70" r="6" fill="url(#goldGradient)" filter="url(#glow)"/>
+  
+  <!-- 游戏标题 -->
+  <text x="150" y="160" font-family="Arial" font-size="18" fill="white" text-anchor="middle" font-weight="bold">Treasure Hunt</text>
+</svg> 

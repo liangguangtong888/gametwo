@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400" height="225" viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="400" height="225" fill="#2c3e50"/>
+  
+  <!-- 赛车图形 -->
+  <g transform="translate(100, 60) scale(1.5)">
+    <!-- 赛车主体 -->
+    <path d="M20,80 L40,60 L140,60 L160,80 L160,100 L20,100 Z" fill="#e74c3c"/>
+    <!-- 车顶 -->
+    <path d="M60,60 L120,60 L110,40 L70,40 Z" fill="#c0392b"/>
+    <!-- 车窗 -->
+    <rect x="70" y="45" width="40" height="15" fill="#3498db"/>
+    <!-- 前轮 -->
+    <circle cx="50" cy="100" r="15" fill="#34495e"/>
+    <circle cx="50" cy="100" r="8" fill="#7f8c8d"/>
+    <!-- 后轮 -->
+    <circle cx="130" cy="100" r="15" fill="#34495e"/>
+    <circle cx="130" cy="100" r="8" fill="#7f8c8d"/>
+    <!-- 赛车装饰 -->
+    <path d="M20,85 L160,85" stroke="#f1c40f" stroke-width="2"/>
+    <text x="85" y="80" font-family="Arial" font-size="10" fill="white" text-anchor="middle">RACING</text>
+  </g>
+  
+  <!-- 特效元素 -->
+  <g>
+    <!-- 速度线 -->
+    <line x1="20" y1="40" x2="70" y2="40" stroke="#ecf0f1" stroke-width="3" opacity="0.6"/>
+    <line x1="20" y1="60" x2="60" y2="60" stroke="#ecf0f1" stroke-width="3" opacity="0.6"/>
+    <line x1="20" y1="80" x2="80" y2="80" stroke="#ecf0f1" stroke-width="3" opacity="0.6"/>
+    <line x1="20" y1="100" x2="70" y2="100" stroke="#ecf0f1" stroke-width="3" opacity="0.6"/>
+    <line x1="20" y1="120" x2="60" y2="120" stroke="#ecf0f1" stroke-width="3" opacity="0.6"/>
+    <line x1="20" y1="140" x2="80" y2="140" stroke="#ecf0f1" stroke-width="3" opacity="0.6"/>
+    <line x1="20" y1="160" x2="70" y2="160" stroke="#ecf0f1" stroke-width="3" opacity="0.6"/>
+  </g>
+  
+  <!-- 游戏标题 -->
+  <text x="200" y="195" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle">Racing Dash</text>
+  
+  <!-- 赛道元素 -->
+  <rect x="0" y="180" width="400" height="45" fill="#95a5a6"/>
+  <rect x="10" y="200" width="40" height="10" fill="white"/>
+  <rect x="70" y="200" width="40" height="10" fill="white"/>
+  <rect x="130" y="200" width="40" height="10" fill="white"/>
+  <rect x="190" y="200" width="40" height="10" fill="white"/>
+  <rect x="250" y="200" width="40" height="10" fill="white"/>
+  <rect x="310" y="200" width="40" height="10" fill="white"/>
+  <rect x="370" y="200" width="40" height="10" fill="white"/>
+</svg> 

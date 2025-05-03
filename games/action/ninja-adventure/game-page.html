@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Adventure - GameHaven</title>
+    <meta name="description" content="Play Ninja Adventure - An exciting fast-paced ninja action game with challenging levels and awesome skills!">
+    <meta name="keywords" content="ninja game, action game, adventure game, online games, free games">
+    <meta name="author" content="GameHaven">
+    <meta name="theme-color" content="#0d6efd">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <link rel="stylesheet" href="../../../styles/game-details.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body class="game-page">
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>GameHaven</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../../index.html">Home</a></li>
+                    <li><a href="../../../categories.html">Categories</a></li>
+                    <li><a href="../../../ranking.html">Rankings</a></li>
+                    <li><a href="../../../new-games.html">New Games</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" placeholder="Search games...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="game-page-wrapper">
+        <div class="container">
+            <div class="game-header">
+                <h1>Ninja Adventure</h1>
+                <div class="game-meta">
+                    <div class="game-rating">
+                        <span class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </span>
+                        <span class="rating-value">4.2</span>
+                        <span class="rating-count">(143 ratings)</span>
+                    </div>
+                    <div class="game-category">
+                        <a href="../../../categories.html#action">Action</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="game-main">
+                    <div class="game-frame">
+                        <iframe id="game-iframe" src="index.html" frameborder="0" allowfullscreen="true" allow="fullscreen"></iframe>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button id="fullscreen-btn"><i class="fas fa-expand"></i> Fullscreen</button>
+                        <button id="restart-btn"><i class="fas fa-redo"></i> Restart</button>
+                    </div>
+
+                    <div class="game-description">
+                        <h2>About Ninja Adventure</h2>
+                        <p>Ninja Adventure is an exciting fast-paced action game where you control a skilled ninja on a mission to save his village from invading enemies. Use your agility, stealth, and combat skills to overcome obstacles, defeat enemies, and collect power-ups.</p>
+                        <p>As you progress through the levels, enemies become more challenging and numerous. Test your reflexes and strategic skills to become the ultimate ninja warrior!</p>
+                        
+                        <div class="ninja-screenshots">
+                            <div class="ninja-screenshot">
+                                <img src="../../../assets/images/game3.svg" alt="Ninja Adventure Gameplay" style="width: 100%; height: auto; display: block;">
+                            </div>
+                            <div class="ninja-screenshot">
+                                <img src="../../../assets/images/game3.svg" alt="Ninja Adventure Battle" style="width: 100%; height: auto; display: block;">
+                            </div>
+                        </div>
+
+                        <h3>How to Play</h3>
+                        <ul>
+                            <li><strong>Controls:</strong>
+                                <ul>
+                                    <li>Use Left/Right Arrow keys or A/D to move your ninja</li>
+                                    <li>Press Space or W to jump</li>
+                                    <li>Press E to use special ability</li>
+                                    <li>Press F to throw ninja stars</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="ninja-abilities">
+                            <h4>Ninja Abilities</h4>
+                            <div class="ability-list">
+                                <div class="ability-item">
+                                    <div class="ability-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="ability-info">
+                                        <h5>Shuriken Throw</h5>
+                                        <p>Throw deadly ninja stars at enemies</p>
+                                    </div>
+                                </div>
+                                <div class="ability-item">
+                                    <div class="ability-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="ability-info">
+                                        <h5>Speed Dash</h5>
+                                        <p>Quick dash to evade enemies</p>
+                                    </div>
+                                </div>
+                                <div class="ability-item">
+                                    <div class="ability-icon">
+                                        <i class="fas fa-wind"></i>
+                                    </div>
+                                    <div class="ability-info">
+                                        <h5>Double Jump</h5>
+                                        <p>Jump twice in mid-air</p>
+                                    </div>
+                                </div>
+                                <div class="ability-item">
+                                    <div class="ability-icon">
+                                        <i class="fas fa-fire"></i>
+                                    </div>
+                                    <div class="ability-info">
+                                        <h5>Fire Attack</h5>
+                                        <p>Special fire-based attack</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Features</h3>
+                        <ul>
+                            <li>10 challenging levels with increasing difficulty</li>
+                            <li>Different types of enemies with unique behaviors</li>
+                            <li>Unlock special abilities as you progress</li>
+                            <li>Responsive controls for both desktop and mobile</li>
+                            <li>Epic boss battles</li>
+                        </ul>
+                    </div>
+
+                    <div class="social-share">
+                        <h3>Share This Game</h3>
+                        <div class="share-buttons">
+                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="pinterest"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="game-comments">
+                        <h3>Comments (9)</h3>
+                        <div class="comment-form">
+                            <textarea placeholder="Write your comment..."></textarea>
+                            <button>Post Comment</button>
+                        </div>
+                        <div class="comments-list">
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="../../../assets/images/avatars/avatar1.svg" alt="User avatar">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h4>Liu Kang</h4>
+                                        <span class="comment-date">4 days ago</span>
+                                    </div>
+                                    <p>This ninja game is amazing! The controls are super responsive and I love the special abilities. I've made it to level 8 so far. The boss fights are challenging but rewarding!</p>
+                                    <div class="comment-actions">
+                                        <button><i class="fas fa-thumbs-up"></i> 21</button>
+                                        <button><i class="fas fa-thumbs-down"></i> 2</button>
+                                        <button>Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="../../../assets/images/avatars/avatar2.svg" alt="User avatar">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h4>Jade Wu</h4>
+                                        <span class="comment-date">1 week ago</span>
+                                    </div>
+                                    <p>The fire attack ability is definitely the best one - it makes the boss battles so much easier! My high score is 12,350 points. Can anyone beat that?</p>
+                                    <div class="comment-actions">
+                                        <button><i class="fas fa-thumbs-up"></i> 14</button>
+                                        <button><i class="fas fa-thumbs-down"></i> 0</button>
+                                        <button>Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-games">
+                    <h2>You May Also Like</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image" style="background-image: url('../../../assets/images/game1/game-card.svg');">
+                                <img src="../../../assets/images/game1/game-card.svg" alt="Space Shooter">
+                                <div class="game-card-rating">4.5</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Space Shooter</h3>
+                                <p>Action, Arcade</p>
+                                <a href="../space-shooter/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image" style="background-image: url('../../../assets/images/game7/game-card.svg');">
+                                <img src="../../../assets/images/game7/game-card.svg" alt="Monster Survivors">
+                                <div class="game-card-rating">4.9</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Monster Survivors</h3>
+                                <p>Action, Roguelite</p>
+                                <a href="../monster-survivors/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image" style="background-image: url('../../../assets/images/game5.svg');">
+                                <img src="../../../assets/images/game5.svg" alt="Racing Dash">
+                                <div class="game-card-rating">4.7</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Racing Dash</h3>
+                                <p>Racing, Sports</p>
+                                <a href="../../sports/racing-dash/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-compact">
+            <div class="footer-container">
+                <div class="footer-row">
+                    <div class="footer-col">
+                        <h3>GameHaven</h3>
+                        <p>The ultimate destination for free online games. Play thousands of high-quality games instantly!</p>
+                        <div class="social-compact">
+                            <a href="#" aria-label="Facebook" class="social-icon facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor">
+                                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Twitter" class="social-icon twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="currentColor">
+                                    <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-icon instagram">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+                                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="../../../index.html">Home</a></li>
+                                <li><a href="../../../categories.html">Categories</a></li>
+                                <li><a href="../../../ranking.html">Rankings</a></li>
+                                <li><a href="../../../new-games.html">New Games</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 GameHaven. All Rights Reserved. | Play free games online!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 全屏功能
+        document.getElementById('fullscreen-btn').addEventListener('click', function() {
+            const iframe = document.getElementById('game-iframe');
+            
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            } else {
+                // 如果直接调用iframe的全屏方法失败，尝试使用postMessage与iframe内容通信
+                iframe.contentWindow.postMessage('fullscreen', '*');
+            }
+        });
+        
+        // 重启游戏
+        document.getElementById('restart-btn').addEventListener('click', function() {
+            const iframe = document.getElementById('game-iframe');
+            // 向iframe发送restart消息
+            iframe.contentWindow.postMessage('restart', '*');
+        });
+        
+        // 移动菜单
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html> 

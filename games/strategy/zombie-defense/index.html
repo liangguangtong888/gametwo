@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Defense Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6572 100%);
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            height: 100%;
+            max-height: 85vh;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+        
+        #gameCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .game-ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .resources, .wave, .lives {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .tower-selection {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .tower-option {
+            width: 50px;
+            height: 50px;
+            background-color: #444;
+            border: 2px solid #666;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        .tower-option:hover {
+            background-color: #666;
+            transform: translateY(-3px);
+        }
+        
+        .tower-option.selected {
+            border-color: #4CAF50;
+            background-color: #2E7D32;
+        }
+        
+        .tower-option[data-cost]::after {
+            content: attr(data-cost);
+            position: absolute;
+            bottom: -10px;
+            font-size: 12px;
+            color: gold;
+        }
+        
+        .game-message {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+        
+        .game-message h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .game-message p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .game-message button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .game-message button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .wave-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        
+        .wave-button:hover {
+            background-color: #b71c1c;
+            transform: scale(1.05);
+        }
+        
+        .wave-button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        
+        @media (max-width: 768px) {
+            .game-container {
+                max-height: 80vh;
+            }
+            .tower-option {
+                width: 40px;
+                height: 40px;
+                font-size: 12px;
+            }
+            .resources, .wave, .lives {
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div class="game-ui">
+            <div class="resources">Money: <span id="moneyValue">100</span></div>
+            <div class="wave">Wave: <span id="waveValue">0</span></div>
+            <div class="lives">Lives: <span id="livesValue">10</span></div>
+        </div>
+        
+        <button id="startWaveBtn" class="wave-button">Start Next Wave</button>
+        
+        <div class="tower-selection">
+            <div class="tower-option" data-tower="basic" data-cost="10">Basic</div>
+            <div class="tower-option" data-tower="slow" data-cost="30">Slow</div>
+            <div class="tower-option" data-tower="splash" data-cost="50">Splash</div>
+            <div class="tower-option" data-tower="sniper" data-cost="70">Sniper</div>
+        </div>
+        
+        <div class="game-message" id="gameMessage">
+            <h2 id="messageTitle">Zombie Defense</h2>
+            <p id="messageText">Build defense towers to repel the zombie invasion!</p>
+            <button id="startBtn">Start Game</button>
+        </div>
+    </div>
+    
+    <script src="game.js"></script>
+</body>
+</html> 

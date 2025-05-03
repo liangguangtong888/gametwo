@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Categories - Find Your Favorite Games | LGT Games</title>
+    <meta name="description" content="Explore a wide variety of game categories at LGT Games. Action, adventure, puzzle, strategy and more games to play instantly!">
+    <meta name="keywords" content="game categories, online games, free games, action games, puzzle games, strategy games">
+    <meta name="author" content="LGT Games">
+    <meta name="theme-color" content="#0d6efd">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="Game Categories - LGT Games">
+    <meta property="og:description" content="Explore a wide variety of game categories at LGT Games.">
+    <meta property="og:image" content="assets/images/og-image.jpg">
+    <meta property="og:url" content="https://lgttwo.store/categories.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="styles/main.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+    /* 改进的图片渲染 */
+    img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+        -ms-interpolation-mode: nearest-neighbor;
+        object-fit: cover;
+    }
+    
+    /* 提高字体清晰度 */
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+    }
+
+    body {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    /* 移动菜单样式 */
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 100;
+    }
+    
+    .mobile-menu span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #0d6efd;
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 768px) {
+        .mobile-menu {
+            display: flex;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        nav.active {
+            transform: translateX(0);
+        }
+        
+        nav ul {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        nav ul li {
+            margin: 15px 0;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-size: 24px;
+        }
+        
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+    }
+
+    .category-banner {
+        background: linear-gradient(135deg, #0056b3 0%, #0d6efd 100%);
+        color: white;
+        padding: 60px 0;
+        text-align: center;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .category-banner h2 {
+        font-size: 38px;
+        margin-bottom: 15px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: white;
+    }
+    
+    .category-banner p {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: 400;
+        opacity: 0.9;
+    }
+    
+    .tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    
+    .tab-btn {
+        padding: 12px 28px;
+        background-color: #0d6efd;
+        color: white;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+    }
+    
+    .tab-content {
+        opacity: 1;
+    }
+    
+    .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+        margin: 30px 0;
+    }
+    
+    .category-card {
+        background-color: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        height: 300px;
+        display: flex;
+    }
+    
+    .category-card:nth-child(1) a {
+        background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    }
+    
+    .category-card:nth-child(2) a {
+        background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    }
+    
+    .category-card:nth-child(3) a {
+        background: linear-gradient(135deg, #6f42c1 0%, #d63384 100%);
+    }
+    
+    .category-card:nth-child(4) a {
+        background: linear-gradient(135deg, #198754 0%, #20c997 100%);
+    }
+    
+    .category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .category-card a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 30px 20px 80px;
+        text-align: center;
+        height: 100%;
+        width: 100%;
+        color: white;
+        text-decoration: none;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .category-card a::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.2);
+        z-index: -1;
+    }
+    
+    .category-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 50%;
+        margin-bottom: 25px;
+        color: white;
+        font-size: 32px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .category-card:hover .category-icon {
+        transform: scale(1.1);
+        background-color: rgba(255, 255, 255, 0.25);
+    }
+    
+    .category-card h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    
+    .category-card p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 16px;
+        margin-bottom: 0;
+        line-height: 1.5;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+        font-weight: 400;
+        max-height: 72px; /* 大约3行文本的高度 */
+        overflow: hidden;
+    }
+    
+    .btn-small {
+        display: inline-block;
+        padding: 10px 0;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 130px;
+        text-align: center;
+    }
+    
+    .category-card:hover .btn-small {
+        background-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .more-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #0056b3 0%, #0d6efd 100%);
+        color: white;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin: 20px auto 40px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.25);
+        text-decoration: none;
+    }
+
+    .more-btn:hover {
+        background: linear-gradient(135deg, #0056b3 0%, #0a58ca 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(10, 88, 202, 0.35);
+    }
+
+    .category-section {
+        margin-bottom: 60px;
+        background-color: white;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .category-section h2, .category-section h3 {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 25px;
+        font-weight: 700;
+        color: #212529;
+        padding-bottom: 10px;
+    }
+
+    .category-section h2::after, .category-section h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #0056b3, #0d6efd);
+        border-radius: 2px;
+    }
+
+    /* 游戏卡片和网站 */
+    .games-grid, .game-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+        margin: 30px 0;
+    }
+
+    .game-card {
+        border-radius: 16px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .game-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .game-card-image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .game-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        image-rendering: -webkit-optimize-contrast;
+    }
+
+    .game-card:hover .game-card-image img {
+        transform: scale(1.08);
+    }
+
+    .game-card-rating {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: linear-gradient(135deg, #007aff 0%, #5ac8fa 100%);
+        color: white;
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 2;
+    }
+
+    .game-card-rating::before {
+        content: '★';
+        margin-right: 4px;
+        font-size: 12px;
+    }
+
+    .game-card-info {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+    }
+
+    .game-card-info h3 {
+        font-size: 19px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .game-card-info p {
+        color: #666;
+        font-size: 15px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+    }
+
+    .game-card-info-text {
+        margin-bottom: 15px;
+    }
+
+    .play-btn {
+        display: inline-block;
+        padding: 10px 0;
+        background-color: #007aff;
+        color: white;
+        border-radius: 25px;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+        text-align: center;
+        width: 100%;
+    }
+
+    .play-btn:hover {
+        background-color: #0062cc;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        color: white;
+    }
+
+    /* 媒体查询 - 适配不同设备 */
+    @media (max-width: 1024px) {
+        .games-grid, .game-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .categories-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+        
+        .category-card {
+            height: 260px;
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .category-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .category-card p {
+            font-size: 14px;
+            max-height: 60px;
+        }
+        
+        .btn-small {
+            bottom: 20px;
+            padding: 7px 0;
+            width: 110px;
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .category-banner h2 {
+            font-size: 30px;
+        }
+        
+        .category-banner p {
+            font-size: 16px;
+        }
+        
+        .tabs {
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .tab-btn {
+            margin-bottom: 10px;
+            width: 200px;
+        }
+        
+        .games-grid, .game-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .categories-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .game-card-image {
+            height: 180px;
+        }
+        
+        .category-card {
+            height: 240px;
+        }
+        
+        .category-card a {
+            padding: 25px 15px 65px;
+        }
+        
+        .category-icon {
+            width: 55px;
+            height: 55px;
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .category-banner {
+            padding: 40px 0;
+        }
+        
+        .category-banner h2 {
+            font-size: 26px;
+        }
+        
+        .categories-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .games-grid, .game-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .game-card-image {
+            height: 220px;
+        }
+        
+        .category-card {
+            height: auto;
+            min-height: 220px;
+        }
+        
+        .category-card a {
+            padding: 20px 15px 60px;
+        }
+        
+        .more-btn {
+            width: 100%;
+        }
+    }
+
+    /* 优化页脚样式 */
+    .footer-compact {
+        background-color: #f5f5f7;
+        padding: 15px 0 0;
+        font-size: 14px;
+        border-top: 1px solid #eaeaea;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    .footer-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .footer-col {
+        flex: 0 1 30%;
+    }
+
+    .footer-links {
+        flex: 0 1 22%;
+    }
+
+    .footer-col h3 {
+        font-size: 16px;
+        margin-bottom: 6px;
+        color: #007aff;
+    }
+
+    .footer-col p {
+        color: #666;
+        margin-bottom: 10px;
+        line-height: 1.4;
+        font-size: 14px;
+        max-width: 300px;
+    }
+
+    .social-compact {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .social-compact a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background-color: #007aff;
+        color: white;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .social-compact a:hover {
+        background-color: #0062cc;
+        transform: translateY(-3px);
+    }
+
+    .social-compact svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .footer-links-group {
+        margin-bottom: 12px;
+        flex: 0 1 30%;
+    }
+
+    .footer-links-group h4 {
+        font-size: 14px;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    .footer-links-group ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-links-group ul li {
+        margin-bottom: 6px;
+    }
+
+    .footer-links-group ul li a {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.2s ease;
+        font-size: 13px;
+    }
+
+    .footer-links-group ul li a:hover {
+        color: #007aff;
+    }
+
+    .copyright {
+        text-align: center;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #eaeaea;
+        color: #777;
+        font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+        .footer-row {
+            flex-direction: column;
+        }
+        
+        .footer-col, .footer-links {
+            flex: 0 1 100%;
+        }
+        
+        .footer-links {
+            margin-top: 15px;
+        }
+        
+        .footer-links-group {
+            flex: 0 1 45%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .footer-links-group {
+            flex: 0 1 100%;
+        }
+    }
+
+    /* 添加高亮动画效果 */
+    @keyframes highlight {
+        0% { background-color: rgba(13, 110, 253, 0.1); }
+        100% { background-color: transparent; }
+    }
+    
+    .highlight {
+        animation: highlight 1.5s ease;
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>GameHaven</h1>
+            </div>
+            <nav aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="categories.html" class="active" aria-current="page">Categories</a></li>
+                    <li><a href="ranking.html">Rankings</a></li>
+                    <li><a href="new-games.html">New Games</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" placeholder="Search games..." aria-label="Search games">
+                <button type="submit" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="mobile-menu" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="category-banner">
+        <div class="container">
+            <h2>Game Categories</h2>
+            <p>Choose your favorite game type and start your exciting gaming journey</p>
+        </div>
+    </section>
+
+    <section class="categories-tabs">
+        <div class="container">
+            <div class="tab-content" id="type-content">
+                <!-- 游戏类别卡片 -->
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <a href="#action">
+                            <div class="category-icon" aria-hidden="true">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <h3>Action</h3>
+                            <p>Fast-paced games with excitement & challenges</p>
+                            <span class="btn-small">Explore</span>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="#adventure">
+                            <div class="category-icon" aria-hidden="true">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <h3>Adventure</h3>
+                            <p>Embark on epic journeys and explore new worlds</p>
+                            <span class="btn-small">Explore</span>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="#puzzle">
+                            <div class="category-icon" aria-hidden="true">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <h3>Puzzle</h3>
+                            <p>Train your brain with challenging puzzles</p>
+                            <span class="btn-small">Explore</span>
+                        </a>
+                    </div>
+                    <div class="category-card">
+                        <a href="#strategy">
+                            <div class="category-icon" aria-hidden="true">
+                                <i class="fas fa-chess"></i>
+                            </div>
+                            <h3>Strategy</h3>
+                            <p>Plan, think ahead, and outsmart opponents</p>
+                            <span class="btn-small">Explore</span>
+                        </a>
+                    </div>
+                </div>
+
+                <section id="action" class="category-section">
+                    <h2>Action Games</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game1/game-card.svg" alt="Space Shooter Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.5 out of 5">4.5</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Space Shooter</h3>
+                                    <p>Action, Arcade</p>
+                                </div>
+                                <a href="games/action/space-shooter/game-page.html" class="play-btn" aria-label="Play Space Shooter">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game7/game-card.svg" alt="Monster Survivors Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.9 out of 5">4.9</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Monster Survivors</h3>
+                                    <p>Action, Roguelite</p>
+                                </div>
+                                <a href="games/action/monster-survivors/game-page.html" class="play-btn" aria-label="Play Monster Survivors">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/ninja-adventure/game-card.svg" alt="Ninja Adventure Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.2 out of 5">4.2</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Ninja Adventure</h3>
+                                    <p>Fast-paced ninja action game</p>
+                                </div>
+                                <a href="games/action/ninja-adventure/game-page.html" class="play-btn" aria-label="Play Ninja Adventure">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game4.svg" alt="Super Hero Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.7 out of 5">4.7</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Super Hero</h3>
+                                    <p>Play as a superhero saving the city</p>
+                                </div>
+                                <a href="games/action/super-hero/game-page.html" class="play-btn" aria-label="Play Super Hero">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="games/action/index.html" class="more-btn" aria-label="See more action games">See More Action Games</a>
+                </section>
+
+                <section id="adventure" class="category-section">
+                    <h2>Adventure Games</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/treasure-hunt.svg" alt="Treasure Hunt Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.6 out of 5">4.6</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Treasure Hunt</h3>
+                                    <p>Adventure, Exploration</p>
+                                </div>
+                                <a href="games/adventure/treasure-hunt/game-page.html" class="play-btn" aria-label="Play Treasure Hunt">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game3.svg" alt="Magic Quest Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.8 out of 5">4.8</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Magic Quest</h3>
+                                    <p>Adventure, Fantasy</p>
+                                </div>
+                                <a href="games/adventure/magic-quest/game-page.html" class="play-btn" aria-label="Play Magic Quest">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game5.svg" alt="Island Explorer Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.4 out of 5">4.4</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Island Explorer</h3>
+                                    <p>Adventure, Exploration</p>
+                                </div>
+                                <a href="games/adventure/island-explorer/game-page.html" class="play-btn" aria-label="Play Island Explorer">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game6.svg" alt="Mystery Manor Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.5 out of 5">4.5</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Mystery Manor</h3>
+                                    <p>Adventure, Mystery</p>
+                                </div>
+                                <a href="games/adventure/mystery-manor/game-page.html" class="play-btn" aria-label="Play Mystery Manor">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="games/adventure/index.html" class="more-btn" aria-label="See more adventure games">See More Adventure Games</a>
+                </section>
+
+                <section id="puzzle" class="category-section">
+                    <h2>Puzzle Games</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game2/game-card.svg" alt="Match Stars Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.3 out of 5">4.3</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Match Stars</h3>
+                                    <p>Puzzle, Strategy</p>
+                                </div>
+                                <a href="games/puzzle/match-stars/game-page.html" class="play-btn" aria-label="Play Match Stars">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/game-maze/game-card.svg" alt="Maze Adventure Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.1 out of 5">4.1</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Maze Adventure</h3>
+                                    <p>Puzzle maze exploration game</p>
+                                </div>
+                                <a href="games/puzzle/maze-adventure/game-page.html" class="play-btn" aria-label="Play Maze Adventure">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/sudoku/game-card.svg" alt="Sudoku Challenge Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.4 out of 5">4.4</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Sudoku Challenge</h3>
+                                    <p>Classic number logic game</p>
+                                </div>
+                                <a href="games/puzzle/sudoku/game-page.html" class="play-btn" aria-label="Play Sudoku Challenge">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/block-puzzle/game-card.svg" alt="Block Puzzle Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.2 out of 5">4.2</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Block Puzzle</h3>
+                                    <p>Creative block puzzle game</p>
+                                </div>
+                                <a href="games/puzzle/block-puzzle/game-page.html" class="play-btn" aria-label="Play Block Puzzle">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="games/puzzle/index.html" class="more-btn" aria-label="See more puzzle games">See More Puzzle Games</a>
+                </section>
+
+                <section id="strategy" class="category-section">
+                    <h2>Strategy Games</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/city-builder/game-card.svg" alt="City Builder Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.3 out of 5">4.3</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>City Builder</h3>
+                                    <p>Build your own city kingdom</p>
+                                </div>
+                                <a href="games/strategy/city-builder/game-page.html" class="play-btn" aria-label="Play City Builder">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/zombie-defense/game-card.svg" alt="Zombie Defense Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.5 out of 5">4.5</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Zombie Defense</h3>
+                                    <p>Tower defense with zombie theme</p>
+                                </div>
+                                <a href="games/strategy/zombie-defense/game-page.html" class="play-btn" aria-label="Play Zombie Defense">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/empire-war/game-card.svg" alt="Empire War Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.6 out of 5">4.6</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Empire War</h3>
+                                    <p>Epic empire building and warfare</p>
+                                </div>
+                                <a href="games/strategy/empire-war/game-page.html" class="play-btn" aria-label="Play Empire War">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/hero-commander/game-card.svg" alt="Hero Commander Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.4 out of 5">4.4</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Hero Commander</h3>
+                                    <p>Command a team of heroes in battle</p>
+                                </div>
+                                <a href="games/strategy/hero-commander/game-page.html" class="play-btn" aria-label="Play Hero Commander">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="games/strategy/index.html" class="more-btn" aria-label="See more strategy games">See More Strategy Games</a>
+                </section>
+
+                <section id="sports" class="category-section">
+                    <h2>Sports Games</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/racing-dash/game-card.svg" alt="Racing Dash Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.7 out of 5">4.7</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Racing Dash</h3>
+                                    <p>Thrilling car racing experience</p>
+                                </div>
+                                <a href="games/sports/racing-dash/game-page.html" class="play-btn" aria-label="Play Racing Dash">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/soccer-star/game-card.svg" alt="Soccer Star Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.5 out of 5">4.5</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Soccer Star</h3>
+                                    <p>Become a star on the soccer field</p>
+                                </div>
+                                <a href="games/sports/soccer-star/game-page.html" class="play-btn" aria-label="Play Soccer Star">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/basketball-master/game-card.svg" alt="Basketball Master Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.3 out of 5">4.3</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Basketball Master</h3>
+                                    <p>Perfect blend of shooting and strategy</p>
+                                </div>
+                                <a href="games/sports/basketball-master/game-page.html" class="play-btn" aria-label="Play Basketball Master">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="assets/images/extreme-skiing/game-card.svg" alt="Extreme Skiing Game Screenshot">
+                                <div class="game-card-rating" aria-label="Rating 4.6 out of 5">4.6</div>
+                            </div>
+                            <div class="game-card-info">
+                                <div class="game-card-info-text">
+                                    <h3>Extreme Skiing</h3>
+                                    <p>Exciting ski adventure on mountains</p>
+                                </div>
+                                <a href="games/sports/extreme-skiing/game-page.html" class="play-btn" aria-label="Play Extreme Skiing">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="games/sports/index.html" class="more-btn" aria-label="See more sports games">See More Sports Games</a>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-compact">
+            <div class="footer-container">
+                <div class="footer-row">
+                    <div class="footer-col">
+                        <h3>GameHaven</h3>
+                        <p>The ultimate destination for free online games. Play thousands of high-quality games instantly!</p>
+                        <div class="social-compact">
+                            <a href="#" aria-label="Facebook" class="social-icon facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor">
+                                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Twitter" class="social-icon twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="currentColor">
+                                    <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-icon instagram">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+                                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="YouTube" class="social-icon youtube">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="16" height="16" fill="currentColor">
+                                    <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Discord" class="social-icon discord">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="16" height="16" fill="currentColor">
+                                    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="categories.html">Categories</a></li>
+                                <li><a href="ranking.html">Rankings</a></li>
+                                <li><a href="new-games.html">New Games</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Categories</h4>
+                            <ul>
+                                <li><a href="categories.html#action">Action</a></li>
+                                <li><a href="categories.html#adventure">Adventure</a></li>
+                                <li><a href="categories.html#puzzle">Puzzle</a></li>
+                                <li><a href="categories.html#strategy">Strategy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Support</h4>
+                            <ul>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 GameHaven. All Rights Reserved. | Play free games online!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // 页面加载效果和交互
+        document.addEventListener('DOMContentLoaded', function() {
+            // 移动端菜单
+            const mobileMenuBtn = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('nav');
+            
+            if (mobileMenuBtn && nav) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    nav.classList.toggle('active');
+                    // 禁止/启用页面滚动
+                    document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+                    
+                    // 无障碍属性
+                    const isExpanded = nav.classList.contains('active');
+                    this.setAttribute('aria-expanded', isExpanded);
+                    nav.setAttribute('aria-hidden', !isExpanded);
+                });
+                
+                // 点击导航链接后关闭菜单
+                const navLinks = nav.querySelectorAll('a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenuBtn.classList.remove('active');
+                        nav.classList.remove('active');
+                        document.body.style.overflow = '';
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        nav.setAttribute('aria-hidden', 'true');
+                    });
+                });
+                
+                // 初始无障碍状态
+                mobileMenuBtn.setAttribute('aria-label', 'Toggle navigation menu');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                nav.setAttribute('aria-hidden', 'true');
+            }
+            
+            // 给页面元素添加淡入效果
+            const fadeInElements = document.querySelectorAll('.category-card, .game-card');
+            fadeInElements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 100 + (index * 100)); // 错开显示时间，形成序列动画
+            });
+            
+            // 确保content内容可见
+            document.getElementById('type-content').style.display = 'block';
+            document.getElementById('type-content').style.opacity = '1';
+            
+            // 处理锚点导航，添加平滑滚动
+            function scrollToSection() {
+                const hash = window.location.hash;
+                if (hash) {
+                    const targetSection = document.querySelector(hash);
+                    if (targetSection) {
+                        setTimeout(() => {
+                            window.scrollTo({
+                                top: targetSection.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                            
+                            // 添加高亮效果
+                            targetSection.classList.add('highlight');
+                            setTimeout(() => {
+                                targetSection.classList.remove('highlight');
+                            }, 1500);
+                        }, 200);
+                    }
+                }
+            }
+            
+            // 给所有动态生成的锚点链接添加平滑滚动效果
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 更新URL，但不触发页面跳转
+                        history.pushState(null, null, targetId);
+                        
+                        // 添加高亮效果
+                        targetElement.classList.add('highlight');
+                        setTimeout(() => {
+                            targetElement.classList.remove('highlight');
+                        }, 1500);
+                    }
+                });
+            });
+            
+            // 页面加载时检查URL中的锚点
+            scrollToSection();
+            
+            // 监听hashchange事件，处理通过锚点链接的导航
+            window.addEventListener('hashchange', scrollToSection);
+            
+            // 设置游戏卡片悬停效果
+            const gameCards = document.querySelectorAll('.game-card');
+            gameCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                    this.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.08)';
+                });
+            });
+        });
+        
+        // 添加下拉菜单处理（如果有的话）
+        const dropdown = document.querySelectorAll('.dropdown');
+        if (dropdown) {
+            dropdown.forEach(menu => {
+                menu.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+        }
+    </script>
+</body>
+</html> 

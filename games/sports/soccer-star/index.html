@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soccer Star Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e5799 0%, #207cca 100%);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            background: #4caf50;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        #loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e5799 0%, #207cca 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 100;
+            transition: opacity 0.5s ease;
+        }
+        
+        #field {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" fill="%234caf50"/><rect x="50" y="50" width="700" height="500" stroke="white" stroke-width="4" fill="none"/><circle cx="400" cy="300" r="100" stroke="white" stroke-width="4" fill="none"/><line x1="400" y1="50" x2="400" y2="550" stroke="white" stroke-width="4"/><rect x="50" y="200" width="100" height="200" stroke="white" stroke-width="4" fill="none"/><rect x="650" y="200" width="100" height="200" stroke="white" stroke-width="4" fill="none"/></svg>');
+            background-size: 100% 100%;
+        }
+        
+        #ball {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><circle cx="25" cy="25" r="24" fill="white" stroke="black" stroke-width="1"/><polygon points="25,1 29,17 14,17" fill="black"/><polygon points="25,1 21,17 36,17" fill="black"/><polygon points="25,49 29,33 14,33" fill="black"/><polygon points="25,49 21,33 36,33" fill="black"/><polygon points="1,25 17,29 17,14" fill="black"/><polygon points="1,25 17,21 17,36" fill="black"/><polygon points="49,25 33,29 33,14" fill="black"/><polygon points="49,25 33,21 33,36" fill="black"/></svg>');
+            background-size: contain;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            left: 400px;
+            top: 300px;
+            z-index: 2;
+        }
+        
+        #player {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="10" r="8" fill="%23ffeb3b"/><rect x="10" y="18" width="20" height="20" fill="%23f44336"/><rect x="10" y="30" width="8" height="10" fill="%23f44336"/><rect x="22" y="30" width="8" height="10" fill="%23f44336"/></svg>');
+            background-size: contain;
+            transform: translate(-50%, -50%);
+            left: 300px;
+            top: 300px;
+            z-index: 3;
+        }
+        
+        #opponent {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="10" r="8" fill="%23ffeb3b"/><rect x="10" y="18" width="20" height="20" fill="%232196f3"/><rect x="10" y="30" width="8" height="10" fill="%232196f3"/><rect x="22" y="30" width="8" height="10" fill="%232196f3"/></svg>');
+            background-size: contain;
+            transform: translate(-50%, -50%);
+            left: 500px;
+            top: 300px;
+            z-index: 3;
+        }
+        
+        #left-goal {
+            position: absolute;
+            left: 50px;
+            top: 250px;
+            width: 10px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 5px;
+        }
+        
+        #right-goal {
+            position: absolute;
+            right: 50px;
+            top: 250px;
+            width: 10px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 5px;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 5;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            z-index: 4;
+        }
+        
+        #message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 10;
+        }
+        
+        #restart {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 10;
+        }
+        
+        #restart:hover {
+            background: white;
+            transform: translate(-50%, -52%);
+        }
+        
+        .loading {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-top: 20px;
+        }
+        
+        .loading div {
+            display: inline-block;
+            position: absolute;
+            left: 8px;
+            width: 16px;
+            background: #fff;
+            animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+        
+        .loading div:nth-child(1) {
+            left: 8px;
+            animation-delay: -0.24s;
+        }
+        
+        .loading div:nth-child(2) {
+            left: 32px;
+            animation-delay: -0.12s;
+        }
+        
+        .loading div:nth-child(3) {
+            left: 56px;
+            animation-delay: 0;
+        }
+        
+        @keyframes loading {
+            0% {
+                top: 8px;
+                height: 64px;
+            }
+            50%, 100% {
+                top: 24px;
+                height: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="loading-screen">
+            <h1>Soccer Star</h1>
+            <p>Prepare to become a soccer legend! The game is loading...</p>
+            <div class="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        
+        <div id="field">
+            <div id="left-goal"></div>
+            <div id="right-goal"></div>
+            <div id="player"></div>
+            <div id="opponent"></div>
+            <div id="ball"></div>
+            <div id="score">Player 0 - 0 Opponent</div>
+            <div id="message"></div>
+            <button id="restart">Play Again</button>
+            
+            <div id="controls">
+                <button class="control-btn" id="move-left">←</button>
+                <button class="control-btn" id="move-up">↑</button>
+                <button class="control-btn" id="move-down">↓</button>
+                <button class="control-btn" id="move-right">→</button>
+                <button class="control-btn" id="kick">Kick</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Game variables
+            const player = document.getElementById('player');
+            const opponent = document.getElementById('opponent');
+            const ball = document.getElementById('ball');
+            const scoreElement = document.getElementById('score');
+            const messageElement = document.getElementById('message');
+            const restartButton = document.getElementById('restart');
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            let playerPos = { x: 300, y: 300 };
+            let opponentPos = { x: 500, y: 300 };
+            let ballPos = { x: 400, y: 300 };
+            let ballVelocity = { x: 0, y: 0 };
+            let playerScore = 0;
+            let opponentScore = 0;
+            let isGameActive = false;
+            let playerHasBall = false;
+            
+            // Key state
+            const keys = {
+                ArrowLeft: false,
+                ArrowRight: false,
+                ArrowUp: false,
+                ArrowDown: false,
+                Space: false
+            };
+            
+            // Initialize game after loading
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                    startGame();
+                }, 500);
+            }, 2000);
+            
+            function startGame() {
+                isGameActive = true;
+                resetPositions();
+                gameLoop();
+            }
+            
+            function resetPositions() {
+                playerPos = { x: 300, y: 300 };
+                opponentPos = { x: 500, y: 300 };
+                ballPos = { x: 400, y: 300 };
+                ballVelocity = { x: 0, y: 0 };
+                playerHasBall = false;
+                
+                updateElements();
+            }
+            
+            function updateElements() {
+                player.style.left = playerPos.x + 'px';
+                player.style.top = playerPos.y + 'px';
+                
+                opponent.style.left = opponentPos.x + 'px';
+                opponent.style.top = opponentPos.y + 'px';
+                
+                ball.style.left = ballPos.x + 'px';
+                ball.style.top = ballPos.y + 'px';
+                
+                scoreElement.textContent = `Player ${playerScore} - ${opponentScore} Opponent`;
+            }
+            
+            function updatePlayerPosition() {
+                const speed = 5;
+                
+                if (keys.ArrowLeft && playerPos.x > 70) {
+                    playerPos.x -= speed;
+                }
+                if (keys.ArrowRight && playerPos.x < 730) {
+                    playerPos.x += speed;
+                }
+                if (keys.ArrowUp && playerPos.y > 70) {
+                    playerPos.y -= speed;
+                }
+                if (keys.ArrowDown && playerPos.y < 530) {
+                    playerPos.y += speed;
+                }
+                
+                // If player has ball, ball follows player
+                if (playerHasBall) {
+                    ballPos.x = playerPos.x + 20;
+                    ballPos.y = playerPos.y;
+                }
+            }
+            
+            function updateOpponentPosition() {
+                const speed = 3;
+                
+                // Simple AI: follow the ball
+                const dx = ballPos.x - opponentPos.x;
+                const dy = ballPos.y - opponentPos.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance > 5) {
+                    opponentPos.x += (dx / distance) * speed;
+                    opponentPos.y += (dy / distance) * speed;
+                }
+                
+                // Keep opponent within bounds
+                opponentPos.x = Math.max(70, Math.min(730, opponentPos.x));
+                opponentPos.y = Math.max(70, Math.min(530, opponentPos.y));
+            }
+            
+            function updateBallPosition() {
+                if (!playerHasBall) {
+                    ballPos.x += ballVelocity.x;
+                    ballPos.y += ballVelocity.y;
+                    
+                    // Ball friction
+                    ballVelocity.x *= 0.98;
+                    ballVelocity.y *= 0.98;
+                    
+                    // Ball collision with walls
+                    if (ballPos.x < 60 || ballPos.x > 740) {
+                        ballVelocity.x *= -0.8;
+                        
+                        // Check for goals
+                        if (ballPos.x < 60 && ballPos.y > 250 && ballPos.y < 350) {
+                            // Opponent scores
+                            opponentScore++;
+                            showMessage("GOAL!");
+                            resetPositions();
+                            updateElements();
+                            checkGameEnd();
+                            return;
+                        } else if (ballPos.x > 740 && ballPos.y > 250 && ballPos.y < 350) {
+                            // Player scores
+                            playerScore++;
+                            showMessage("GOAL!");
+                            resetPositions();
+                            updateElements();
+                            checkGameEnd();
+                            return;
+                        }
+                    }
+                    
+                    if (ballPos.y < 60 || ballPos.y > 540) {
+                        ballVelocity.y *= -0.8;
+                    }
+                    
+                    // Keep ball within bounds
+                    ballPos.x = Math.max(60, Math.min(740, ballPos.x));
+                    ballPos.y = Math.max(60, Math.min(540, ballPos.y));
+                    
+                    // Check if player gets ball
+                    const playerToBallDistance = getDistance(playerPos, ballPos);
+                    if (playerToBallDistance < 40) {
+                        playerHasBall = true;
+                    }
+                    
+                    // Check if opponent kicks the ball
+                    const opponentToBallDistance = getDistance(opponentPos, ballPos);
+                    if (opponentToBallDistance < 40 && Math.abs(ballVelocity.x) < 1 && Math.abs(ballVelocity.y) < 1) {
+                        // Opponent kicks toward player's goal
+                        ballVelocity.x = -10;
+                        ballVelocity.y = (Math.random() - 0.5) * 5;
+                    }
+                }
+            }
+            
+            function kickBall() {
+                if (playerHasBall && isGameActive) {
+                    playerHasBall = false;
+                    // Kick direction depends on player facing
+                    ballVelocity.x = 10; // Kick right
+                    ballVelocity.y = (Math.random() - 0.5) * 5;
+                }
+            }
+            
+            function getDistance(pos1, pos2) {
+                const dx = pos1.x - pos2.x;
+                const dy = pos1.y - pos2.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+            
+            function showMessage(text) {
+                messageElement.textContent = text;
+                messageElement.style.opacity = '1';
+                
+                setTimeout(() => {
+                    messageElement.style.opacity = '0';
+                }, 1500);
+            }
+            
+            function checkGameEnd() {
+                if (playerScore >= 5 || opponentScore >= 5) {
+                    isGameActive = false;
+                    const winner = playerScore >= 5 ? "Player Wins!" : "Opponent Wins!";
+                    messageElement.textContent = winner;
+                    messageElement.style.opacity = '1';
+                    restartButton.style.display = 'block';
+                }
+            }
+            
+            function gameLoop() {
+                if (isGameActive) {
+                    updatePlayerPosition();
+                    updateOpponentPosition();
+                    updateBallPosition();
+                    updateElements();
+                    requestAnimationFrame(gameLoop);
+                }
+            }
+            
+            // Event listeners
+            window.addEventListener('keydown', (e) => {
+                if (e.key in keys) {
+                    keys[e.key] = true;
+                }
+                if (e.key === ' ' || e.code === 'Space') {
+                    kickBall();
+                }
+            });
+            
+            window.addEventListener('keyup', (e) => {
+                if (e.key in keys) {
+                    keys[e.key] = false;
+                }
+            });
+            
+            // Mobile controls
+            document.getElementById('move-left').addEventListener('touchstart', () => keys.ArrowLeft = true);
+            document.getElementById('move-right').addEventListener('touchstart', () => keys.ArrowRight = true);
+            document.getElementById('move-up').addEventListener('touchstart', () => keys.ArrowUp = true);
+            document.getElementById('move-down').addEventListener('touchstart', () => keys.ArrowDown = true);
+            
+            document.getElementById('move-left').addEventListener('touchend', () => keys.ArrowLeft = false);
+            document.getElementById('move-right').addEventListener('touchend', () => keys.ArrowRight = false);
+            document.getElementById('move-up').addEventListener('touchend', () => keys.ArrowUp = false);
+            document.getElementById('move-down').addEventListener('touchend', () => keys.ArrowDown = false);
+            
+            document.getElementById('kick').addEventListener('click', kickBall);
+            
+            // Mouse controls for desktop
+            document.getElementById('move-left').addEventListener('mousedown', () => keys.ArrowLeft = true);
+            document.getElementById('move-right').addEventListener('mousedown', () => keys.ArrowRight = true);
+            document.getElementById('move-up').addEventListener('mousedown', () => keys.ArrowUp = true);
+            document.getElementById('move-down').addEventListener('mousedown', () => keys.ArrowDown = true);
+            
+            document.getElementById('move-left').addEventListener('mouseup', () => keys.ArrowLeft = false);
+            document.getElementById('move-right').addEventListener('mouseup', () => keys.ArrowRight = false);
+            document.getElementById('move-up').addEventListener('mouseup', () => keys.ArrowUp = false);
+            document.getElementById('move-down').addEventListener('mouseup', () => keys.ArrowDown = false);
+            
+            // Restart button
+            restartButton.addEventListener('click', () => {
+                playerScore = 0;
+                opponentScore = 0;
+                messageElement.style.opacity = '0';
+                restartButton.style.display = 'none';
+                startGame();
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Adventure - Level 5</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f7;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        .maze-screenshot {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        
+        .game-header {
+            height: 40px;
+            background-color: #0d6efd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            color: white;
+        }
+        
+        .game-stats {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .maze-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            height: calc(100% - 40px);
+            background-color: #fff;
+        }
+        
+        .maze-cell {
+            border: 1px solid #eee;
+            position: relative;
+        }
+        
+        .wall {
+            background-color: #333;
+        }
+        
+        .path {
+            background-color: #fff;
+        }
+        
+        .player {
+            background-color: #0d6efd;
+            border-radius: 50%;
+            width: 80%;
+            height: 80%;
+            position: absolute;
+            top: 10%;
+            left: 10%;
+        }
+        
+        .key {
+            color: gold;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .door {
+            color: brown;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .trap {
+            color: red;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .exit {
+            color: green;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="maze-screenshot">
+        <div class="game-header">
+            <div>Maze Adventure - Level 5</div>
+            <div class="game-stats">
+                <div>⏱️ 01:37</div>
+                <div>🔑 2/5</div>
+            </div>
+        </div>
+        <div class="maze-grid" id="maze-grid"></div>
+    </div>
+    
+    <script>
+        // Initialize the maze grid
+        function createMaze() {
+            const mazeGrid = document.getElementById('maze-grid');
+            const rows = 10;
+            const cols = 12;
+            
+            // Clear the grid
+            mazeGrid.innerHTML = '';
+            
+            // Create maze layout with fixed pattern for advanced level screenshot
+            const mazeLayout = [
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                [1, 0, 0, 0, 3, 1, 0, 0, 0, 1, 0, 1],
+                [1, 0, 2, 1, 1, 1, 0, 1, 0, 5, 0, 1],
+                [1, 1, 0, 0, 0, 0, 0, 1, 3, 1, 0, 1],
+                [1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 4, 1],
+                [1, 0, 0, 0, 1, 5, 0, 0, 0, 0, 0, 1],
+                [1, 1, 5, 1, 1, 1, 1, 1, 0, 1, 1, 1],
+                [1, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0, 1],
+                [1, 0, 1, 4, 1, 0, 1, 1, 1, 1, 6, 1],
+                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+            ];
+            
+            // Create the maze cells
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'maze-cell';
+                    
+                    // Add cell type
+                    switch (mazeLayout[i][j]) {
+                        case 1: // Wall
+                            cell.classList.add('wall');
+                            break;
+                        case 2: // Player
+                            cell.classList.add('path');
+                            const player = document.createElement('div');
+                            player.className = 'player';
+                            cell.appendChild(player);
+                            break;
+                        case 3: // Key
+                            cell.classList.add('path');
+                            const key = document.createElement('div');
+                            key.className = 'key';
+                            key.innerHTML = '🔑';
+                            cell.appendChild(key);
+                            break;
+                        case 4: // Door
+                            cell.classList.add('path');
+                            const door = document.createElement('div');
+                            door.className = 'door';
+                            door.innerHTML = '🚪';
+                            cell.appendChild(door);
+                            break;
+                        case 5: // Trap
+                            cell.classList.add('path');
+                            const trap = document.createElement('div');
+                            trap.className = 'trap';
+                            trap.innerHTML = '💀';
+                            cell.appendChild(trap);
+                            break;
+                        case 6: // Exit
+                            cell.classList.add('path');
+                            const exit = document.createElement('div');
+                            exit.className = 'exit';
+                            exit.innerHTML = '🏁';
+                            cell.appendChild(exit);
+                            break;
+                        default: // Path
+                            cell.classList.add('path');
+                    }
+                    
+                    mazeGrid.appendChild(cell);
+                }
+            }
+        }
+        
+        // Initialize maze
+        window.onload = function() {
+            createMaze();
+        };
+    </script>
+</body>
+</html> 

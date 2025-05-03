@@ -1,0 +1,397 @@
+/* Zombie Defense 游戏的样式 */
+.game-page {
+    background-color: #f0f2f5;
+}
+
+.game-frame {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    position: relative;
+    height: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.game-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* 游戏内容区域布局调整 */
+.game-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+@media (min-width: 992px) {
+    .game-content {
+        grid-template-columns: 2fr 1fr;
+        align-items: start;
+    }
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 15px;
+}
+
+.game-controls button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #2c3e50 0%, #4a6572 100%);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(44, 62, 80, 0.2);
+}
+
+.game-controls button i {
+    margin-right: 8px;
+}
+
+.game-controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(44, 62, 80, 0.3);
+}
+
+.game-description {
+    margin-top: 30px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.game-description h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.game-description h3 {
+    color: #4a6572;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.game-description p {
+    color: #596e79;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.game-description ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.game-description ul li {
+    margin-bottom: 8px;
+    color: #596e79;
+}
+
+.social-share {
+    margin-top: 30px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.social-share h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.share-buttons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #4a6572;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.share-buttons a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+}
+
+.share-buttons a.facebook {
+    background-color: #3b5998;
+}
+
+.share-buttons a.twitter {
+    background-color: #1da1f2;
+}
+
+.share-buttons a.instagram {
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+
+.share-buttons a.pinterest {
+    background-color: #bd081c;
+}
+
+.game-comments {
+    margin-top: 30px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.game-comments h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.comment-form {
+    margin-bottom: 30px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #dfe6e9;
+    margin-bottom: 15px;
+    resize: none;
+    font-family: inherit;
+}
+
+.comment-form button {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #2c3e50 0%, #4a6572 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.comment-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(44, 62, 80, 0.2);
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.comment {
+    display: flex;
+    gap: 15px;
+}
+
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comment-content {
+    flex-grow: 1;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-header h4 {
+    color: #2c3e50;
+    margin: 0;
+    font-size: 16px;
+}
+
+.comment-date {
+    color: #b2bec3;
+    font-size: 14px;
+}
+
+.comment-content p {
+    color: #596e79;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.comment-actions button {
+    background: none;
+    border: none;
+    color: #b2bec3;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.comment-actions button:hover {
+    color: #4a6572;
+}
+
+.comment-actions button i {
+    margin-right: 5px;
+}
+
+/* 相关游戏部分 */
+.related-games {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    margin-top: 0;
+    position: sticky;
+    top: 20px;
+}
+
+.related-games h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .games-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .related-games {
+        width: 100%;
+    }
+}
+
+/* 全屏模式 */
+.fullscreen-game .game-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    border-radius: 0;
+}
+
+.fullscreen-game .game-frame iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.exit-fullscreen {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s;
+}
+
+.exit-fullscreen:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 响应式调整 */
+@media (max-width: 992px) {
+    .game-content {
+        grid-template-columns: 1fr;
+    }
+
+    .related-games {
+        position: static;
+        margin-top: 25px;
+    }
+
+    .games-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .games-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .comment {
+        flex-direction: column;
+    }
+    
+    .comment-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .game-frame {
+        aspect-ratio: 16 / 9;
+    }
+}
+
+@media (max-width: 576px) {
+    .game-controls button {
+        font-size: 14px;
+    }
+} 

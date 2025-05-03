@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Adventure - Puzzle Game | GameHaven</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #game-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        #game-canvas {
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .game-ui {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 15px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 10;
+            font-size: 14px;
+        }
+        
+        .game-ui-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .game-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            z-index: 10;
+        }
+        
+        .game-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(13, 110, 253, 0.25);
+        }
+        
+        .game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(13, 110, 253, 0.35);
+        }
+        
+        .game-over {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            color: white;
+            display: none;
+        }
+        
+        .game-over h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .game-over p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .game-over-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .game-over-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+        }
+        
+        .loader {
+            width: 250px;
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .loading-text {
+            font-size: 16px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- 加载屏幕 -->
+    <div class="loading-screen" id="loading-screen">
+        <h2 style="margin-bottom: 30px; color: #0d6efd; font-size: 32px;">Maze Adventure</h2>
+        <div class="loader">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="loading-text" id="loading-text">0%</div>
+    </div>
+    
+    <!-- 游戏容器 -->
+    <div id="game-container">
+        <canvas id="game-canvas" width="800" height="600"></canvas>
+    </div>
+    
+    <!-- 游戏UI -->
+    <div class="game-ui">
+        <div class="game-ui-item">
+            <div class="icon">⏱️</div>
+            <span id="time">00:00</span>
+        </div>
+        <div class="game-ui-item">
+            <div class="icon">🏆</div>
+            <span id="level">1</span>
+        </div>
+        <div class="game-ui-item">
+            <div class="icon">🔑</div>
+            <span id="keys">0</span>
+        </div>
+    </div>
+    
+    <!-- 游戏控制按钮 -->
+    <div class="game-controls">
+        <button class="game-btn" id="pauseBtn">Pause</button>
+        <button class="game-btn" id="helpBtn">Help</button>
+    </div>
+    
+    <!-- 游戏结束界面 -->
+    <div class="game-over" id="game-over">
+        <h2>Game Over</h2>
+        <p>You completed <span id="completed-levels">0</span> levels</p>
+        <p>Total time: <span id="total-time">00:00</span></p>
+        <button class="game-over-btn" id="restart-btn">Restart</button>
+    </div>
+
+    <script>
+        // 游戏加载
+        window.addEventListener('DOMContentLoaded', function() {
+            const progressBar = document.getElementById('progress-bar');
+            const loadingText = document.getElementById('loading-text');
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            // 确保游戏能够正常初始化，即使在某些浏览器中出现加载问题
+            try {
+                let progress = 0;
+                const interval = setInterval(function() {
+                    progress += Math.random() * 10;
+                    if (progress >= 100) {
+                        progress = 100;
+                        clearInterval(interval);
+                        
+                        // 显示游戏，隐藏加载屏幕
+                        setTimeout(function() {
+                            loadingScreen.style.display = 'none';
+                            try {
+                                initGame();
+                            } catch (e) {
+                                console.error('游戏初始化失败:', e);
+                                // 如果游戏初始化失败，提供重新加载选项
+                                alert('游戏加载失败，请刷新页面重试。错误：' + e.message);
+                                location.reload();
+                            }
+                        }, 500);
+                    }
+                    
+                    progressBar.style.width = progress + '%';
+                    loadingText.textContent = Math.floor(progress) + '%';
+                }, 200);
+                
+                // 添加一个安全保障机制，防止长时间停留在加载页面
+                setTimeout(function() {
+                    if (loadingScreen.style.display !== 'none') {
+                        loadingScreen.style.display = 'none';
+                        try {
+                            initGame();
+                        } catch (e) {
+                            console.error('超时后游戏初始化失败:', e);
+                            alert('游戏加载超时，请刷新页面重试。');
+                            location.reload();
+                        }
+                    }
+                }, 5000);
+            } catch (e) {
+                console.error('加载脚本异常:', e);
+                loadingScreen.style.display = 'none';
+                alert('游戏加载出现问题，请刷新页面。');
+            }
+        });
+
+        // 游戏初始化和主逻辑
+        function initGame() {
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 游戏常量
+            const CELL_SIZE = 40;
+            const ROWS = 15;
+            const COLS = 20;
+            
+            // 调整Canvas大小
+            canvas.width = COLS * CELL_SIZE;
+            canvas.height = ROWS * CELL_SIZE;
+            
+            // 自适应屏幕
+            function resizeCanvas() {
+                const container = document.getElementById('game-container');
+                const containerWidth = container.clientWidth;
+                const containerHeight = container.clientHeight;
+                
+                const scaleX = containerWidth / canvas.width;
+                const scaleY = containerHeight / canvas.height;
+                const scale = Math.min(scaleX, scaleY) * 0.95;
+                
+                canvas.style.width = (canvas.width * scale) + 'px';
+                canvas.style.height = (canvas.height * scale) + 'px';
+            }
+            
+            // 调整画布大小
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // 游戏状态
+            const gameState = {
+                player: { row: 1, col: 1, keys: 0 },
+                level: 1,
+                maze: [],
+                timeStart: Date.now(),
+                timePaused: 0,
+                isPaused: false,
+                isGameOver: false,
+                completedLevels: 0
+            };
+            
+            // 迷宫方块类型
+            const CELL_TYPES = {
+                WALL: 0,
+                PATH: 1,
+                START: 2,
+                END: 3,
+                KEY: 4,
+                DOOR: 5,
+                TRAP: 6
+            };
+            
+            // 方向键控制
+            const keys = {
+                ArrowUp: false,
+                ArrowDown: false,
+                ArrowLeft: false,
+                ArrowRight: false,
+                w: false,
+                a: false,
+                s: false,
+                d: false
+            };
+            
+            // 创建迷宫 - 使用递归回溯算法
+            function generateMaze() {
+                // 初始化全部为墙
+                const maze = Array(ROWS).fill().map(() => Array(COLS).fill(CELL_TYPES.WALL));
+                
+                // 定义起点
+                const startRow = 1;
+                const startCol = 1;
+                maze[startRow][startCol] = CELL_TYPES.START;
+                
+                // 递归创建路径
+                function carve(row, col) {
+                    const directions = [
+                        [0, 2],  // 右
+                        [2, 0],  // 下
+                        [0, -2], // 左
+                        [-2, 0]  // 上
+                    ];
+                    
+                    // 随机排序方向
+                    for (let i = directions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [directions[i], directions[j]] = [directions[j], directions[i]];
+                    }
+                    
+                    // 尝试每个方向
+                    for (const [dr, dc] of directions) {
+                        const newRow = row + dr;
+                        const newCol = col + dc;
+                        
+                        // 检查是否在边界内
+                        if (newRow > 0 && newRow < ROWS - 1 && newCol > 0 && newCol < COLS - 1) {
+                            // 如果目标单元格为墙
+                            if (maze[newRow][newCol] === CELL_TYPES.WALL) {
+                                // 把中间的单元格设为路径
+                                maze[row + dr/2][col + dc/2] = CELL_TYPES.PATH;
+                                // 把目标单元格设为路径
+                                maze[newRow][newCol] = CELL_TYPES.PATH;
+                                // 继续从目标单元格递归
+                                carve(newRow, newCol);
+                            }
+                        }
+                    }
+                }
+                
+                // 从起点开始生成迷宫
+                carve(startRow, startCol);
+                
+                // 放置终点
+                let endPlaced = false;
+                while (!endPlaced) {
+                    const endRow = ROWS - 2;
+                    const endCol = COLS - 2;
+                    
+                    if (maze[endRow][endCol] === CELL_TYPES.PATH) {
+                        maze[endRow][endCol] = CELL_TYPES.END;
+                        endPlaced = true;
+                    }
+                }
+                
+                // 放置钥匙和门 (根据级别增加难度)
+                const keyCount = Math.min(3, gameState.level);
+                let keysPlaced = 0;
+                
+                while (keysPlaced < keyCount) {
+                    const row = Math.floor(Math.random() * (ROWS - 2)) + 1;
+                    const col = Math.floor(Math.random() * (COLS - 2)) + 1;
+                    
+                    if (maze[row][col] === CELL_TYPES.PATH) {
+                        maze[row][col] = CELL_TYPES.KEY;
+                        keysPlaced++;
+                    }
+                }
+                
+                // 放置门
+                let doorsPlaced = 0;
+                while (doorsPlaced < keyCount) {
+                    const row = Math.floor(Math.random() * (ROWS - 2)) + 1;
+                    const col = Math.floor(Math.random() * (COLS - 2)) + 1;
+                    
+                    // 门不应该完全堵死通道，需要确保玩家有路可走
+                    if (maze[row][col] === CELL_TYPES.PATH) {
+                        maze[row][col] = CELL_TYPES.DOOR;
+                        doorsPlaced++;
+                    }
+                }
+                
+                // 放置陷阱 (根据级别增加难度)
+                const trapCount = gameState.level;
+                let trapsPlaced = 0;
+                
+                while (trapsPlaced < trapCount) {
+                    const row = Math.floor(Math.random() * (ROWS - 2)) + 1;
+                    const col = Math.floor(Math.random() * (COLS - 2)) + 1;
+                    
+                    // 陷阱不应该放在关键路径上
+                    if (maze[row][col] === CELL_TYPES.PATH && 
+                        !(row === startRow && col === startCol) && 
+                        !(row === ROWS - 2 && col === COLS - 2)) {
+                        maze[row][col] = CELL_TYPES.TRAP;
+                        trapsPlaced++;
+                    }
+                }
+                
+                return maze;
+            }
+            
+            // 初始化游戏
+            function initLevel() {
+                gameState.maze = generateMaze();
+                gameState.player = { row: 1, col: 1, keys: 0 };
+                updateUI();
+            }
+            
+            // 绘制迷宫
+            function drawMaze() {
+                for (let row = 0; row < ROWS; row++) {
+                    for (let col = 0; col < COLS; col++) {
+                        const cellType = gameState.maze[row][col];
+                        
+                        // 设置单元格颜色
+                        switch (cellType) {
+                            case CELL_TYPES.WALL:
+                                ctx.fillStyle = '#555555';
+                                break;
+                            case CELL_TYPES.PATH:
+                                ctx.fillStyle = '#FFFFFF';
+                                break;
+                            case CELL_TYPES.START:
+                                ctx.fillStyle = '#00FF00';
+                                break;
+                            case CELL_TYPES.END:
+                                ctx.fillStyle = '#FF0000';
+                                break;
+                            case CELL_TYPES.KEY:
+                                ctx.fillStyle = '#FFFF00';
+                                break;
+                            case CELL_TYPES.DOOR:
+                                ctx.fillStyle = '#8B4513';
+                                break;
+                            case CELL_TYPES.TRAP:
+                                ctx.fillStyle = '#FF00FF';
+                                break;
+                        }
+                        
+                        // 绘制单元格
+                        ctx.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                        
+                        // 添加边框
+                        ctx.strokeStyle = '#AAAAAA';
+                        ctx.strokeRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                        
+                        // 绘制特殊单元格的图标
+                        if (cellType === CELL_TYPES.KEY) {
+                            ctx.fillStyle = '#000000';
+                            ctx.font = '20px Arial';
+                            ctx.fillText('🔑', col * CELL_SIZE + 10, row * CELL_SIZE + 25);
+                        } else if (cellType === CELL_TYPES.DOOR) {
+                            ctx.fillStyle = '#000000';
+                            ctx.font = '20px Arial';
+                            ctx.fillText('🚪', col * CELL_SIZE + 10, row * CELL_SIZE + 25);
+                        } else if (cellType === CELL_TYPES.TRAP) {
+                            ctx.fillStyle = '#000000';
+                            ctx.font = '20px Arial';
+                            ctx.fillText('💀', col * CELL_SIZE + 10, row * CELL_SIZE + 25);
+                        } else if (cellType === CELL_TYPES.END) {
+                            ctx.fillStyle = '#FFFFFF';
+                            ctx.font = '20px Arial';
+                            ctx.fillText('🏁', col * CELL_SIZE + 10, row * CELL_SIZE + 25);
+                        }
+                    }
+                }
+            }
+            
+            // 绘制玩家
+            function drawPlayer() {
+                const x = gameState.player.col * CELL_SIZE;
+                const y = gameState.player.row * CELL_SIZE;
+                
+                // 绘制玩家圆形
+                ctx.fillStyle = '#0000FF';
+                ctx.beginPath();
+                ctx.arc(x + CELL_SIZE / 2, y + CELL_SIZE / 2, CELL_SIZE / 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // 绘制玩家眼睛
+                ctx.fillStyle = '#FFFFFF';
+                ctx.beginPath();
+                ctx.arc(x + CELL_SIZE / 2 - 5, y + CELL_SIZE / 2 - 5, 3, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(x + CELL_SIZE / 2 + 5, y + CELL_SIZE / 2 - 5, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            // 更新UI信息
+            function updateUI() {
+                document.getElementById('level').textContent = gameState.level;
+                document.getElementById('keys').textContent = gameState.player.keys;
+                
+                // 更新时间
+                const currentTime = gameState.isPaused ? 
+                    gameState.timePaused : 
+                    Date.now() - gameState.timeStart;
+                const seconds = Math.floor(currentTime / 1000) % 60;
+                const minutes = Math.floor(currentTime / 60000);
+                
+                document.getElementById('time').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // 移动玩家
+            function movePlayer(dRow, dCol) {
+                if (gameState.isPaused || gameState.isGameOver) return;
+                
+                const newRow = gameState.player.row + dRow;
+                const newCol = gameState.player.col + dCol;
+                
+                // 检查是否超出边界
+                if (newRow < 0 || newRow >= ROWS || newCol < 0 || newCol >= COLS) {
+                    return;
+                }
+                
+                const newCell = gameState.maze[newRow][newCol];
+                
+                // 检查移动目的地
+                switch (newCell) {
+                    case CELL_TYPES.WALL:
+                        // 不能穿墙
+                        return;
+                        
+                    case CELL_TYPES.PATH:
+                    case CELL_TYPES.START:
+                        // 可以自由移动
+                        gameState.player.row = newRow;
+                        gameState.player.col = newCol;
+                        break;
+                        
+                    case CELL_TYPES.KEY:
+                        // 收集钥匙
+                        gameState.player.keys++;
+                        gameState.maze[newRow][newCol] = CELL_TYPES.PATH;
+                        gameState.player.row = newRow;
+                        gameState.player.col = newCol;
+                        break;
+                        
+                    case CELL_TYPES.DOOR:
+                        // 需要钥匙才能通过门
+                        if (gameState.player.keys > 0) {
+                            gameState.player.keys--;
+                            gameState.maze[newRow][newCol] = CELL_TYPES.PATH;
+                            gameState.player.row = newRow;
+                            gameState.player.col = newCol;
+                        }
+                        break;
+                        
+                    case CELL_TYPES.TRAP:
+                        // 踩到陷阱，游戏结束
+                        gameOver();
+                        return;
+                        
+                    case CELL_TYPES.END:
+                        // 到达终点，进入下一关
+                        nextLevel();
+                        return;
+                }
+                
+                updateUI();
+            }
+            
+            // 进入下一关
+            function nextLevel() {
+                gameState.level++;
+                gameState.completedLevels++;
+                initLevel();
+            }
+            
+            // 游戏结束
+            function gameOver() {
+                gameState.isGameOver = true;
+                
+                // 显示游戏结束界面
+                document.getElementById('game-over').style.display = 'flex';
+                document.getElementById('completed-levels').textContent = gameState.completedLevels;
+                
+                // 计算总用时
+                const totalTime = Date.now() - gameState.timeStart;
+                const seconds = Math.floor(totalTime / 1000) % 60;
+                const minutes = Math.floor(totalTime / 60000);
+                
+                document.getElementById('total-time').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // 重新开始游戏
+            function restartGame() {
+                gameState.level = 1;
+                gameState.isGameOver = false;
+                gameState.isPaused = false;
+                gameState.timeStart = Date.now();
+                gameState.timePaused = 0;
+                gameState.completedLevels = 0;
+                
+                document.getElementById('game-over').style.display = 'none';
+                document.getElementById('pauseBtn').textContent = 'Pause';
+                
+                initLevel();
+            }
+            
+            // 处理按键按下
+            function handleKeyDown(e) {
+                if (gameState.isGameOver) return;
+                
+                if (e.key in keys) {
+                    keys[e.key] = true;
+                    e.preventDefault();
+                }
+                
+                // 暂停/继续游戏
+                if (e.key === 'p' || e.key === 'P') {
+                    togglePause();
+                }
+                
+                // 处理方向键移动
+                if (!gameState.isPaused) {
+                    switch (e.key) {
+                        case 'ArrowUp':
+                        case 'w':
+                        case 'W':
+                            movePlayer(-1, 0);
+                            break;
+                        case 'ArrowDown':
+                        case 's':
+                        case 'S':
+                            movePlayer(1, 0);
+                            break;
+                        case 'ArrowLeft':
+                        case 'a':
+                        case 'A':
+                            movePlayer(0, -1);
+                            break;
+                        case 'ArrowRight':
+                        case 'd':
+                        case 'D':
+                            movePlayer(0, 1);
+                            break;
+                    }
+                }
+            }
+            
+            // 处理按键释放
+            function handleKeyUp(e) {
+                if (e.key in keys) {
+                    keys[e.key] = false;
+                    e.preventDefault();
+                }
+            }
+            
+            // 切换暂停状态
+            function togglePause() {
+                if (gameState.isGameOver) return;
+                
+                gameState.isPaused = !gameState.isPaused;
+                
+                if (gameState.isPaused) {
+                    // Pause timer
+                    gameState.timePaused = Date.now() - gameState.timeStart;
+                    document.getElementById('pauseBtn').textContent = 'Continue';
+                } else {
+                    // Resume timer
+                    gameState.timeStart = Date.now() - gameState.timePaused;
+                    document.getElementById('pauseBtn').textContent = 'Pause';
+                }
+            }
+            
+            // Show help information
+            function showHelp() {
+                alert(`Maze Adventure Game Instructions:
+                
+1. Use arrow keys or WASD to move your character
+2. Collect keys(🔑) to open doors(🚪)
+3. Avoid traps(💀)
+4. Reach the exit(🏁) to advance to the next level
+5. Press P or click the pause button to pause the game`);
+            }
+            
+            // 游戏主循环
+            function gameLoop() {
+                // 清空画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 绘制迷宫
+                drawMaze();
+                
+                // 绘制玩家
+                drawPlayer();
+                
+                // 更新UI
+                if (!gameState.isPaused && !gameState.isGameOver) {
+                    updateUI();
+                }
+                
+                // 继续循环
+                requestAnimationFrame(gameLoop);
+            }
+            
+            // 初始化游戏
+            initLevel();
+            
+            // 开始游戏循环
+            gameLoop();
+            
+            // 事件监听
+            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('keyup', handleKeyUp);
+            document.getElementById('pauseBtn').addEventListener('click', togglePause);
+            document.getElementById('helpBtn').addEventListener('click', showHelp);
+            document.getElementById('restart-btn').addEventListener('click', restartGame);
+            
+            // 响应来自父页面的消息
+            window.addEventListener('message', function(event) {
+                if (event.data === 'fullscreen') {
+                    // 响应全屏请求
+                    if (canvas.requestFullscreen) {
+                        canvas.requestFullscreen();
+                    } else if (canvas.webkitRequestFullscreen) {
+                        canvas.webkitRequestFullscreen();
+                    } else if (canvas.msRequestFullscreen) {
+                        canvas.msRequestFullscreen();
+                    }
+                } else if (event.data === 'restart') {
+                    // 响应重启请求
+                    restartGame();
+                }
+            });
+        }
+    </script>
+</body>
+</html> 

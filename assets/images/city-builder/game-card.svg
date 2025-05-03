@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="320" viewBox="0 0 600 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="600" height="320" fill="#87CEEB"/>
+  
+  <!-- 远景山丘 -->
+  <path d="M0 160 Q 75 120 150 144 Q 225 160 300 136 Q 375 112 450 144 Q 525 168 600 152 L 600 320 L 0 320 Z" fill="#4CAF50" opacity="0.7"/>
+  
+  <!-- 地面 -->
+  <rect y="192" width="600" height="128" fill="#8B4513"/>
+  
+  <!-- 建筑1 - 高楼 -->
+  <rect x="75" y="80" width="60" height="112" fill="#708090"/>
+  <rect x="83" y="88" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="101" y="88" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="116" y="88" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="83" y="112" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="101" y="112" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="116" y="112" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="83" y="136" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="101" y="136" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="116" y="136" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="83" y="160" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="101" y="160" width="11" height="16" fill="#ADD8E6"/>
+  <rect x="116" y="160" width="11" height="16" fill="#ADD8E6"/>
+  
+  <!-- 建筑2 - 商业区 -->
+  <rect x="165" y="120" width="75" height="72" fill="#4682B4"/>
+  <rect x="173" y="128" width="15" height="24" fill="#F5F5F5"/>
+  <rect x="195" y="128" width="15" height="24" fill="#F5F5F5"/>
+  <rect x="218" y="128" width="15" height="24" fill="#F5F5F5"/>
+  <rect x="173" y="160" width="15" height="24" fill="#F5F5F5"/>
+  <rect x="195" y="160" width="15" height="24" fill="#F5F5F5"/>
+  <rect x="218" y="160" width="15" height="24" fill="#F5F5F5"/>
+  
+  <!-- 建筑3 - 摩天大楼 -->
+  <rect x="270" y="40" width="45" height="152" fill="#A9A9A9"/>
+  <rect x="278" y="48" width="8" height="12" fill="#FFD700"/>
+  <rect x="293" y="48" width="8" height="12" fill="#FFD700"/>
+  <rect x="278" y="68" width="8" height="12" fill="#FFD700"/>
+  <rect x="293" y="68" width="8" height="12" fill="#FFD700"/>
+  <rect x="278" y="88" width="8" height="12" fill="#FFD700"/>
+  <rect x="293" y="88" width="8" height="12" fill="#FFD700"/>
+  <rect x="278" y="108" width="8" height="12" fill="#FFD700"/>
+  <rect x="293" y="108" width="8" height="12" fill="#FFD700"/>
+  <rect x="278" y="128" width="8" height="12" fill="#FFD700"/>
+  <rect x="293" y="128" width="8" height="12" fill="#FFD700"/>
+  <rect x="278" y="148" width="8" height="12" fill="#FFD700"/>
+  <rect x="293" y="148" width="8" height="12" fill="#FFD700"/>
+  <rect x="278" y="168" width="8" height="12" fill="#FFD700"/>
+  <rect x="293" y="168" width="8" height="12" fill="#FFD700"/>
+  
+  <!-- 建筑4 - 政府大楼 -->
+  <rect x="345" y="96" width="90" height="96" fill="#CD5C5C"/>
+  <rect x="375" y="64" width="30" height="32" fill="#CD5C5C"/>
+  <rect x="383" y="32" width="15" height="32" fill="#CD5C5C"/>
+  <!-- 门 -->
+  <rect x="383" y="160" width="15" height="32" fill="#8B4513"/>
+  <!-- 窗户 -->
+  <rect x="360" y="112" width="11" height="16" fill="#F5F5F5"/>
+  <rect x="383" y="112" width="11" height="16" fill="#F5F5F5"/>
+  <rect x="409" y="112" width="11" height="16" fill="#F5F5F5"/>
+  <rect x="360" y="136" width="11" height="16" fill="#F5F5F5"/>
+  <rect x="409" y="136" width="11" height="16" fill="#F5F5F5"/>
+  
+  <!-- 建筑5 - 住宅区 -->
+  <rect x="465" y="144" width="53" height="48" fill="#FFB6C1"/>
+  <rect x="473" y="152" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="488" y="152" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="503" y="152" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="473" y="172" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="488" y="172" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="503" y="172" width="8" height="12" fill="#F5F5F5"/>
+  
+  <!-- 屋顶 -->
+  <polygon points="465,144 492,120 518,144" fill="#FF6347"/>
+  
+  <!-- 建筑6 - 工厂 -->
+  <rect x="540" y="120" width="45" height="72" fill="#696969"/>
+  <rect x="555" y="80" width="15" height="40" fill="#696969"/>
+  <!-- 工厂窗户 -->
+  <rect x="548" y="136" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="563" y="136" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="578" y="136" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="548" y="156" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="563" y="156" width="8" height="12" fill="#F5F5F5"/>
+  <rect x="578" y="156" width="8" height="12" fill="#F5F5F5"/>
+  
+  <!-- 道路 -->
+  <rect y="192" width="600" height="16" fill="#808080"/>
+  <!-- 道路标记 -->
+  <rect x="30" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="75" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="120" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="165" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="210" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="255" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="300" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="345" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="390" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="435" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="480" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="525" y="199" width="15" height="2" fill="#FFFFFF"/>
+  <rect x="570" y="199" width="15" height="2" fill="#FFFFFF"/>
+  
+  <!-- 垂直道路 -->
+  <rect x="300" y="208" width="15" height="112" fill="#808080"/>
+  <!-- 垂直道路标记 -->
+  <rect x="307" y="216" width="2" height="8" fill="#FFFFFF"/>
+  <rect x="307" y="232" width="2" height="8" fill="#FFFFFF"/>
+  <rect x="307" y="248" width="2" height="8" fill="#FFFFFF"/>
+  <rect x="307" y="264" width="2" height="8" fill="#FFFFFF"/>
+  <rect x="307" y="280" width="2" height="8" fill="#FFFFFF"/>
+  <rect x="307" y="296" width="2" height="8" fill="#FFFFFF"/>
+  
+  <!-- 树木 -->
+  <circle cx="38" y="176" r="12" fill="#228B22"/>
+  <rect x="35" y="188" width="5" height="8" fill="#8B4513"/>
+  
+  <circle cx="60" y="180" r="10" fill="#228B22"/>
+  <rect x="58" y="190" width="5" height="6" fill="#8B4513"/>
+  
+  <circle cx="450" y="176" r="12" fill="#228B22"/>
+  <rect x="448" y="188" width="5" height="8" fill="#8B4513"/>
+  
+  <circle cx="473" y="180" r="10" fill="#228B22"/>
+  <rect x="470" y="190" width="5" height="6" fill="#8B4513"/>
+  
+  <!-- 建设中标志 -->
+  <g transform="translate(143, 64)">
+    <rect width="30" height="30" fill="#FFD700" opacity="0.7" rx="4"/>
+    <rect x="11" y="4" width="8" height="22" fill="#FF0000"/>
+    <rect x="4" y="11" width="22" height="8" fill="#FF0000"/>
+  </g>
+  
+  <!-- 游戏标题 -->
+  <rect x="0" y="0" width="600" height="40" fill="#333333" opacity="0.7"/>
+  <text x="300" y="28" font-family="Arial" font-size="22" fill="white" text-anchor="middle" font-weight="bold">City Builder</text>
+  
+  <!-- 太阳 -->
+  <circle cx="562" cy="40" r="24" fill="#FFD700"/>
+  <line x1="562" y1="8" x2="562" y2="0" stroke="#FFD700" stroke-width="3"/>
+  <line x1="562" y1="80" x2="562" y2="72" stroke="#FFD700" stroke-width="3"/>
+  <line x1="530" y1="40" x2="522" y2="40" stroke="#FFD700" stroke-width="3"/>
+  <line x1="600" y1="40" x2="592" y2="40" stroke="#FFD700" stroke-width="3"/>
+  <line x1="540" y1="18" x2="534" y2="12" stroke="#FFD700" stroke-width="3"/>
+  <line x1="584" y1="62" x2="590" y2="68" stroke="#FFD700" stroke-width="3"/>
+  <line x1="540" y1="62" x2="534" y2="68" stroke="#FFD700" stroke-width="3"/>
+  <line x1="584" y1="18" x2="590" y2="12" stroke="#FFD700" stroke-width="3"/>
+</svg> 

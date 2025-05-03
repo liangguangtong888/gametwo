@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Shooter - GameHaven</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="game-ui">
+            <div class="score">Score: <span id="scoreValue">0</span></div>
+            <div class="lives">Lives: <span id="livesValue">3</span></div>
+        </div>
+        <div class="game-controls">
+            <div class="mobile-controls">
+                <button id="leftBtn">←</button>
+                <button id="rightBtn">→</button>
+                <button id="fireBtn">Fire</button>
+            </div>
+        </div>
+        <div class="game-message" id="gameMessage">
+            <h2 id="messageText">Space Shooter</h2>
+            <p id="subMessageText">Press any key to start</p>
+            <button id="startBtn">Start Game</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

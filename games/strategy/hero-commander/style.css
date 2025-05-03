@@ -1,0 +1,266 @@
+/* Hero Commander Game Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.game-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    color: #333;
+}
+
+.game-header {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.game-title {
+    font-size: 24px;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+}
+
+.resources {
+    display: flex;
+    gap: 20px;
+}
+
+.resource {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+}
+
+.resource-icon {
+    width: 20px;
+    height: 20px;
+    background: #007aff;
+    border-radius: 50%;
+}
+
+.main-area {
+    flex: 1;
+    display: flex;
+    padding: 20px;
+}
+
+.heroes-list {
+    width: 25%;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.hero-card {
+    background: rgba(0, 122, 255, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hero-card:hover {
+    background: rgba(0, 122, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.hero-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+
+.battlefield {
+    flex: 1;
+    margin: 0 20px;
+    background: url('../../../assets/images/hero-commander/screenshot1.svg') center/cover;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.battlefield::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.battle-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    height: 100%;
+    padding: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.grid-cell {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.grid-cell:hover {
+    background: rgba(0, 122, 255, 0.2);
+}
+
+.controls {
+    width: 25%;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-detail {
+    margin-bottom: 20px;
+}
+
+.hero-portrait {
+    width: 80px;
+    height: 80px;
+    background: #007aff;
+    border-radius: 10px;
+    margin: 0 auto 10px;
+}
+
+.hero-info h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.abilities {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.ability {
+    background: rgba(0, 122, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.ability:hover {
+    background: rgba(0, 122, 255, 0.2);
+}
+
+.ability h4 {
+    margin: 0 0 5px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.ability p {
+    margin: 0;
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+}
+
+.battle-buttons {
+    margin-top: auto;
+}
+
+.battle-btn {
+    width: 100%;
+    padding: 12px;
+    background: #007aff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.battle-btn:hover {
+    background: #0062cc;
+    transform: translateY(-2px);
+}
+
+/* Game character styles on the board */
+.hero-unit {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.hero-unit.friendly {
+    background: #007aff;
+    color: white;
+}
+
+.hero-unit.enemy {
+    background: #dc3545;
+    color: white;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+    .main-area {
+        flex-direction: column;
+    }
+    
+    .heroes-list, .controls {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    .battlefield {
+        height: 400px;
+        margin: 15px 0;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .game-title {
+        margin-bottom: 15px;
+    }
+    
+    .resources {
+        justify-content: center;
+    }
+} 

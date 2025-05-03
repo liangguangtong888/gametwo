@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <!-- 背景 -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5d4037" />
+      <stop offset="100%" stop-color="#8d6e63" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="400" height="250" fill="url(#bg-gradient)"/>
+  
+  <!-- 装饰性边框 -->
+  <rect x="10" y="10" width="380" height="230" fill="none" stroke="#a1887f" stroke-width="2" stroke-dasharray="2" />
+  
+  <!-- 游戏标题 -->
+  <text x="200" y="40" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="24" text-anchor="middle" font-weight="bold">Empire War</text>
+  
+  <!-- 游戏场景 -->
+  <rect x="50" y="60" width="300" height="150" fill="#a5d6a7" rx="5" ry="5"/>
+  
+  <!-- 玩家城堡 -->
+  <rect x="70" y="110" width="40" height="40" fill="#5d4037" stroke="#3e2723" stroke-width="2" rx="3" ry="3"/>
+  
+  <!-- 玩家单位 -->
+  <circle cx="130" cy="130" r="10" fill="#2196f3" stroke="#1976d2" stroke-width="2"/>
+  <circle cx="150" cy="130" r="10" fill="#2196f3" stroke="#1976d2" stroke-width="2"/>
+  <circle cx="170" cy="130" r="10" fill="#2196f3" stroke="#1976d2" stroke-width="2"/>
+  <circle cx="130" cy="150" r="10" fill="#2196f3" stroke="#1976d2" stroke-width="2"/>
+  
+  <!-- 战斗爆炸效果 -->
+  <circle cx="200" cy="130" r="15" fill="#ff9800" opacity="0.7"/>
+  <circle cx="200" cy="130" r="8" fill="#ffeb3b" opacity="0.9"/>
+  
+  <!-- 敌人单位 -->
+  <circle cx="230" cy="110" r="10" fill="#f44336" stroke="#d32f2f" stroke-width="2"/>
+  <circle cx="250" cy="110" r="10" fill="#f44336" stroke="#d32f2f" stroke-width="2"/>
+  <circle cx="230" cy="130" r="10" fill="#f44336" stroke="#d32f2f" stroke-width="2"/>
+  
+  <!-- 敌人城堡 -->
+  <rect x="290" y="110" width="40" height="40" fill="#f44336" stroke="#d32f2f" stroke-width="2" rx="3" ry="3"/>
+  
+  <!-- 点缀的小树 -->
+  <circle cx="70" cy="80" r="8" fill="#66bb6a"/>
+  <circle cx="85" cy="80" r="6" fill="#66bb6a"/>
+  <circle cx="330" cy="80" r="8" fill="#66bb6a"/>
+  <circle cx="315" cy="80" r="6" fill="#66bb6a"/>
+  
+  <!-- 水域 -->
+  <rect x="120" y="180" width="160" height="20" fill="#90caf9" rx="5" ry="5"/>
+  
+  <!-- 装饰性图标 -->
+  <g transform="translate(175, 220)">
+    <path d="M10,0 L20,17.3 L0,17.3 Z" fill="#a1887f"/>
+    <path d="M30,0 L40,17.3 L20,17.3 Z" fill="#a1887f"/>
+    <path d="M50,0 L60,17.3 L40,17.3 Z" fill="#a1887f"/>
+  </g>
+</svg> 

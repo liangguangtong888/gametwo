@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Master Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background: url('court.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #basket {
+            position: absolute;
+            top: 100px;
+            right: 50px;
+            width: 100px;
+            height: 80px;
+            background: url('basket.png') no-repeat center center;
+            background-size: contain;
+            z-index: 5;
+        }
+        
+        #ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('ball.png') no-repeat center center;
+            background-size: contain;
+            z-index: 10;
+            cursor: grab;
+        }
+        
+        #score-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 15;
+        }
+        
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 15;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #ff7e5f;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: #feb47b;
+            transform: translateY(-3px);
+        }
+        
+        #game-over {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            color: white;
+            display: none;
+        }
+        
+        #game-over h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        #final-score {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+        
+        #restart {
+            padding: 15px 30px;
+            background: #ff7e5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #restart:hover {
+            background: #feb47b;
+            transform: translateY(-3px);
+        }
+        
+        /* 创建篮球场虚拟元素 */
+        #court {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #b85e48;
+            z-index: 1;
+        }
+        
+        #court::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        #court::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        #timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 15;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="court"></div>
+        <div id="basket"></div>
+        <div id="ball"></div>
+        <div id="score-container">分数: <span id="score">0</span></div>
+        <div id="timer">时间: <span id="time">60</span>秒</div>
+        <div id="controls">
+            <button id="shoot" class="control-btn">投球</button>
+            <button id="reset" class="control-btn">重置</button>
+        </div>
+        <div id="game-over">
+            <h2>游戏结束!</h2>
+            <div id="final-score">最终分数: 0</div>
+            <button id="restart">再来一次</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const ball = document.getElementById('ball');
+            const basket = document.getElementById('basket');
+            const scoreElement = document.getElementById('score');
+            const timeElement = document.getElementById('time');
+            const gameOver = document.getElementById('game-over');
+            const finalScoreElement = document.getElementById('final-score');
+            const restartBtn = document.getElementById('restart');
+            const shootBtn = document.getElementById('shoot');
+            const resetBtn = document.getElementById('reset');
+            
+            // 游戏状态
+            let score = 0;
+            let timeLeft = 60;
+            let isDragging = false;
+            let isAnimating = false;
+            let timer;
+            let ballPos = { x: 150, y: 400 };
+            let lastX, lastY;
+            
+            // 初始化球的位置
+            resetBall();
+            
+            // 开始游戏计时器
+            startTimer();
+            
+            // 拖拽功能
+            ball.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+            
+            // 触摸屏支持
+            ball.addEventListener('touchstart', handleTouchStart);
+            document.addEventListener('touchmove', handleTouchMove);
+            document.addEventListener('touchend', handleTouchEnd);
+            
+            // 按钮事件
+            shootBtn.addEventListener('click', shootBall);
+            resetBtn.addEventListener('click', resetBall);
+            restartBtn.addEventListener('click', restartGame);
+            
+            // 拖拽开始
+            function startDrag(e) {
+                if (isAnimating) return;
+                isDragging = true;
+                lastX = e.clientX;
+                lastY = e.clientY;
+                ball.style.cursor = 'grabbing';
+            }
+            
+            // 拖拽中
+            function drag(e) {
+                if (!isDragging || isAnimating) return;
+                
+                const dx = e.clientX - lastX;
+                const dy = e.clientY - lastY;
+                
+                ballPos.x += dx;
+                ballPos.y += dy;
+                
+                // 限制球在容器内
+                ballPos.x = Math.max(0, Math.min(ballPos.x, 750));
+                ballPos.y = Math.max(100, Math.min(ballPos.y, 550));
+                
+                updateBallPosition();
+                
+                lastX = e.clientX;
+                lastY = e.clientY;
+            }
+            
+            // 拖拽结束
+            function endDrag() {
+                isDragging = false;
+                ball.style.cursor = 'grab';
+            }
+            
+            // 触摸事件处理
+            function handleTouchStart(e) {
+                e.preventDefault();
+                if (isAnimating) return;
+                
+                const touch = e.touches[0];
+                isDragging = true;
+                lastX = touch.clientX;
+                lastY = touch.clientY;
+            }
+            
+            function handleTouchMove(e) {
+                if (!isDragging || isAnimating) return;
+                e.preventDefault();
+                
+                const touch = e.touches[0];
+                const dx = touch.clientX - lastX;
+                const dy = touch.clientY - lastY;
+                
+                ballPos.x += dx;
+                ballPos.y += dy;
+                
+                // 限制球在容器内
+                ballPos.x = Math.max(0, Math.min(ballPos.x, 750));
+                ballPos.y = Math.max(100, Math.min(ballPos.y, 550));
+                
+                updateBallPosition();
+                
+                lastX = touch.clientX;
+                lastY = touch.clientY;
+            }
+            
+            function handleTouchEnd(e) {
+                isDragging = false;
+            }
+            
+            // 更新球位置
+            function updateBallPosition() {
+                ball.style.left = `${ballPos.x}px`;
+                ball.style.top = `${ballPos.y}px`;
+            }
+            
+            // 投球
+            function shootBall() {
+                if (isAnimating) return;
+                isAnimating = true;
+                
+                // 球的初始位置
+                const startX = ballPos.x;
+                const startY = ballPos.y;
+                
+                // 篮筐位置
+                const basketRect = basket.getBoundingClientRect();
+                const gameContainerRect = document.getElementById('game-container').getBoundingClientRect();
+                const targetX = basketRect.left + basketRect.width/2 - gameContainerRect.left - 25;
+                const targetY = basketRect.top + basketRect.height/2 - gameContainerRect.top - 25;
+                
+                // 抛物线动画
+                const animationDuration = 1000; // 1秒
+                const startTime = Date.now();
+                
+                function animate() {
+                    const currentTime = Date.now();
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / animationDuration, 1);
+                    
+                    // 计算抛物线路径
+                    // x = startX + (targetX - startX) * progress
+                    // y = startY + (targetY - startY) * progress - sin(progress * PI) * 200
+                    const x = startX + (targetX - startX) * progress;
+                    const y = startY + (targetY - startY) * progress - Math.sin(progress * Math.PI) * 200;
+                    
+                    ballPos.x = x;
+                    ballPos.y = y;
+                    updateBallPosition();
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        // 检查是否命中
+                        checkScore();
+                        isAnimating = false;
+                        // 一秒后重置球
+                        setTimeout(resetBall, 1000);
+                    }
+                }
+                
+                animate();
+            }
+            
+            // 检查得分
+            function checkScore() {
+                // 篮筐位置
+                const basketRect = basket.getBoundingClientRect();
+                const ballRect = ball.getBoundingClientRect();
+                
+                // 简单判断：球的中心是否在篮筐区域内
+                const ballCenterX = ballRect.left + ballRect.width/2;
+                const ballCenterY = ballRect.top + ballRect.height/2;
+                
+                if (
+                    ballCenterX > basketRect.left &&
+                    ballCenterX < basketRect.right &&
+                    ballCenterY > basketRect.top &&
+                    ballCenterY < basketRect.bottom
+                ) {
+                    // 得分
+                    score += 2;
+                    scoreElement.textContent = score;
+                    
+                    // 显示得分动画
+                    showScoreAnimation();
+                }
+            }
+            
+            // 显示得分动画
+            function showScoreAnimation() {
+                const scoreAnim = document.createElement('div');
+                scoreAnim.textContent = '+2';
+                scoreAnim.style.position = 'absolute';
+                scoreAnim.style.left = `${basket.offsetLeft + 50}px`;
+                scoreAnim.style.top = `${basket.offsetTop}px`;
+                scoreAnim.style.color = '#FFD700';
+                scoreAnim.style.fontSize = '28px';
+                scoreAnim.style.fontWeight = 'bold';
+                scoreAnim.style.zIndex = '30';
+                scoreAnim.style.transition = 'all 1s ease-out';
+                
+                document.getElementById('game-container').appendChild(scoreAnim);
+                
+                // 开始动画
+                setTimeout(() => {
+                    scoreAnim.style.transform = 'translateY(-50px)';
+                    scoreAnim.style.opacity = '0';
+                }, 10);
+                
+                // 动画完成后移除元素
+                setTimeout(() => {
+                    scoreAnim.remove();
+                }, 1000);
+            }
+            
+            // 重置球位置
+            function resetBall() {
+                ballPos.x = 150;
+                ballPos.y = 400;
+                updateBallPosition();
+                isAnimating = false;
+            }
+            
+            // 开始计时器
+            function startTimer() {
+                timer = setInterval(() => {
+                    timeLeft--;
+                    timeElement.textContent = timeLeft;
+                    
+                    if (timeLeft <= 0) {
+                        endGame();
+                    }
+                }, 1000);
+            }
+            
+            // 结束游戏
+            function endGame() {
+                clearInterval(timer);
+                isAnimating = true;
+                gameOver.style.display = 'flex';
+                finalScoreElement.textContent = `最终分数: ${score}`;
+            }
+            
+            // 重新开始游戏
+            function restartGame() {
+                score = 0;
+                timeLeft = 60;
+                scoreElement.textContent = score;
+                timeElement.textContent = timeLeft;
+                gameOver.style.display = 'none';
+                resetBall();
+                isAnimating = false;
+                
+                // 重新开始计时器
+                clearInterval(timer);
+                startTimer();
+            }
+            
+            // 模拟篮球图像（如果没有图像资源）
+            function createBasketballImages() {
+                // 创建篮球图像
+                const ballCanvas = document.createElement('canvas');
+                ballCanvas.width = 50;
+                ballCanvas.height = 50;
+                const ballCtx = ballCanvas.getContext('2d');
+                
+                // 绘制篮球
+                ballCtx.fillStyle = '#ff7e5f';
+                ballCtx.beginPath();
+                ballCtx.arc(25, 25, 25, 0, Math.PI * 2);
+                ballCtx.fill();
+                
+                // 绘制线条
+                ballCtx.strokeStyle = 'black';
+                ballCtx.lineWidth = 2;
+                ballCtx.beginPath();
+                ballCtx.arc(25, 25, 20, 0, Math.PI * 2);
+                ballCtx.stroke();
+                
+                ballCtx.beginPath();
+                ballCtx.moveTo(5, 25);
+                ballCtx.lineTo(45, 25);
+                ballCtx.stroke();
+                
+                ballCtx.beginPath();
+                ballCtx.moveTo(25, 5);
+                ballCtx.lineTo(25, 45);
+                ballCtx.stroke();
+                
+                // 设置球的背景
+                ball.style.backgroundImage = `url(${ballCanvas.toDataURL()})`;
+                
+                // 创建篮筐图像
+                const basketCanvas = document.createElement('canvas');
+                basketCanvas.width = 100;
+                basketCanvas.height = 80;
+                const basketCtx = basketCanvas.getContext('2d');
+                
+                // 绘制篮板
+                basketCtx.fillStyle = '#FFFFFF';
+                basketCtx.fillRect(0, 0, 80, 60);
+                
+                // 绘制篮圈
+                basketCtx.strokeStyle = '#FF4500';
+                basketCtx.lineWidth = 3;
+                basketCtx.beginPath();
+                basketCtx.arc(40, 50, 20, 0, Math.PI * 2);
+                basketCtx.stroke();
+                
+                // 设置篮筐的背景
+                basket.style.backgroundImage = `url(${basketCanvas.toDataURL()})`;
+            }
+            
+            // 创建虚拟图像
+            createBasketballImages();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racing Dash Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+        
+        .game-container {
+            max-width: 800px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .controls {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        
+        .controls h3 {
+            margin-top: 0;
+        }
+        
+        .game-area {
+            width: 700px;
+            height: 400px;
+            background: #333;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        
+        .car {
+            width: 60px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            background-image: url('assets/car.svg');
+            background-size: cover;
+            z-index: 10;
+        }
+        
+        .road {
+            height: 100%;
+            width: 60%;
+            margin: 0 auto;
+            background: #666;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        
+        .line {
+            position: absolute;
+            width: 10px;
+            height: 50px;
+            background: white;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -50px;
+        }
+        
+        .obstacle {
+            position: absolute;
+            width: 50px;
+            height: 80px;
+            background: blue;
+            border-radius: 5px;
+            top: -80px;
+        }
+        
+        .score-display {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background: rgba(0,0,0,0.7);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 20;
+        }
+        
+        .start-btn {
+            padding: 12px 30px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .start-btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Racing Dash</h1>
+        <p>Use the left and right arrow keys to control the car, avoid obstacles! Ready to start racing?</p>
+        
+        <div class="controls">
+            <h3>Game Controls:</h3>
+            <p>← Left | → Right | Space Accelerate</p>
+        </div>
+        
+        <div class="game-area">
+            <div class="road">
+                <div class="line"></div>
+            </div>
+            <div class="car"></div>
+            <div class="score-display">Score: <span id="score">0</span></div>
+        </div>
+        
+        <button class="start-btn" id="startButton">Start Game</button>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startButton = document.getElementById('startButton');
+            const scoreDisplay = document.getElementById('score');
+            const car = document.querySelector('.car');
+            const road = document.querySelector('.road');
+            const gameArea = document.querySelector('.game-area');
+            
+            let gameStarted = false;
+            let carPosition = 50; // 百分比位置
+            let score = 0;
+            let speed = 5;
+            let roadLines = [];
+            let obstacles = [];
+            let keys = {};
+            
+            // 注册键盘事件
+            document.addEventListener('keydown', function(e) {
+                keys[e.key] = true;
+            });
+            
+            document.addEventListener('keyup', function(e) {
+                keys[e.key] = false;
+            });
+            
+            startButton.addEventListener('click', startGame);
+            
+            function startGame() {
+                if (gameStarted) return;
+                
+                gameStarted = true;
+                score = 0;
+                scoreDisplay.textContent = score;
+                carPosition = 50;
+                speed = 5;
+                roadLines = [];
+                obstacles = [];
+                
+                startButton.disabled = true;
+                startButton.textContent = 'Game in progress...';
+                
+                // Start game loop
+                requestAnimationFrame(gameLoop);
+                
+                // Generate road lines periodically
+                setInterval(createRoadLine, 200);
+                
+                // Generate obstacles periodically
+                setInterval(createObstacle, 2000);
+                
+                // Increase score periodically
+                const scoreInterval = setInterval(function() {
+                    if (gameStarted) {
+                        score += 1;
+                        scoreDisplay.textContent = score;
+                        
+                        // Increase speed based on score
+                        if (score % 20 === 0) {
+                            speed += 0.5;
+                        }
+                    } else {
+                        clearInterval(scoreInterval);
+                    }
+                }, 1000);
+            }
+            
+            function createRoadLine() {
+                if (!gameStarted) return;
+                
+                const line = document.createElement('div');
+                line.classList.add('line');
+                road.appendChild(line);
+                roadLines.push({
+                    element: line,
+                    position: -50 // 初始位置在道路上方
+                });
+            }
+            
+            function createObstacle() {
+                if (!gameStarted) return;
+                
+                const obstacle = document.createElement('div');
+                obstacle.classList.add('obstacle');
+                
+                // 随机位置
+                const position = Math.random() * 60 + 20; // 20% - 80%的位置
+                obstacle.style.left = `${position}%`;
+                
+                gameArea.appendChild(obstacle);
+                obstacles.push({
+                    element: obstacle,
+                    position: -80, // 初始纵向位置
+                    horizontalPosition: position
+                });
+            }
+            
+            function endGame() {
+                if (!gameStarted) return;
+                
+                gameStarted = false;
+                startButton.disabled = false;
+                startButton.textContent = 'Try Again';
+                
+                alert(`Game Over! Your score is: ${score}`);
+                
+                // Clean up all obstacles and road lines
+                obstacles.forEach(function(obstacle) {
+                    if (obstacle.element.parentNode) {
+                        obstacle.element.parentNode.removeChild(obstacle.element);
+                    }
+                });
+                
+                roadLines.forEach(function(line) {
+                    if (line.element.parentNode) {
+                        line.element.parentNode.removeChild(line.element);
+                    }
+                });
+                
+                obstacles = [];
+                roadLines = [];
+            }
+            
+            function checkCollision() {
+                // Check for collision with obstacles
+                obstacles.forEach(function(obstacle) {
+                    // Check if car and obstacle are close enough to collide
+                    if (
+                        obstacle.position > gameArea.offsetHeight - 120 &&
+                        obstacle.position < gameArea.offsetHeight - 20 &&
+                        Math.abs(obstacle.horizontalPosition - carPosition) < 10
+                    ) {
+                        endGame();
+                    }
+                });
+            }
+            
+            function gameLoop() {
+                if (!gameStarted) return;
+                
+                // 处理按键输入
+                if (keys['ArrowLeft'] && carPosition > 20) {
+                    carPosition -= 2;
+                }
+                
+                if (keys['ArrowRight'] && carPosition < 80) {
+                    carPosition += 2;
+                }
+                
+                // 应用加速
+                if (keys[' ']) {
+                    speed = 8;
+                } else {
+                    speed = 5;
+                }
+                
+                // 更新车的位置
+                car.style.left = `${carPosition}%`;
+                
+                // 更新道路线位置
+                roadLines.forEach(function(line, index) {
+                    line.position += speed;
+                    line.element.style.top = `${line.position}px`;
+                    
+                    // 如果线移出视图，则移除它
+                    if (line.position > 400) {
+                        if (line.element.parentNode) {
+                            line.element.parentNode.removeChild(line.element);
+                        }
+                        roadLines.splice(index, 1);
+                    }
+                });
+                
+                // Update obstacle positions
+                obstacles.forEach(function(obstacle, index) {
+                    obstacle.position += speed;
+                    obstacle.element.style.top = `${obstacle.position}px`;
+                    
+                    // If obstacle moves out of view, remove it
+                    if (obstacle.position > 400) {
+                        if (obstacle.element.parentNode) {
+                            obstacle.element.parentNode.removeChild(obstacle.element);
+                        }
+                        obstacles.splice(index, 1);
+                    }
+                });
+                
+                // Check for collisions
+                checkCollision();
+                
+                // Continue game loop
+                requestAnimationFrame(gameLoop);
+            }
+        });
+    </script>
+</body>
+</html> 

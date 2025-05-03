@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire War Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cinzel', 'Arial', sans-serif;
+            overflow: hidden;
+            background-color: #e8e0d5;
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .resources-bar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(93, 64, 55, 0.8);
+            border: 2px solid #8d6e63;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            z-index: 100;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .resource {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .resource i {
+            font-size: 16px;
+            color: #ffca28;
+        }
+        
+        .minimap {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 180px;
+            height: 180px;
+            background: rgba(93, 64, 55, 0.7);
+            border: 2px solid #8d6e63;
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 100;
+        }
+        
+        .minimap-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .units-panel {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(93, 64, 55, 0.8);
+            border: 2px solid #8d6e63;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .unit-btn {
+            width: 40px;
+            height: 40px;
+            background: #a1887f;
+            border: 1px solid #8d6e63;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: white;
+            transition: all 0.2s ease;
+        }
+        
+        .unit-btn:hover {
+            background: #8d6e63;
+            transform: scale(1.05);
+        }
+        
+        .unit-btn.active {
+            background: #6d4c41;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        
+        .game-map {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .tile {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background-color: #e8e0d5;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .tile.grass {
+            background-color: #a5d6a7;
+        }
+        
+        .tile.water {
+            background-color: #90caf9;
+        }
+        
+        .tile.mountain {
+            background-color: #bcaaa4;
+        }
+        
+        .tile.forest {
+            background-color: #66bb6a;
+        }
+        
+        .tile:hover {
+            filter: brightness(1.1);
+        }
+        
+        .building {
+            position: absolute;
+            z-index: 10;
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .building.castle {
+            background-color: #5d4037;
+            border: 2px solid #3e2723;
+            border-radius: 5px;
+        }
+        
+        .building.barracks {
+            background-color: #795548;
+            border: 2px solid #4e342e;
+            border-radius: 3px;
+        }
+        
+        .building.mine {
+            background-color: #9e9e9e;
+            border: 2px solid #757575;
+            border-radius: 50%;
+        }
+        
+        .building.farm {
+            background-color: #8bc34a;
+            border: 2px solid #689f38;
+            border-radius: 3px;
+        }
+        
+        .unit {
+            position: absolute;
+            z-index: 20;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #f44336;
+            border: 2px solid #d32f2f;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .unit.player {
+            background-color: #2196f3;
+            border: 2px solid #1976d2;
+        }
+        
+        .unit:hover {
+            transform: scale(1.1);
+        }
+        
+        .unit.selected {
+            box-shadow: 0 0 10px #ffca28;
+        }
+        
+        .game-hud {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(93, 64, 55, 0.8);
+            border: 2px solid #8d6e63;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            z-index: 100;
+        }
+        
+        .game-hud h3 {
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #5d4037;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            color: white;
+        }
+        
+        .loading-screen h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .loading-bar {
+            width: 300px;
+            height: 20px;
+            background-color: #3e2723;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #8d6e63, #a1887f);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .start-button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #795548, #a1887f);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .build-menu {
+            position: absolute;
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(93, 64, 55, 0.9);
+            border: 2px solid #8d6e63;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 200;
+        }
+        
+        .build-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .build-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .build-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+        }
+        
+        .build-info {
+            color: white;
+            font-size: 14px;
+        }
+        
+        .build-name {
+            font-weight: bold;
+        }
+        
+        .build-cost {
+            font-size: 12px;
+            color: #ffcc80;
+        }
+        
+        .message-box {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(93, 64, 55, 0.9);
+            border: 2px solid #8d6e63;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 300;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .message-box.visible {
+            opacity: 1;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="loading-screen">
+            <h2>Empire War</h2>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <button class="start-button">Start Game</button>
+        </div>
+        
+        <div class="resources-bar">
+            <div class="resource">
+                <i class="fas fa-coins"></i>
+                <span id="gold">500</span>
+            </div>
+            <div class="resource">
+                <i class="fas fa-wheat"></i>
+                <span id="food">200</span>
+            </div>
+            <div class="resource">
+                <i class="fas fa-hammer"></i>
+                <span id="wood">300</span>
+            </div>
+            <div class="resource">
+                <i class="fas fa-user"></i>
+                <span id="population">5/10</span>
+            </div>
+        </div>
+        
+        <div class="game-hud">
+            <h3>Empire Status</h3>
+            <p>Click on the map to move or build.</p>
+            <p>Use the units panel to create troops.</p>
+            <div id="selection-info"></div>
+        </div>
+        
+        <div class="minimap">
+            <canvas class="minimap-canvas" id="minimap"></canvas>
+        </div>
+        
+        <div class="units-panel">
+            <div class="unit-btn" data-unit="warrior" title="Warrior (100 gold, 50 food)">⚔️</div>
+            <div class="unit-btn" data-unit="archer" title="Archer (120 gold, 40 food)">🏹</div>
+            <div class="unit-btn" data-unit="cavalry" title="Cavalry (200 gold, 80 food)">🐎</div>
+            <div class="unit-btn" data-unit="catapult" title="Catapult (300 gold, 100 wood)">⚙️</div>
+            <div class="unit-btn" data-building="true" title="Build">🏗️</div>
+        </div>
+        
+        <div class="build-menu" id="build-menu">
+            <div class="build-option" data-building="castle">
+                <div class="build-icon" style="background-color: #5d4037;"></div>
+                <div class="build-info">
+                    <div class="build-name">Castle</div>
+                    <div class="build-cost">300 gold, 200 wood</div>
+                </div>
+            </div>
+            <div class="build-option" data-building="barracks">
+                <div class="build-icon" style="background-color: #795548;"></div>
+                <div class="build-info">
+                    <div class="build-name">Barracks</div>
+                    <div class="build-cost">150 gold, 100 wood</div>
+                </div>
+            </div>
+            <div class="build-option" data-building="mine">
+                <div class="build-icon" style="background-color: #9e9e9e;"></div>
+                <div class="build-info">
+                    <div class="build-name">Mine</div>
+                    <div class="build-cost">100 gold, 50 wood</div>
+                </div>
+            </div>
+            <div class="build-option" data-building="farm">
+                <div class="build-icon" style="background-color: #8bc34a;"></div>
+                <div class="build-info">
+                    <div class="build-name">Farm</div>
+                    <div class="build-cost">50 gold, 100 wood</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="message-box" id="message-box"></div>
+        
+        <div class="game-map" id="game-map"></div>
+    </div>
+    
+    <script>
+        // 游戏代码将在scripts.js文件中实现
+    </script>
+    <script src="scripts.js"></script>
+</body>
+</html> 

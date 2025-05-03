@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A2B5B"/>
+      <stop offset="100%" stop-color="#7B3AAF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+    </filter>
+  </defs>
+  
+  <rect width="300" height="180" fill="url(#bgGradient)"/>
+  
+  <!-- 游戏标题 -->
+  <text x="150" y="40" font-family="Arial" font-size="18" fill="white" text-anchor="middle" font-weight="bold">Monster Quest</text>
+  
+  <!-- 背景元素 -->
+  <circle cx="70" cy="140" r="30" fill="#AF52DE" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="230" cy="140" r="30" fill="#AF52DE" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="150" cy="160" r="40" fill="#AF52DE" opacity="0.2" filter="url(#glow)"/>
+  
+  <!-- 城堡 -->
+  <rect x="130" y="70" width="40" height="50" fill="#4A2B5B"/>
+  <rect x="120" y="70" width="60" height="10" fill="#4A2B5B"/>
+  <rect x="125" y="60" width="50" height="10" fill="#4A2B5B"/>
+  <rect x="110" y="120" width="80" height="20" fill="#4A2B5B"/>
+  
+  <!-- 城堡塔楼 -->
+  <rect x="120" y="50" width="10" height="20" fill="#4A2B5B"/>
+  <rect x="140" y="40" width="20" height="30" fill="#4A2B5B"/>
+  <rect x="170" y="50" width="10" height="20" fill="#4A2B5B"/>
+  
+  <!-- 城堡门 -->
+  <rect x="140" y="105" width="20" height="35" fill="#2F1D3A"/>
+  
+  <!-- 城堡窗户 -->
+  <rect x="135" y="80" width="10" height="15" fill="#AF52DE" opacity="0.7"/>
+  <rect x="155" y="80" width="10" height="15" fill="#AF52DE" opacity="0.7"/>
+  
+  <!-- 怪物 -->
+  <circle cx="70" cy="100" r="15" fill="#FF3B30"/>
+  <circle cx="63" cy="95" r="3" fill="white"/>
+  <circle cx="77" cy="95" r="3" fill="white"/>
+  <path d="M65 105 L75 105" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M70 85 L70 75 L65 70" stroke="#FF3B30" stroke-width="2" fill="none"/>
+  <path d="M70 85 L70 75 L75 70" stroke="#FF3B30" stroke-width="2" fill="none"/>
+  
+  <circle cx="230" cy="100" r="15" fill="#34C759"/>
+  <circle cx="223" cy="95" r="3" fill="white"/>
+  <circle cx="237" cy="95" r="3" fill="white"/>
+  <path d="M225 105 L235 105" stroke="white" stroke-width="2" fill="none"/>
+  <path d="M230 85 L230 75 L225 70" stroke="#34C759" stroke-width="2" fill="none"/>
+  <path d="M230 85 L230 75 L235 70" stroke="#34C759" stroke-width="2" fill="none"/>
+</svg> 

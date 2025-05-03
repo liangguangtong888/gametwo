@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <!-- Background -->
+  <rect width="300" height="200" fill="#f8f9fa" rx="10" ry="10" />
+  
+  <!-- Title -->
+  <text x="150" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="#333">Maze Adventure</text>
+  
+  <!-- Maze Graphic -->
+  <g transform="translate(50, 50)">
+    <!-- Maze Border -->
+    <rect x="0" y="0" width="200" height="120" fill="#fff" stroke="#333" stroke-width="4" />
+    
+    <!-- Maze Walls - Horizontal Lines -->
+    <line x1="0" y1="30" x2="140" y2="30" stroke="#333" stroke-width="4" />
+    <line x1="60" y1="60" x2="200" y2="60" stroke="#333" stroke-width="4" />
+    <line x1="0" y1="90" x2="140" y2="90" stroke="#333" stroke-width="4" />
+    
+    <!-- Maze Walls - Vertical Lines -->
+    <line x1="40" y1="0" x2="40" y2="90" stroke="#333" stroke-width="4" />
+    <line x1="80" y1="30" x2="80" y2="120" stroke="#333" stroke-width="4" />
+    <line x1="120" y1="0" x2="120" y2="90" stroke="#333" stroke-width="4" />
+    <line x1="160" y1="30" x2="160" y2="120" stroke="#333" stroke-width="4" />
+    
+    <!-- Start Point (Blue Circle) -->
+    <circle cx="20" cy="15" r="8" fill="#0d6efd" />
+    
+    <!-- End Point (Flag) -->
+    <text x="180" y="105" font-family="Arial, sans-serif" font-size="16" fill="#28a745">🏁</text>
+    
+    <!-- Key -->
+    <text x="60" y="75" font-family="Arial, sans-serif" font-size="16" fill="#ffc107">🔑</text>
+    
+    <!-- Door -->
+    <text x="140" y="45" font-family="Arial, sans-serif" font-size="16" fill="#6c757d">🚪</text>
+    
+    <!-- Trap -->
+    <text x="100" y="105" font-family="Arial, sans-serif" font-size="16" fill="#dc3545">💀</text>
+  </g>
+</svg> 

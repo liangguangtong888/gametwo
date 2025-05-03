@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <!-- 背景 - 足球场 -->
+  <rect width="300" height="200" fill="#4CAF50"/>
+  
+  <!-- 足球场线条 -->
+  <rect x="10" y="10" width="280" height="180" stroke="white" stroke-width="2" fill="none"/>
+  <circle cx="150" cy="100" r="40" stroke="white" stroke-width="2" fill="none"/>
+  <line x1="150" y1="10" x2="150" y2="190" stroke="white" stroke-width="2"/>
+  
+  <!-- 足球 -->
+  <circle cx="150" cy="135" r="25" fill="white" stroke="#333" stroke-width="1"/>
+  <path d="M150,110 L165,125 L155,155 L145,155 L135,125 Z" fill="#333"/>
+  <path d="M165,125 L185,135 L155,155 Z" fill="#333"/>
+  <path d="M135,125 L115,135 L145,155 Z" fill="#333"/>
+  
+  <!-- 球员剪影 -->
+  <path d="M150,70 C155,70 160,75 160,80 L155,95 C155,100 145,100 145,95 L140,80 C140,75 145,70 150,70 Z" fill="#1E88E5"/>
+  <rect x="145" y="95" width="10" height="20" fill="#1E88E5"/>
+  <rect x="140" y="115" width="5" height="10" fill="#1E88E5"/>
+  <rect x="155" y="115" width="5" height="10" fill="#1E88E5"/>
+  
+  <!-- 星星效果 -->
+  <path d="M50,30 L55,40 L65,42 L58,50 L60,60 L50,55 L40,60 L42,50 L35,42 L45,40 Z" fill="#FFD700"/>
+  <path d="M250,30 L255,40 L265,42 L258,50 L260,60 L250,55 L240,60 L242,50 L235,42 L245,40 Z" fill="#FFD700"/>
+  <path d="M250,150 L255,160 L265,162 L258,170 L260,180 L250,175 L240,180 L242,170 L235,162 L245,160 Z" fill="#FFD700"/>
+  
+  <!-- 游戏标题 -->
+  <rect x="0" y="0" width="300" height="40" fill="rgba(0,0,0,0.5)"/>
+  <text x="150" y="25" font-family="Arial" font-size="18" font-weight="bold" fill="white" text-anchor="middle">SOCCER STAR</text>
+</svg> 

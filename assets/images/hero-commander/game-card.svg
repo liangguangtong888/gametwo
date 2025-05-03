@@ -1,0 +1,27 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="300" height="200" fill="#773300" />
+  
+  <!-- 装饰图案 - 地图背景 -->
+  <path d="M0,0 L300,0 L300,200 L0,200 Z" fill="#8B4513" opacity="0.7" />
+  <path d="M30,30 C70,10 120,50 180,20 C240,60 280,40 300,80 L300,200 L0,200 L0,100 C20,70 50,80 30,30 Z" fill="#6B3E1F" opacity="0.8" />
+  
+  <!-- 装饰元素 - 指南针图案 -->
+  <circle cx="150" cy="100" r="50" fill="#8B4513" stroke="#FFCC00" stroke-width="2" />
+  <line x1="150" y1="50" x2="150" y2="150" stroke="#FFCC00" stroke-width="3" />
+  <line x1="100" y1="100" x2="200" y2="100" stroke="#FFCC00" stroke-width="3" />
+  <line x1="115" y1="65" x2="185" y2="135" stroke="#FFCC00" stroke-width="2" />
+  <line x1="115" y1="135" x2="185" y2="65" stroke="#FFCC00" stroke-width="2" />
+  
+  <!-- 英雄图标 -->
+  <rect x="135" y="85" width="30" height="30" fill="#FFCC00" />
+  <circle cx="150" cy="75" r="20" fill="#8B4513" stroke="#FFCC00" stroke-width="2" />
+  <path d="M140,70 L160,70 L150,85 Z" fill="#FFCC00" /> <!-- 头盔 -->
+  
+  <!-- 剑和盾牌 -->
+  <rect x="75" y="90" width="40" height="5" rx="2" fill="#FFCC00" transform="rotate(-45, 75, 90)" /> <!-- 剑 -->
+  <path d="M200,100 C210,90 220,100 215,110 C205,120 195,110 200,100 Z" fill="#FFCC00" stroke="#8B4513" stroke-width="1" /> <!-- 盾牌 -->
+  
+  <!-- 游戏名称 -->
+  <text x="150" y="180" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#FFCC00" text-anchor="middle">Hero Commander</text>
+</svg> 

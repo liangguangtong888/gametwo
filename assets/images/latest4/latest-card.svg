@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A0E61"/>
+      <stop offset="100%" stop-color="#1B063B"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+    </filter>
+  </defs>
+  
+  <rect width="300" height="180" fill="url(#bgGradient)"/>
+  
+  <!-- 新游戏标识 -->
+  <rect x="10" y="10" width="50" height="25" rx="5" ry="5" fill="#FF3B30"/>
+  <text x="35" y="27" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">NEW</text>
+  
+  <text x="150" y="50" font-family="Arial" font-size="18" fill="white" text-anchor="middle" font-weight="bold">Monster Survivors</text>
+  
+  <!-- 怪物 -->
+  <circle cx="100" cy="110" r="25" fill="#AF52DE"/>
+  <circle cx="90" cy="100" r="5" fill="white"/>
+  <circle cx="110" cy="100" r="5" fill="white"/>
+  <path d="M90 120 L110 120" stroke="white" stroke-width="2" fill="none"/>
+  
+  <circle cx="200" cy="110" r="20" fill="#FF3B30"/>
+  <circle cx="190" cy="100" r="4" fill="white"/>
+  <circle cx="210" cy="100" r="4" fill="white"/>
+  <path d="M190 120 L210 120" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- 人物 -->
+  <circle cx="150" cy="100" r="15" fill="#5AC8FA"/>
+  <rect x="142" y="115" width="16" height="25" fill="#5AC8FA"/>
+  
+  <!-- 特效 -->
+  <circle cx="150" cy="100" r="40" fill="none" stroke="#5AC8FA" stroke-width="2" stroke-dasharray="5 3" opacity="0.5"/>
+  <circle cx="150" cy="100" r="60" fill="none" stroke="#5AC8FA" stroke-width="1" opacity="0.3"/>
+  
+  <!-- 光效 -->
+  <circle cx="100" cy="110" r="15" fill="#AF52DE" opacity="0.5" filter="url(#glow)"/>
+  <circle cx="200" cy="110" r="12" fill="#FF3B30" opacity="0.5" filter="url(#glow)"/>
+</svg> 

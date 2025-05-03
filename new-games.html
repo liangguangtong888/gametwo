@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Games - Latest Additions | LGT Games</title>
+    <meta name="description" content="Check out the newest games added to LGT Games. Fresh content daily with exciting new releases for all gaming preferences!">
+    <meta name="keywords" content="new games, latest games, fresh games, online games, free games">
+    <meta name="author" content="LGT Games">
+    <meta name="theme-color" content="#0d6efd">
+    
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="New Games - Latest Additions | LGT Games">
+    <meta property="og:description" content="Check out the newest games added to LGT Games. Fresh content daily!">
+    <meta property="og:image" content="assets/images/og-new-games.jpg">
+    <meta property="og:url" content="https://lgttwo.store/new-games.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="styles/main.css" as="style">
+    <link rel="preload" href="js/main.js" as="script">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* 热门新品部分的样式优化 */
+        .featured-new-games {
+            padding: 40px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .featured-new-games .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .featured-new-games .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #007aff;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .games-slider {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .slider-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+        
+        .game-slide {
+            flex: 0 0 calc(33.333% - 20px);
+            min-width: 280px;
+            max-width: 320px;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .game-slide:hover {
+            transform: translateY(-10px);
+        }
+        
+        .game-slide-image {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            height: 240px;
+            background-color: #121212;
+        }
+        
+        .game-slide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-slide:hover .game-slide-image img {
+            transform: scale(1.05);
+        }
+        
+        .game-slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.3), transparent);
+            color: white;
+            padding: 30px 20px 20px;
+            text-align: center;
+        }
+        
+        .game-slide-overlay h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .game-slide-overlay p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .game-slide-overlay .btn {
+            padding: 10px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            background-color: #007aff;
+            color: white;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .game-slide-overlay .btn:hover {
+            background-color: #0062cc;
+            transform: scale(1.05);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .game-slide-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        
+        .game-slide-controls button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #007aff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .game-slide-controls button:hover {
+            background-color: #0062cc;
+            transform: scale(1.1);
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 所有新游戏部分样式优化 */
+        .new-games-grid {
+            padding: 50px 0;
+            background-color: #fff;
+        }
+        
+        .new-games-grid .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .new-games-grid .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #007aff;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 0 auto;
+        }
+        
+        .game-card {
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .game-card-image {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            background-color: #121212;
+        }
+        
+        .game-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .game-card:hover .game-card-image img {
+            transform: scale(1.08);
+        }
+        
+        .game-card-new {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: #ff3b30;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .game-card-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .game-card-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .game-card-info p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .game-meta {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .game-rating {
+            display: flex;
+            align-items: center;
+            color: #ff9500;
+            font-weight: 600;
+        }
+        
+        .game-rating i {
+            margin-right: 5px;
+        }
+        
+        .play-btn {
+            text-align: center;
+            padding: 10px;
+            background-color: #007aff;
+            color: white;
+            border-radius: 25px;
+            font-weight: 500;
+            margin-top: auto;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .play-btn:hover {
+            background-color: #0062cc;
+            color: white;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .slider-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .game-slide {
+                flex: 0 0 100%;
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .featured-new-games .section-title,
+            .new-games-grid .section-title {
+                font-size: 24px;
+            }
+            
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            
+            .game-card-image {
+                height: 160px;
+            }
+        }
+        
+        /* 即将推出部分样式优化 */
+        .coming-soon {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .coming-soon .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .coming-soon .section-title:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: #007aff;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .coming-soon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .coming-soon-card {
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .coming-soon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .coming-soon-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            background-color: #121212;
+        }
+        
+        .coming-soon-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .coming-soon-card:hover .coming-soon-image img {
+            transform: scale(1.08);
+        }
+        
+        .coming-soon-label {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: #34c759;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 20px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+        
+        .coming-soon-info {
+            padding: 20px;
+        }
+        
+        .coming-soon-info h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .coming-soon-info p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #007aff, #5ac8fa);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            display: block;
+            text-align: right;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .slider-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .game-slide {
+                flex: 0 0 100%;
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .featured-new-games .section-title,
+            .new-games-grid .section-title,
+            .coming-soon .section-title {
+                font-size: 24px;
+            }
+            
+            .games-grid,
+            .coming-soon-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .games-grid,
+            .coming-soon-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            
+            .game-card-image,
+            .coming-soon-image {
+                height: 160px;
+            }
+        }
+        
+        /* 页脚样式优化 */
+        .footer-compact {
+            background-color: #f5f5f7;
+            padding-top: 50px;
+            border-top: 1px solid #e5e5ea;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            gap: 30px;
+        }
+        
+        .footer-col {
+            flex: 1 0 250px;
+        }
+        
+        .footer-col h3 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .footer-col p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .social-compact {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .social-compact a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-compact a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-compact a.facebook:hover { color: #1877f2; }
+        .social-compact a.twitter:hover { color: #1da1f2; }
+        .social-compact a.instagram:hover { color: #e1306c; }
+        .social-compact a.youtube:hover { color: #ff0000; }
+        .social-compact a.discord:hover { color: #5865f2; }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-links-group {
+            margin-bottom: 25px;
+        }
+        
+        .footer-links-group h4 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links-group h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background-color: #007aff;
+        }
+        
+        .footer-links-group ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links-group ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links-group ul li a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links-group ul li a:hover {
+            color: #007aff;
+        }
+        
+        .copyright {
+            background-color: #ebebeb;
+            padding: 20px 0;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .copyright p {
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .footer-col {
+                flex: 1 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>GameHaven</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="categories.html">Categories</a></li>
+                    <li><a href="ranking.html">Rankings</a></li>
+                    <li><a href="new-games.html" class="active">New Games</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" placeholder="Search games...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="new-games-banner">
+            <div class="container">
+                <h2>New Games</h2>
+                <p>Be the first to play our latest game releases and discover new favorites!</p>
+            </div>
+        </section>
+
+        <section class="featured-new-games">
+            <div class="container">
+                <h2 class="section-title">Hot New Releases</h2>
+                <div class="games-slider">
+                    <div class="slider-container">
+                        <div class="game-slide">
+                            <div class="game-slide-image">
+                                <img src="assets/images/featured1/featured-banner.svg" alt="Space Shooter">
+                                <div class="game-slide-overlay">
+                                    <h3>Space Shooter</h3>
+                                    <p>Defend against alien invaders in this classic arcade shooter!</p>
+                                    <a href="games/action/space-shooter/game-page.html" class="btn">Play Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-slide">
+                            <div class="game-slide-image">
+                                <img src="assets/images/featured2/featured-banner.svg" alt="Match Stars">
+                                <div class="game-slide-overlay">
+                                    <h3>Match Stars</h3>
+                                    <p>Match 3 or more stars in this addictive puzzle game!</p>
+                                    <a href="games/puzzle/match-stars/game-page.html" class="btn">Play Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-slide">
+                            <div class="game-slide-image">
+                                <img src="assets/images/featured3/featured-banner.svg" alt="Monster Survivors">
+                                <div class="game-slide-overlay">
+                                    <h3>Monster Survivors</h3>
+                                    <p>Survive the monster hordes in this roguelite adventure!</p>
+                                    <a href="games/action/monster-survivors/game-page.html" class="btn">Play Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-slide-controls">
+                        <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="new-games-grid">
+            <div class="container">
+                <h2 class="section-title">All New Games</h2>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/latest1.svg" alt="Space Shooter">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Space Shooter</h3>
+                            <p>Action, Arcade</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.5</span>
+                            </div>
+                            <a href="games/action/space-shooter/game-page.html" class="play-btn">Play Now</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/latest2.svg" alt="Match Stars">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Match Stars</h3>
+                            <p>Puzzle, Strategy</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.3</span>
+                            </div>
+                            <a href="games/puzzle/match-stars/game-page.html" class="play-btn">Play Now</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/latest3.svg" alt="Monster Survivors">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Monster Survivors</h3>
+                            <p>Action, Roguelite</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.9</span>
+                            </div>
+                            <a href="games/action/monster-survivors/game-page.html" class="play-btn">Play Now</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/game3.svg" alt="Racing Extreme">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Racing Extreme</h3>
+                            <p>Racing, Sports</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.2</span>
+                            </div>
+                            <a href="#" class="play-btn">Coming Soon</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/game4.svg" alt="Treasure Hunt">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Treasure Hunt</h3>
+                            <p>Adventure, Puzzle</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.0</span>
+                            </div>
+                            <a href="#" class="play-btn">Coming Soon</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/game5.svg" alt="Word Puzzle">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Word Puzzle</h3>
+                            <p>Puzzle, Educational</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 3.9</span>
+                            </div>
+                            <a href="#" class="play-btn">Coming Soon</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/game6.svg" alt="Tower Defense">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Tower Defense</h3>
+                            <p>Strategy, Tower Defense</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.1</span>
+                            </div>
+                            <a href="#" class="play-btn">Coming Soon</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/latest1.svg" alt="Farm Simulator">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Farm Simulator</h3>
+                            <p>Simulation, Casual</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.4</span>
+                            </div>
+                            <a href="#" class="play-btn">Coming Soon</a>
+                        </div>
+                    </div>
+
+                    <div class="game-card">
+                        <div class="game-card-image">
+                            <img src="assets/images/latest2.svg" alt="Zombie Apocalypse">
+                            <div class="game-card-new">NEW</div>
+                        </div>
+                        <div class="game-card-info">
+                            <h3>Zombie Apocalypse</h3>
+                            <p>Survival, Horror</p>
+                            <div class="game-meta">
+                                <span class="game-rating"><i class="fas fa-star"></i> 4.7</span>
+                            </div>
+                            <a href="#" class="play-btn">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="coming-soon">
+            <div class="container">
+                <h2 class="section-title">Coming Soon</h2>
+                <div class="coming-soon-grid">
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-image">
+                            <img src="assets/images/latest1.svg" alt="Medieval Battle">
+                            <div class="coming-soon-label">Coming Next Week</div>
+                        </div>
+                        <div class="coming-soon-info">
+                            <h3>Medieval Battle</h3>
+                            <p>Strategy, Historical</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%"></div>
+                            </div>
+                            <span class="progress-text">90% Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-image">
+                            <img src="assets/images/latest2.svg" alt="Space Explorer">
+                            <div class="coming-soon-label">Coming Soon</div>
+                        </div>
+                        <div class="coming-soon-info">
+                            <h3>Space Explorer</h3>
+                            <p>Adventure, Sci-Fi</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 75%"></div>
+                            </div>
+                            <span class="progress-text">75% Complete</span>
+                        </div>
+                    </div>
+
+                    <div class="coming-soon-card">
+                        <div class="coming-soon-image">
+                            <img src="assets/images/latest3.svg" alt="Cooking Master">
+                            <div class="coming-soon-label">Coming Soon</div>
+                        </div>
+                        <div class="coming-soon-info">
+                            <h3>Cooking Master</h3>
+                            <p>Simulation, Casual</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 60%"></div>
+                            </div>
+                            <span class="progress-text">60% Complete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="updates-section">
+            <div class="container">
+                <h2 class="section-title">Stay Updated</h2>
+                <div class="updates-content">
+                    <div class="updates-text">
+                        <p>Want to be the first to know when new games are added?</p>
+                        <p>Subscribe to our newsletter and never miss a release!</p>
+                    </div>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-compact">
+            <div class="footer-container">
+                <div class="footer-row">
+                    <div class="footer-col">
+                        <h3>GameHaven</h3>
+                        <p>The ultimate destination for free online games. Play thousands of high-quality games instantly!</p>
+                        <div class="social-compact">
+                            <a href="#" aria-label="Facebook" class="social-icon facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="16" height="16" fill="currentColor">
+                                    <path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Twitter" class="social-icon twitter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="currentColor">
+                                    <path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Instagram" class="social-icon instagram">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="16" height="16" fill="currentColor">
+                                    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="YouTube" class="social-icon youtube">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="16" height="16" fill="currentColor">
+                                    <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/>
+                                </svg>
+                            </a>
+                            <a href="#" aria-label="Discord" class="social-icon discord">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" width="16" height="16" fill="currentColor">
+                                    <path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="categories.html">Categories</a></li>
+                                <li><a href="ranking.html">Rankings</a></li>
+                                <li><a href="new-games.html">New Games</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Categories</h4>
+                            <ul>
+                                <li><a href="categories.html#action">Action</a></li>
+                                <li><a href="categories.html#adventure">Adventure</a></li>
+                                <li><a href="categories.html#puzzle">Puzzle</a></li>
+                                <li><a href="categories.html#strategy">Strategy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-col footer-links">
+                        <div class="footer-links-group">
+                            <h4>Support</h4>
+                            <ul>
+                                <li><a href="#">Contact Us</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 GameHaven. All Rights Reserved. | Play free games online!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // 热门新品滑块功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevButton = document.querySelector('.prev-btn');
+            const nextButton = document.querySelector('.next-btn');
+            const slides = document.querySelectorAll('.game-slide');
+            const sliderContainer = document.querySelector('.slider-container');
+            
+            if (prevButton && nextButton && slides.length > 0 && sliderContainer) {
+                let currentIndex = 0;
+                const slideCount = slides.length;
+                
+                // 在移动设备上显示单个游戏，在桌面设备上显示全
+                const updateSlides = () => {
+                    // 检查是否为移动设备（窗口宽度小68px
+                    if (window.innerWidth < 768) {
+                        // 对于移动设备，只显示当前幻灯片
+                        slides.forEach((slide, index) => {
+                            if (index === currentIndex) {
+                                slide.style.display = 'block';
+                            } else {
+                                slide.style.display = 'none';
+                            }
+                        });
+                    } else {
+                        // 对于桌面设备，显示所有幻灯片
+                        slides.forEach(slide => {
+                            slide.style.display = 'block';
+                        });
+                    }
+                };
+                
+                // 导航到下一个幻灯片
+                const nextSlide = () => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    updateSlides();
+                };
+                
+                // 导航到上一个幻灯片
+                const prevSlide = () => {
+                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    updateSlides();
+                };
+                
+                // 设置按钮点击事件
+                nextButton.addEventListener('click', nextSlide);
+                prevButton.addEventListener('click', prevSlide);
+                
+                // 初始化幻灯片
+                updateSlides();
+                
+                // 在窗口调整大小时重新计算
+                window.addEventListener('resize', updateSlides);
+            }
+        });
+        
+        // 平滑滚动到锚点
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取所有带有锚点的链接
+            const anchorLinks = document.querySelectorAll('a[href^="categories.html#"]');
+            
+            // 为每个锚点链接添加点击事件
+            anchorLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // 如果在相同页面，平滑滚动到目标位置
+                    if(window.location.pathname.includes('categories.html')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').split('#')[1];
+                        const targetElement = document.getElementById(targetId);
+                        
+                        if(targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80, // 调整滚动位置，考虑顶部固定导航
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

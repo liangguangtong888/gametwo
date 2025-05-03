@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extreme Skiing Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #222;
+            font-family: Arial, sans-serif;
+        }
+        
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #game-canvas {
+            background: linear-gradient(to bottom, #a3d5ff 0%, #e8f4ff 100%);
+            display: block;
+        }
+        
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 10;
+            opacity: 0.7;
+        }
+        
+        .controls button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: #0066cc;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        #score-display {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px 15px;
+            border-radius: 20px;
+            z-index: 10;
+        }
+        
+        #game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 20;
+            display: none;
+        }
+        
+        #game-over button {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        #loading-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #7f7fd5 0%, #86a8e7 50%, #91eae4 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+        }
+        
+        .loading {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-top: 20px;
+        }
+        
+        .loading div {
+            display: inline-block;
+            position: absolute;
+            left: 8px;
+            width: 16px;
+            background: #fff;
+            animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+        
+        .loading div:nth-child(1) {
+            left: 8px;
+            animation-delay: -0.24s;
+        }
+        
+        .loading div:nth-child(2) {
+            left: 32px;
+            animation-delay: -0.12s;
+        }
+        
+        .loading div:nth-child(3) {
+            left: 56px;
+            animation-delay: 0;
+        }
+        
+        @keyframes loading {
+            0% {
+                top: 8px;
+                height: 64px;
+            }
+            50%, 100% {
+                top: 24px;
+                height: 32px;
+            }
+        }
+        
+        .trick-notification {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 15;
+        }
+        
+        .trick-notification.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="score-display">Score: 0</div>
+        <div class="controls">
+            <button id="left-btn">←</button>
+            <button id="jump-btn">Jump</button>
+            <button id="right-btn">→</button>
+        </div>
+        
+        <div id="game-over">
+            <h2>Game Over</h2>
+            <p>Your Score: <span id="final-score">0</span></p>
+            <button id="restart">Restart</button>
+        </div>
+        
+        <div id="loading-screen">
+            <h1>Extreme Skiing</h1>
+            <p>Prepare for an exciting ski adventure! The game is loading...</p>
+            <div class="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        
+        <div class="trick-notification" id="trick-notification"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取画布和上下文
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 移动端控制按钮
+            const leftBtn = document.getElementById('left-btn');
+            const rightBtn = document.getElementById('right-btn');
+            const jumpBtn = document.getElementById('jump-btn');
+            
+            // 游戏状态
+            let score = 0;
+            let gameOver = false;
+            let isJumping = false;
+            let jumpPower = 0;
+            let isTrick = false;
+            let trickMultiplier = 1;
+            
+            // 调整画布大小
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            
+            // 检测是否为移动设备
+            function isMobileDevice() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            }
+            
+            // 如果是移动设备，显示控制按钮
+            if (isMobileDevice()) {
+                document.querySelectorAll('.controls button').forEach(btn => {
+                    btn.style.display = 'block';
+                });
+            }
+            
+            // 游戏对象
+            const skier = {
+                x: canvas.width / 2,
+                y: canvas.height / 4,
+                width: 30,
+                height: 40,
+                speed: 5,
+                turning: 0,
+                color: '#333',
+                draw: function() {
+                    ctx.save();
+                    
+                    // 旋转角度跟随转向
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.turning * Math.PI / 8);
+                    
+                    // 绘制滑雪者身体
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
+                    
+                    // 绘制滑雪板
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(-this.width/1.5, this.height/3, this.width*1.3, 5);
+                    
+                    // 如果在做特技动作，添加效果
+                    if (isTrick) {
+                        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 40, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    ctx.restore();
+                },
+                update: function() {
+                    // 更新转向
+                    if (!isJumping) {
+                        this.turning *= 0.9; // 逐渐减少转向
+                    }
+                    
+                    // 根据转向调整X轴位置
+                    this.x += this.turning * this.speed;
+                    
+                    // 限制不超出屏幕
+                    if (this.x < this.width/2) this.x = this.width/2;
+                    if (this.x > canvas.width - this.width/2) this.x = canvas.width - this.width/2;
+                    
+                    // 跳跃逻辑
+                    if (isJumping) {
+                        jumpPower -= 0.3; // 重力
+                        this.y -= jumpPower;
+                        
+                        // 如果落回雪地
+                        if (this.y >= canvas.height / 4 && jumpPower < 0) {
+                            this.y = canvas.height / 4;
+                            isJumping = false;
+                            
+                            // 如果在跳跃中做了特技动作
+                            if (isTrick) {
+                                showTrickNotification();
+                                isTrick = false;
+                            }
+                        }
+                    }
+                }
+            };
+            
+            // 雪景和障碍物
+            const obstaclesArray = [];
+            const snowflakesArray = [];
+            
+            // 生成雪花
+            function createSnowflakes() {
+                if (snowflakesArray.length < 100) {
+                    snowflakesArray.push({
+                        x: Math.random() * canvas.width,
+                        y: -10,
+                        radius: Math.random() * 3 + 1,
+                        speed: Math.random() * 2 + 1
+                    });
+                }
+            }
+            
+            // 生成障碍物
+            function createObstacle() {
+                const types = ['tree', 'rock', 'jump'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                
+                let width, height, color;
+                
+                switch(type) {
+                    case 'tree':
+                        width = 30;
+                        height = 50;
+                        color = '#0a5e2a';
+                        break;
+                    case 'rock':
+                        width = 40;
+                        height = 30;
+                        color = '#777';
+                        break;
+                    case 'jump':
+                        width = 80;
+                        height = 20;
+                        color = '#fff';
+                        break;
+                }
+                
+                obstaclesArray.push({
+                    x: Math.random() * (canvas.width - width),
+                    y: canvas.height + 20,
+                    width: width,
+                    height: height,
+                    color: color,
+                    type: type
+                });
+            }
+            
+            // 绘制雪花
+            function drawSnowflakes() {
+                ctx.fillStyle = '#fff';
+                snowflakesArray.forEach(snow => {
+                    ctx.beginPath();
+                    ctx.arc(snow.x, snow.y, snow.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+            
+            // 绘制障碍物
+            function drawObstacles() {
+                obstaclesArray.forEach(obstacle => {
+                    ctx.fillStyle = obstacle.color;
+                    
+                    if (obstacle.type === 'tree') {
+                        // 树干
+                        ctx.fillStyle = '#8B4513';
+                        ctx.fillRect(obstacle.x + obstacle.width/3, obstacle.y, obstacle.width/3, obstacle.height);
+                        
+                        // 树冠
+                        ctx.fillStyle = '#0a5e2a';
+                        ctx.beginPath();
+                        ctx.moveTo(obstacle.x, obstacle.y);
+                        ctx.lineTo(obstacle.x + obstacle.width, obstacle.y);
+                        ctx.lineTo(obstacle.x + obstacle.width/2, obstacle.y - obstacle.height/2);
+                        ctx.fill();
+                    } else if (obstacle.type === 'rock') {
+                        ctx.beginPath();
+                        ctx.arc(obstacle.x + obstacle.width/2, obstacle.y + obstacle.height/2, 
+                                obstacle.width/2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else if (obstacle.type === 'jump') {
+                        // 跳台
+                        ctx.fillStyle = '#fff';
+                        ctx.beginPath();
+                        ctx.moveTo(obstacle.x, obstacle.y + obstacle.height);
+                        ctx.lineTo(obstacle.x + obstacle.width, obstacle.y);
+                        ctx.lineTo(obstacle.x + obstacle.width, obstacle.y + obstacle.height);
+                        ctx.fill();
+                        
+                        // 标记为跳台
+                        ctx.fillStyle = '#ff6600';
+                        ctx.beginPath();
+                        ctx.arc(obstacle.x + obstacle.width/2, obstacle.y + obstacle.height/2, 
+                                5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                });
+            }
+            
+            // 更新雪花位置
+            function updateSnowflakes() {
+                for (let i = 0; i < snowflakesArray.length; i++) {
+                    snowflakesArray[i].y += snowflakesArray[i].speed;
+                    snowflakesArray[i].x += skier.turning * (skier.speed / 2);
+                    
+                    // 如果雪花飘出屏幕，重置位置
+                    if (snowflakesArray[i].y > canvas.height) {
+                        snowflakesArray[i].y = -10;
+                        snowflakesArray[i].x = Math.random() * canvas.width;
+                    }
+                }
+            }
+            
+            // 更新障碍物位置
+            function updateObstacles() {
+                for (let i = 0; i < obstaclesArray.length; i++) {
+                    // 障碍物向上移动以模拟玩家向下滑行
+                    obstaclesArray[i].y -= skier.speed;
+                    
+                    // 移除屏幕外的障碍物
+                    if (obstaclesArray[i].y < -obstaclesArray[i].height) {
+                        obstaclesArray.splice(i, 1);
+                        i--;
+                        
+                        // 增加分数
+                        score += 10 * trickMultiplier;
+                        updateScore();
+                        
+                        // 重置特技倍数
+                        trickMultiplier = 1;
+                    } else {
+                        // 检测碰撞
+                        if (!isJumping && checkCollision(skier, obstaclesArray[i])) {
+                            if (obstaclesArray[i].type === 'jump') {
+                                // 触发跳跃
+                                triggerJump();
+                            } else {
+                                // 游戏结束
+                                endGame();
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // 检测碰撞
+            function checkCollision(skier, obstacle) {
+                return !(
+                    skier.x - skier.width/2 > obstacle.x + obstacle.width ||
+                    skier.x + skier.width/2 < obstacle.x ||
+                    skier.y - skier.height/2 > obstacle.y + obstacle.height ||
+                    skier.y + skier.height/2 < obstacle.y
+                );
+            }
+            
+            // 触发跳跃
+            function triggerJump() {
+                if (!isJumping) {
+                    isJumping = true;
+                    jumpPower = 10;
+                }
+            }
+            
+            // 触发特技动作
+            function triggerTrick() {
+                if (isJumping) {
+                    isTrick = true;
+                    trickMultiplier = 2; // 特技倍数
+                    
+                    // 增加分数
+                    score += 50;
+                    updateScore();
+                }
+            }
+            
+            // 显示特技通知
+            function showTrickNotification() {
+                const notification = document.getElementById('trick-notification');
+                notification.textContent = 'TRICK! +50 points x2 multiplier';
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 1000);
+            }
+            
+            // 键盘控制
+            window.addEventListener('keydown', function(e) {
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        skier.turning = -1;
+                        break;
+                    case 'ArrowRight':
+                        skier.turning = 1;
+                        break;
+                    case ' ':
+                        if (!isJumping) triggerJump();
+                        break;
+                    case 'z':
+                    case 'x':
+                    case 'c':
+                        triggerTrick();
+                        break;
+                }
+            });
+            
+            // 移动端按钮控制
+            if (leftBtn) leftBtn.addEventListener('touchstart', () => skier.turning = -1);
+            if (rightBtn) rightBtn.addEventListener('touchstart', () => skier.turning = 1);
+            if (jumpBtn) jumpBtn.addEventListener('touchstart', () => {
+                if (!isJumping) triggerJump();
+                else triggerTrick();
+            });
+            
+            // 更新分数显示
+            function updateScore() {
+                document.getElementById('score-display').textContent = `Score: ${score}`;
+            }
+            
+            // 游戏结束
+            function endGame() {
+                gameOver = true;
+                document.getElementById('final-score').textContent = score;
+                document.getElementById('game-over').style.display = 'block';
+            }
+            
+            // 重新开始游戏
+            document.getElementById('restart').addEventListener('click', function() {
+                gameOver = false;
+                score = 0;
+                skier.x = canvas.width / 2;
+                skier.y = canvas.height / 4;
+                skier.turning = 0;
+                isJumping = false;
+                isTrick = false;
+                trickMultiplier = 1;
+                obstaclesArray.length = 0;
+                updateScore();
+                document.getElementById('game-over').style.display = 'none';
+                
+                gameLoop();
+            });
+            
+            // 主游戏循环
+            function gameLoop() {
+                if (gameOver) return;
+                
+                // 清除画布
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 随机生成雪花和障碍物
+                if (Math.random() < 0.1) createSnowflakes();
+                if (Math.random() < 0.02) createObstacle();
+                
+                // 更新和绘制雪花
+                updateSnowflakes();
+                drawSnowflakes();
+                
+                // 更新和绘制障碍物
+                updateObstacles();
+                drawObstacles();
+                
+                // 更新和绘制滑雪者
+                skier.update();
+                skier.draw();
+                
+                // 继续游戏循环
+                requestAnimationFrame(gameLoop);
+            }
+            
+            // 模拟加载过程
+            setTimeout(function() {
+                document.getElementById('loading-screen').style.display = 'none';
+                gameLoop();
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 

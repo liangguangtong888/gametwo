@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3c72"/>
+      <stop offset="100%" stop-color="#2a5298"/>
+    </linearGradient>
+    <linearGradient id="buildingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c3e50"/>
+      <stop offset="100%" stop-color="#34495e"/>
+    </linearGradient>
+    <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4757"/>
+      <stop offset="100%" stop-color="#ff6b81"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- 天空背景 -->
+  <rect width="300" height="180" fill="url(#skyGradient)"/>
+  
+  <!-- 城市轮廓 -->
+  <path d="M0 180 L0 120 L20 120 L20 100 L40 100 L40 110 L60 110 L60 90 L70 90 L70 105 L90 105 L90 80 L110 80 
+    L110 130 L130 130 L130 70 L150 70 L150 110 L160 110 L160 85 L180 85 L180 120 L200 120 L200 95 L220 95 
+    L220 130 L240 130 L240 110 L260 110 L260 140 L280 140 L280 120 L300 120 L300 180 Z" fill="url(#buildingGradient)"/>
+  
+  <!-- 建筑物窗户 -->
+  <rect x="30" y="110" width="5" height="10" fill="#f1c40f"/>
+  <rect x="75" y="95" width="5" height="10" fill="#f1c40f"/>
+  <rect x="95" y="90" width="5" height="10" fill="#f1c40f"/>
+  <rect x="135" y="80" width="5" height="10" fill="#f1c40f"/>
+  <rect x="135" y="100" width="5" height="10" fill="#f1c40f"/>
+  <rect x="165" y="95" width="5" height="10" fill="#f1c40f"/>
+  <rect x="185" y="100" width="5" height="10" fill="#f1c40f"/>
+  <rect x="205" y="110" width="5" height="10" fill="#f1c40f"/>
+  <rect x="245" y="120" width="5" height="10" fill="#f1c40f"/>
+  <rect x="285" y="130" width="5" height="10" fill="#f1c40f"/>
+  
+  <!-- 超级英雄 -->
+  <rect x="120" y="40" width="60" height="80" rx="10" fill="url(#heroGradient)"/>
+  
+  <!-- 头部 -->
+  <circle cx="150" cy="30" r="20" fill="#ff9ff3"/>
+  
+  <!-- 英雄标志 -->
+  <text x="150" y="70" font-family="Arial" font-size="36" fill="white" text-anchor="middle" font-weight="bold">S</text>
+  
+  <!-- 斗篷 -->
+  <path d="M120 60 Q100 90, 110 120 L130 120 Q125 95, 130 80 Z" fill="#7158e2"/>
+  <path d="M180 60 Q200 90, 190 120 L170 120 Q175 95, 170 80 Z" fill="#7158e2"/>
+  
+  <!-- 光芒 -->
+  <circle cx="150" cy="60" r="65" fill="#ff9ff3" opacity="0.1"/>
+  <path d="M150 0 L150 15" stroke="#ff9ff3" stroke-width="3"/>
+  <path d="M150 105 L150 120" stroke="#ff9ff3" stroke-width="3"/>
+  <path d="M85 60 L100 60" stroke="#ff9ff3" stroke-width="3"/>
+  <path d="M200 60 L215 60" stroke="#ff9ff3" stroke-width="3"/>
+  <path d="M110 20 L120 30" stroke="#ff9ff3" stroke-width="3"/>
+  <path d="M180 90 L190 100" stroke="#ff9ff3" stroke-width="3"/>
+  <path d="M110 90 L120 100" stroke="#ff9ff3" stroke-width="3"/>
+  <path d="M180 30 L190 20" stroke="#ff9ff3" stroke-width="3"/>
+  
+  <!-- 游戏标题 -->
+  <text x="150" y="160" font-family="Arial" font-size="18" fill="white" text-anchor="middle" font-weight="bold">Super Hero</text>
+</svg> 

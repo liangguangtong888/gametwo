@@ -1,0 +1,133 @@
+/* Super Hero游戏特定样式 */
+
+.game-page-wrapper {
+    background: linear-gradient(135deg, #0052d4 0%, #4364f7 50%, #6fb1fc 100%);
+    padding: 30px 0;
+}
+
+.game-header h1 {
+    color: #000;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.game-meta {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.game-meta .rating-value,
+.game-meta .rating-count,
+.game-meta .game-category a {
+    color: #000;
+}
+
+.game-frame {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.game-controls button {
+    background-color: #ff4757;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.game-controls button:hover {
+    background-color: #ff6b81;
+    transform: translateY(-3px);
+}
+
+.game-description h2, .game-description h3 {
+    color: #000;
+}
+
+.game-description p, 
+.game-description li {
+    color: #000;
+}
+
+.game-screenshot {
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-share h3 {
+    color: #000;
+}
+
+.social-share .share-buttons a {
+    background-color: #4b7bec;
+}
+
+.social-share .share-buttons a:hover {
+    background-color: #3867d6;
+}
+
+.game-comments h3 {
+    color: #000;
+}
+
+.comment-form button {
+    background-color: #ff4757;
+}
+
+.comment-form button:hover {
+    background-color: #ff6b81;
+}
+
+.comments-list .comment-header h4,
+.comments-list .comment-date,
+.comments-list p {
+    color: #000;
+}
+
+.related-games h2 {
+    color: #000;
+}
+
+.game-card {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.game-card-info h3,
+.game-card-info p {
+    color: #000;
+}
+
+/* 超级英雄主题元素 */
+.game-main::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: url('../../../assets/images/game4.svg') no-repeat center center;
+    background-size: contain;
+    opacity: 0.1;
+    z-index: -1;
+    transform: rotate(15deg);
+}
+
+.game-main::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 150px;
+    height: 150px;
+    background: url('../../../assets/images/game4.svg') no-repeat center center;
+    background-size: contain;
+    opacity: 0.1;
+    z-index: -1;
+    transform: rotate(-15deg);
+} 

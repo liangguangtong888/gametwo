@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="180" viewBox="0 0 300 180">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A2B5B"/>
+      <stop offset="100%" stop-color="#7B3AAF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="300" height="180" fill="url(#bgGradient)"/>
+  
+  <!-- Game Title -->
+  <text x="150" y="35" font-family="Arial" font-size="18" fill="white" text-anchor="middle" font-weight="bold">Sudoku Challenge</text>
+
+  <!-- Background Circles -->
+  <circle cx="70" cy="140" r="30" fill="#AF52DE" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="230" cy="140" r="30" fill="#AF52DE" opacity="0.3" filter="url(#glow)"/>
+  <circle cx="150" cy="160" r="40" fill="#AF52DE" opacity="0.2" filter="url(#glow)"/>
+
+  <!-- Sudoku Game Board -->
+  <rect x="75" y="45" width="150" height="150" fill="#FFFFFF" transform="scale(0.8)" transform-origin="150 120" rx="4" ry="4"/>
+
+  <!-- Horizontal Lines -->
+  <line x1="75" y1="73" x2="225" y2="73" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="75" y1="106" x2="225" y2="106" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="75" y1="139" x2="225" y2="139" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="75" y1="172" x2="225" y2="172" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+
+  <!-- Vertical Lines -->
+  <line x1="100" y1="45" x2="100" y2="195" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="125" y1="45" x2="125" y2="195" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="150" y1="45" x2="150" y2="195" stroke="#333333" stroke-width="3" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="175" y1="45" x2="175" y2="195" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="200" y1="45" x2="200" y2="195" stroke="#333333" stroke-width="1.5" transform="scale(0.8)" transform-origin="150 120"/>
+
+  <!-- Bold Lines for 3x3 Grid Separation -->
+  <line x1="75" y1="45" x2="225" y2="45" stroke="#333333" stroke-width="3" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="75" y1="106" x2="225" y2="106" stroke="#333333" stroke-width="3" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="75" y1="195" x2="225" y2="195" stroke="#333333" stroke-width="3" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="75" y1="45" x2="75" y2="195" stroke="#333333" stroke-width="3" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="150" y1="45" x2="150" y2="195" stroke="#333333" stroke-width="3" transform="scale(0.8)" transform-origin="150 120"/>
+  <line x1="225" y1="45" x2="225" y2="195" stroke="#333333" stroke-width="3" transform="scale(0.8)" transform-origin="150 120"/>
+
+  <!-- Numbers -->
+  <text x="87.5" y="65" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">5</text>
+  <text x="112.5" y="65" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">3</text>
+  <text x="187.5" y="65" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">7</text>
+  
+  <text x="87.5" y="98" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">6</text>
+  <text x="162.5" y="98" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">9</text>
+  <text x="212.5" y="98" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">5</text>
+  
+  <text x="112.5" y="131" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">9</text>
+  <text x="137.5" y="131" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">8</text>
+  <text x="187.5" y="131" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">6</text>
+  
+  <text x="137.5" y="164" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">6</text>
+  <text x="162.5" y="164" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">2</text>
+  <text x="212.5" y="164" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">8</text>
+  
+  <text x="87.5" y="186" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">4</text>
+  <text x="187.5" y="186" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">1</text>
+  <text x="162.5" y="186" font-family="Arial" font-size="18" fill="#333333" text-anchor="middle" transform="scale(0.8)" transform-origin="150 120" font-weight="bold">9</text>
+
+  <!-- Rating Label -->
+  <g transform="translate(245, 40)">
+    <rect x="-20" y="-15" width="50" height="24" rx="12" ry="12" fill="#007AFF" />
+    <text x="5" y="5" font-family="Arial" font-size="14" fill="white" text-anchor="middle" font-weight="bold">★ 4.4</text>
+  </g>
+</svg> 

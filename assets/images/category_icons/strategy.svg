@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF9500"/>
+      <stop offset="100%" stop-color="#AF52DE"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="55" fill="url(#bgGradient)" opacity="0.9"/>
+  <circle cx="60" cy="60" r="50" fill="#333" opacity="0.9"/>
+  
+  <!-- 棋盘 -->
+  <rect x="35" y="35" width="50" height="50" fill="#A89078"/>
+  <rect x="35" y="35" width="12.5" height="12.5" fill="#EADDCA"/>
+  <rect x="47.5" y="35" width="12.5" height="12.5" fill="#A89078"/>
+  <rect x="60" y="35" width="12.5" height="12.5" fill="#EADDCA"/>
+  <rect x="72.5" y="35" width="12.5" height="12.5" fill="#A89078"/>
+  
+  <rect x="35" y="47.5" width="12.5" height="12.5" fill="#A89078"/>
+  <rect x="47.5" y="47.5" width="12.5" height="12.5" fill="#EADDCA"/>
+  <rect x="60" y="47.5" width="12.5" height="12.5" fill="#A89078"/>
+  <rect x="72.5" y="47.5" width="12.5" height="12.5" fill="#EADDCA"/>
+  
+  <rect x="35" y="60" width="12.5" height="12.5" fill="#EADDCA"/>
+  <rect x="47.5" y="60" width="12.5" height="12.5" fill="#A89078"/>
+  <rect x="60" y="60" width="12.5" height="12.5" fill="#EADDCA"/>
+  <rect x="72.5" y="60" width="12.5" height="12.5" fill="#A89078"/>
+  
+  <rect x="35" y="72.5" width="12.5" height="12.5" fill="#A89078"/>
+  <rect x="47.5" y="72.5" width="12.5" height="12.5" fill="#EADDCA"/>
+  <rect x="60" y="72.5" width="12.5" height="12.5" fill="#A89078"/>
+  <rect x="72.5" y="72.5" width="12.5" height="12.5" fill="#EADDCA"/>
+  
+  <!-- 棋子 -->
+  <circle cx="41.25" cy="41.25" r="5" fill="#FF9500"/>
+  <circle cx="66.25" cy="41.25" r="5" fill="#FF9500"/>
+  <circle cx="53.75" cy="53.75" r="5" fill="#FF9500"/>
+  <circle cx="78.75" cy="53.75" r="5" fill="#FF9500"/>
+  
+  <circle cx="41.25" cy="78.75" r="5" fill="#007AFF"/>
+  <circle cx="66.25" cy="78.75" r="5" fill="#007AFF"/>
+  <circle cx="53.75" cy="66.25" r="5" fill="#007AFF"/>
+  <circle cx="78.75" cy="66.25" r="5" fill="#007AFF"/>
+</svg> 
