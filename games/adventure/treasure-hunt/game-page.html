@@ -26,248 +26,12 @@
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="../../../styles/main.css">
+    <link rel="stylesheet" href="../../../styles/game-details.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <style>
-        .game-header {
-            background: linear-gradient(135deg, #E67E22 0%, #D35400 100%);
-            color: white;
-            padding: 60px 0 30px;
-            text-align: center;
-            margin-bottom: 40px;
-            position: relative;
-        }
-        
-        .game-title {
-            font-size: 42px;
-            margin-bottom: 15px;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            color: white;
-        }
-        
-        .game-category {
-            font-size: 18px;
-            opacity: 0.9;
-            font-weight: 500;
-            margin-bottom: 25px;
-        }
-        
-        .game-rating {
-            display: inline-flex;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 6px 15px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .game-rating i {
-            color: #FFD700;
-            margin-right: 6px;
-        }
-        
-        .game-rating span {
-            font-weight: 600;
-            color: white;
-        }
-        
-        .game-content {
-            background-color: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
-            margin-bottom: 40px;
-        }
-        
-        .game-section {
-            margin-bottom: 30px;
-        }
-        
-        .game-section h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .game-section h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #E67E22, #D35400);
-            border-radius: 3px;
-        }
-        
-        .game-description {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #555;
-            margin-bottom: 20px;
-        }
-        
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0;
-        }
-        
-        .feature-list li {
-            margin-bottom: 10px;
-            padding-left: 25px;
-            position: relative;
-            font-size: 16px;
-            color: #555;
-        }
-        
-        .feature-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #E67E22;
-            font-weight: bold;
-        }
-        
-        .game-screenshots {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 25px 0;
-        }
-        
-        .screenshot {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .screenshot:hover {
-            transform: translateY(-5px);
-        }
-        
-        .screenshot img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .game-controls {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-        
-        .controls-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .controls-table th, .controls-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
-        }
-        
-        .controls-table th {
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-        }
-        
-        .controls-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .play-button {
-            display: block;
-            margin: 30px auto;
-            background: linear-gradient(135deg, #E67E22 0%, #D35400 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
-            transition: all 0.3s ease;
-            text-align: center;
-            max-width: 300px;
-            text-decoration: none;
-        }
-        
-        .play-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(230, 126, 34, 0.5);
-        }
-        
-        .play-button:active {
-            transform: translateY(1px);
-        }
-        
-        /* 游戏窗口样式 */
-        .game-window {
-            background-color: #f0f0f0;
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            margin: 30px 0;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .play-area {
-            background-color: #E67E22;
-            border-radius: 8px;
-            padding: 40px;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            margin: 20px 0;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .game-title {
-                font-size: 32px;
-            }
-            
-            .game-screenshots {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .game-content {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .game-title {
-                font-size: 28px;
-            }
-            
-            .game-category {
-                font-size: 16px;
-            }
-            
-            .game-screenshots {
-                grid-template-columns: 1fr;
-            }
-            
-            .play-button {
-                padding: 12px 30px;
-                font-size: 16px;
-            }
-        }
-    </style>
 </head>
 
-<body>
+<body class="game-page">
     <header>
         <div class="container">
             <div class="logo">
@@ -297,104 +61,168 @@
         </div>
     </header>
 
-    <div class="game-header">
+    <main class="game-page-wrapper">
         <div class="container">
-            <h1 class="game-title">Treasure Hunt</h1>
-            <div class="game-category">Adventure, Exploration</div>
-            <div class="game-rating">
-                <i class="fas fa-star"></i>
-                <span>4.6</span>
+            <div class="game-header">
+                <h1>Treasure Hunt</h1>
+                <div class="game-meta">
+                    <div class="game-rating">
+                        <span class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </span>
+                        <span class="rating-value">4.6</span>
+                        <span class="rating-count">(142 ratings)</span>
+                    </div>
+                    <div class="game-category">
+                        <a href="../../../categories.html#adventure">Adventure</a>, 
+                        <a href="../../../categories.html#puzzle">Exploration</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="game-main">
+                    <div class="game-frame">
+                        <iframe id="game-iframe" src="index.html" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    
+                    <div class="game-controls">
+                        <button id="fullscreen-btn"><i class="fas fa-expand"></i> Fullscreen</button>
+                        <button id="restart-btn"><i class="fas fa-redo"></i> Restart</button>
+                    </div>
+
+                    <div class="game-description">
+                        <h2>About Treasure Hunt</h2>
+                        <p>Embark on an exciting adventure in Treasure Hunt, where you'll explore mysterious islands, solve ancient puzzles, and discover hidden treasures! Navigate through dangerous terrains, decode cryptic maps, and outsmart rival treasure hunters as you seek legendary riches and artifacts.</p>
+                        <p>With stunning visuals, immersive sound effects, and challenging gameplay, Treasure Hunt offers hours of entertaining exploration for players of all ages. Are you ready to become the most famous treasure hunter in history?</p>
+
+                        <h3>How to Play</h3>
+                        <ul>
+                            <li><strong>PC Controls:</strong>
+                                <ul>
+                                    <li>Use Arrow Keys or WASD to move your character</li>
+                                    <li>Press Space or E to interact with objects/collect treasures</li>
+                                    <li>M key to open map (when available)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Mobile Controls:</strong>
+                                <ul>
+                                    <li>Use the on-screen direction buttons to move</li>
+                                    <li>Tap the action button to interact/collect</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Game Features</h3>
+                        <ul>
+                            <li>Explore 12 unique islands with different environments and challenges</li>
+                            <li>Solve a variety of puzzles to unlock ancient treasures</li>
+                            <li>Collect gold coins, gems, and rare artifacts</li>
+                            <li>Upgrade your character's abilities and equipment</li>
+                            <li>Compete with friends for the highest treasure score</li>
+                            <li>Beautifully designed graphics and atmospheric music</li>
+                        </ul>
+                    </div>
+
+                    <div class="social-share">
+                        <h3>Share This Game</h3>
+                        <div class="share-buttons">
+                            <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="pinterest"><i class="fab fa-pinterest"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="game-comments">
+                        <h3>Comments (8)</h3>
+                        <div class="comment-form">
+                            <textarea placeholder="Write your comment..."></textarea>
+                            <button>Post Comment</button>
+                        </div>
+                        <div class="comments-list">
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="" alt="User avatar">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h4>Emily Chen</h4>
+                                        <span class="comment-date">5 days ago</span>
+                                    </div>
+                                    <p>This is such a fun game! I love exploring the islands and finding all the hidden treasures. The puzzles are challenging but not too difficult. My high score is 1,850 so far!</p>
+                                    <div class="comment-actions">
+                                        <button><i class="fas fa-thumbs-up"></i> 12</button>
+                                        <button><i class="fas fa-thumbs-down"></i> 1</button>
+                                        <button>Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-avatar">
+                                    <img src="" alt="User avatar">
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h4>Miguel Santos</h4>
+                                        <span class="comment-date">2 weeks ago</span>
+                                    </div>
+                                    <p>Love the adventure feel of this game! Anyone know how to get past the third island? I keep getting stuck at the door puzzle.</p>
+                                    <div class="comment-actions">
+                                        <button><i class="fas fa-thumbs-up"></i> 7</button>
+                                        <button><i class="fas fa-thumbs-down"></i> 0</button>
+                                        <button>Reply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="related-games">
+                    <h2>You May Also Like</h2>
+                    <div class="games-grid">
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="../../../assets/images/magic-quest/game-card.svg" alt="Magic Quest">
+                                <div class="game-card-rating">4.8</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Magic Quest</h3>
+                                <p>Adventure, Fantasy</p>
+                                <a href="../magic-quest/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="../../../assets/images/game1/game-card.svg" alt="Space Shooter">
+                                <div class="game-card-rating">4.5</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Space Shooter</h3>
+                                <p>Action, Arcade</p>
+                                <a href="../../action/space-shooter/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                        <div class="game-card">
+                            <div class="game-card-image">
+                                <img src="../../../assets/images/game2/game-card.svg" alt="Match Stars">
+                                <div class="game-card-rating">4.3</div>
+                            </div>
+                            <div class="game-card-info">
+                                <h3>Match Stars</h3>
+                                <p>Puzzle, Strategy</p>
+                                <a href="../../puzzle/match-stars/game-page.html" class="play-btn">Play Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <main class="container">
-        <section class="game-content">
-            <div class="game-section">
-                <h2>About the Game</h2>
-                <p class="game-description">
-                    Embark on an exciting adventure in Treasure Hunt, where you'll explore mysterious islands, solve ancient puzzles, and discover hidden treasures! Navigate through dangerous terrains, decode cryptic maps, and outsmart rival treasure hunters as you seek legendary riches and artifacts.
-                </p>
-                <p class="game-description">
-                    With stunning visuals, immersive sound effects, and challenging gameplay, Treasure Hunt offers hours of entertaining exploration for players of all ages. Are you ready to become the most famous treasure hunter in history?
-                </p>
-            </div>
-
-            <div class="game-section">
-                <h2>Game Features</h2>
-                <ul class="feature-list">
-                    <li>Explore 12 unique islands with different environments and challenges</li>
-                    <li>Solve a variety of puzzles to unlock ancient treasures</li>
-                    <li>Collect gold coins, gems, and rare artifacts</li>
-                    <li>Upgrade your character's abilities and equipment</li>
-                    <li>Compete with friends for the highest treasure score</li>
-                    <li>Beautifully designed graphics and atmospheric music</li>
-                </ul>
-            </div>
-
-            <div class="game-section">
-                <h2>Screenshots</h2>
-                <div class="game-screenshots">
-                    <div class="screenshot">
-                        <img src="../../../assets/images/treasure-hunt/game-card.svg" alt="Treasure Hunt Map View">
-                    </div>
-                    <div class="screenshot">
-                        <img src="../../../assets/images/treasure-hunt/game-card.svg" alt="Island Exploration">
-                    </div>
-                    <div class="screenshot">
-                        <img src="../../../assets/images/treasure-hunt/game-card.svg" alt="Treasure Collection">
-                    </div>
-                </div>
-            </div>
-
-            <div class="game-section">
-                <h2>How to Play</h2>
-                <div class="game-controls">
-                    <table class="controls-table">
-                        <thead>
-                            <tr>
-                                <th>Control</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Arrow Keys</td>
-                                <td>Move your character</td>
-                            </tr>
-                            <tr>
-                                <td>Space</td>
-                                <td>Jump</td>
-                            </tr>
-                            <tr>
-                                <td>E Key</td>
-                                <td>Interact with objects/Collect treasures</td>
-                            </tr>
-                            <tr>
-                                <td>M Key</td>
-                                <td>Open map</td>
-                            </tr>
-                            <tr>
-                                <td>I Key</td>
-                                <td>Open inventory</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <p class="game-description">
-                    Start by exploring the starting island and collect enough coins to unlock new areas. Use your map to navigate and find hidden treasures marked with X. Some treasures require solving puzzles or finding special keys. Watch out for traps and obstacles that might slow you down!
-                </p>
-            </div>
-
-            <a href="#" class="play-button" aria-label="Play Treasure Hunt Game">PLAY NOW</a>
-
-            <div class="game-window">
-                <h3>Game Loading...</h3>
-                <div class="play-area">
-                    Click "PLAY NOW" to start your treasure hunting adventure!
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer>
@@ -475,5 +303,37 @@
     </footer>
 
     <script src="../../../js/main.js"></script>
+    <script>
+        // 全屏和重启按钮功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.getElementById('game-iframe');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            
+            // 全屏按钮
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', function() {
+                    if (iframe) {
+                        if (iframe.requestFullscreen) {
+                            iframe.requestFullscreen();
+                        } else if (iframe.webkitRequestFullscreen) {
+                            iframe.webkitRequestFullscreen();
+                        } else if (iframe.msRequestFullscreen) {
+                            iframe.msRequestFullscreen();
+                        }
+                    }
+                });
+            }
+            
+            // 重启按钮
+            if (restartBtn) {
+                restartBtn.addEventListener('click', function() {
+                    if (iframe) {
+                        iframe.src = iframe.src;
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html> 

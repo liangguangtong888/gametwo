@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Island Explorer - Word Adventure Game</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #87CEEB 0%, #3498DB 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .game-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 800px;
+            height: 100%;
+            max-height: 600px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2980B9;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #2980B9;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .game-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .scene {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            flex: 1;
+            overflow-y: auto;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            line-height: 1.6;
+        }
+        
+        .scene p {
+            margin-bottom: 15px;
+        }
+        
+        .scene h3 {
+            color: #2980B9;
+            margin-bottom: 10px;
+        }
+        
+        .word-puzzle {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 15px 0;
+        }
+        
+        .letter-tile {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #3498DB;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .letter-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .letter-tile.selected {
+            background-color: #E74C3C;
+            transform: translateY(-3px);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .word-display {
+            background-color: #f5f5f5;
+            border: 2px solid #ddd;
+            padding: 10px 15px;
+            min-height: 50px;
+            border-radius: 8px;
+            font-size: 20px;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            background-color: #2980B9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        
+        button:hover {
+            background-color: #3498DB;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .hint-button {
+            background-color: #F39C12;
+        }
+        
+        .hint-button:hover {
+            background-color: #F1C40F;
+        }
+        
+        .submit-button {
+            background-color: #27AE60;
+        }
+        
+        .submit-button:hover {
+            background-color: #2ECC71;
+        }
+        
+        .clear-button {
+            background-color: #E74C3C;
+        }
+        
+        .clear-button:hover {
+            background-color: #C0392B;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background-color: #2980B9;
+            color: white;
+        }
+        
+        .inventory {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .inventory-item {
+            background-color: #f5f5f5;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .inventory-item i {
+            color: #3498DB;
+        }
+        
+        @media (max-width: 768px) {
+            .game-container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .letter-tile {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .game-container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .controls {
+                flex-wrap: wrap;
+            }
+            
+            .letter-tile {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Island Explorer - Word Adventure</h1>
+        </header>
+        
+        <div class="status-bar">
+            <div class="level">Island: Alphabet Isle</div>
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="items">Items: <span id="items">0/3</span></div>
+        </div>
+        
+        <div class="game-area">
+            <div class="scene" id="game-scene">
+                <h3>Welcome to Alphabet Isle!</h3>
+                <p>Your boat has just arrived at a mysterious island. In the distance, you can see several ancient buildings and a dense jungle. The air is filled with the salty scent of the ocean and exotic flower fragrances.</p>
+                <p>You notice a stone tablet on the beach with strange symbols and text carved into it. To continue your adventure, you need to solve this puzzle.</p>
+                
+                <h3>Current Puzzle:</h3>
+                <p><strong>Clue:</strong> "I have six letters, I represent a seafarer's tool. I start with A and end with R. What am I?"</p>
+                
+                <div class="word-display" id="word-display"></div>
+                
+                <div class="word-puzzle" id="letter-tiles">
+                    <div class="letter-tile" data-letter="A">A</div>
+                    <div class="letter-tile" data-letter="N">N</div>
+                    <div class="letter-tile" data-letter="C">C</div>
+                    <div class="letter-tile" data-letter="H">H</div>
+                    <div class="letter-tile" data-letter="O">O</div>
+                    <div class="letter-tile" data-letter="R">R</div>
+                    <div class="letter-tile" data-letter="S">S</div>
+                    <div class="letter-tile" data-letter="P">P</div>
+                    <div class="letter-tile" data-letter="I">I</div>
+                    <div class="letter-tile" data-letter="L">L</div>
+                    <div class="letter-tile" data-letter="T">T</div>
+                    <div class="letter-tile" data-letter="E">E</div>
+                </div>
+                
+                <div class="controls">
+                    <button class="submit-button" id="submit-btn">Submit Answer</button>
+                    <button class="clear-button" id="clear-btn">Clear</button>
+                    <button class="hint-button" id="hint-btn">Hint (-10 pts)</button>
+                </div>
+                
+                <div class="inventory">
+                    <div class="inventory-item"><i>⚓</i> Letter Tiles: 0/10</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wordDisplay = document.getElementById('word-display');
+            const letterTiles = document.querySelectorAll('.letter-tile');
+            const submitBtn = document.getElementById('submit-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const hintBtn = document.getElementById('hint-btn');
+            const scoreDisplay = document.getElementById('score');
+            const gameScene = document.getElementById('game-scene');
+            
+            let currentWord = '';
+            let score = 0;
+            let puzzlesSolved = 0;
+            const answer = 'ANCHOR'; // First puzzle answer
+            
+            // Handle letter clicks
+            letterTiles.forEach(tile => {
+                tile.addEventListener('click', function() {
+                    const letter = this.getAttribute('data-letter');
+                    
+                    if (!this.classList.contains('selected')) {
+                        this.classList.add('selected');
+                        currentWord += letter;
+                        wordDisplay.textContent = currentWord;
+                    }
+                });
+            });
+            
+            // Clear button
+            clearBtn.addEventListener('click', function() {
+                currentWord = '';
+                wordDisplay.textContent = '';
+                letterTiles.forEach(tile => {
+                    tile.classList.remove('selected');
+                });
+            });
+            
+            // Hint button
+            hintBtn.addEventListener('click', function() {
+                if (score >= 10) {
+                    score -= 10;
+                    scoreDisplay.textContent = score;
+                    
+                    // Show hint
+                    const hint = "This is related to ships docking";
+                    alert("Hint: " + hint);
+                } else {
+                    alert("Not enough points! You need at least 10 points to get a hint.");
+                }
+            });
+            
+            // Submit answer button
+            submitBtn.addEventListener('click', function() {
+                if (currentWord.toUpperCase() === answer) {
+                    score += 50;
+                    scoreDisplay.textContent = score;
+                    puzzlesSolved++;
+                    
+                    // Show success message
+                    gameScene.innerHTML = `
+                        <h3>Congratulations!</h3>
+                        <p>You solved the puzzle! The symbols on the stone tablet begin to glow, and the ground trembles slightly. A hidden path leading into the island's interior appears before you.</p>
+                        <p>You earned 50 points and a special letter tile piece!</p>
+                        
+                        <h3>Where would you like to go next?</h3>
+                        <div class="options">
+                            <div class="option" id="jungle-option">Explore the Jungle</div>
+                            <div class="option" id="ruins-option">Investigate the Ancient Ruins</div>
+                            <div class="option" id="beach-option">Continue Along the Beach</div>
+                        </div>
+                        
+                        <div class="inventory">
+                            <div class="inventory-item"><i>⚓</i> Letter Tiles: 1/10</div>
+                            <div class="inventory-item"><i>🔍</i> Ancient Map: 0/1</div>
+                        </div>
+                    `;
+                    
+                    // Add click events for options
+                    document.getElementById('jungle-option').addEventListener('click', goToJungle);
+                    document.getElementById('ruins-option').addEventListener('click', goToRuins);
+                    document.getElementById('beach-option').addEventListener('click', goToBeach);
+                } else {
+                    // Handle incorrect answer
+                    alert("Incorrect answer. Please try again!");
+                    clearBtn.click();
+                }
+            });
+            
+            // Explore different areas
+            function goToJungle() {
+                gameScene.innerHTML = `
+                    <h3>Mysterious Jungle</h3>
+                    <p>You make your way through the dense tropical jungle, where dappled sunlight filters through the leaves. Ancient trees tower overhead, and the air is filled with exotic bird calls and insect chirps.</p>
+                    <p>Up ahead, there's a small, clear lake with a tiny island at its center. On the island, there appears to be a stone structure. To reach it, you'll need to solve another word puzzle.</p>
+                    
+                    <h3>Current Puzzle:</h3>
+                    <p><strong>Clue:</strong> "I am a mode of transportation on water. I have five letters with 'N' in the middle."</p>
+                    
+                    <p>Please return to the game page and click the "Restart" button to try this new puzzle!</p>
+                    
+                    <div class="inventory">
+                        <div class="inventory-item"><i>⚓</i> Letter Tiles: 1/10</div>
+                        <div class="inventory-item"><i>🔍</i> Ancient Map: 0/1</div>
+                    </div>
+                `;
+            }
+            
+            function goToRuins() {
+                gameScene.innerHTML = `
+                    <h3>Ancient Ruins</h3>
+                    <p>You approach a group of ancient stone buildings. These structures appear to have existed for hundreds of years, covered with vines and vegetation. Strange symbols and patterns are carved into the walls.</p>
+                    <p>At the entrance to the main building, you discover a complex mechanical lock. To open it, you need to solve a word puzzle.</p>
+                    
+                    <h3>Current Puzzle:</h3>
+                    <p><strong>Clue:</strong> "I have six letters and represent the past and history. My first letter is 'A' and my last letter is 'T'."</p>
+                    
+                    <p>Please return to the game page and click the "Restart" button to try this new puzzle!</p>
+                    
+                    <div class="inventory">
+                        <div class="inventory-item"><i>⚓</i> Letter Tiles: 1/10</div>
+                        <div class="inventory-item"><i>🔍</i> Ancient Map: 0/1</div>
+                    </div>
+                `;
+            }
+            
+            function goToBeach() {
+                gameScene.innerHTML = `
+                    <h3>Mystery Beach</h3>
+                    <p>You stroll along the golden sandy beach, with waves gently lapping at the shore. In the distance, you notice an odd shape half-buried in the sand.</p>
+                    <p>Upon closer inspection, it's an ancient treasure chest with a word lock. To open it, you need to solve another word puzzle.</p>
+                    
+                    <h3>Current Puzzle:</h3>
+                    <p><strong>Clue:</strong> "I have six letters and people search for me on beaches. My first three letters spell a small metal object."</p>
+                    
+                    <p>Please return to the game page and click the "Restart" button to try this new puzzle!</p>
+                    
+                    <div class="inventory">
+                        <div class="inventory-item"><i>⚓</i> Letter Tiles: 1/10</div>
+                        <div class="inventory-item"><i>🔍</i> Ancient Map: 0/1</div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html> 

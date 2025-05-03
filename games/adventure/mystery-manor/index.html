@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Manor - GameHaven</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="game-ui">
+            <div class="inventory">Items: <span id="inventoryValue">0</span></div>
+            <div class="clues">Clues: <span id="cluesValue">0</span></div>
+        </div>
+        <div class="game-controls">
+            <div class="mobile-controls">
+                <button id="leftBtn">←</button>
+                <button id="rightBtn">→</button>
+                <button id="actionBtn">Investigate</button>
+            </div>
+        </div>
+        <div class="game-message" id="gameMessage">
+            <h2 id="messageText">Mystery Manor</h2>
+            <p id="subMessageText">Press any key or click to start the game</p>
+            <button id="startBtn">Start Game</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

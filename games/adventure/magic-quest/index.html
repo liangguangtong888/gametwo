@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Quest - GameHaven</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="game-ui">
+            <div class="mana">Mana: <span id="manaValue">100</span></div>
+            <div class="health">Health: <span id="healthValue">100</span></div>
+            <div class="score">Score: <span id="scoreValue">0</span></div>
+        </div>
+        <div class="spell-bar">
+            <button class="spell-btn" id="fireSpell" data-spell="fire">🔥</button>
+            <button class="spell-btn" id="iceSpell" data-spell="ice">❄️</button>
+            <button class="spell-btn" id="lightningSpell" data-spell="lightning">⚡</button>
+            <button class="spell-btn" id="healSpell" data-spell="heal">💚</button>
+        </div>
+        <div class="mobile-controls">
+            <div class="direction-pad">
+                <button id="upBtn">↑</button>
+                <div class="middle-row">
+                    <button id="leftBtn">←</button>
+                    <button id="rightBtn">→</button>
+                </div>
+                <button id="downBtn">↓</button>
+            </div>
+            <button id="actionBtn">Cast</button>
+        </div>
+        <div class="game-message" id="gameMessage">
+            <h2 id="messageText">Magic Quest</h2>
+            <p id="subMessageText">Embark on a magical adventure through mystical realms</p>
+            <button id="startBtn">Start Adventure</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 
