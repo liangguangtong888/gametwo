@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="300" height="200" rx="10" fill="#E67E22"/>
+  
+  <!-- 地图图案 -->
+  <path d="M50 50 L100 40 L150 60 L200 45 L250 70" stroke="#8B4513" stroke-width="3" stroke-dasharray="5,5" fill="none"/>
+  <path d="M50 70 L110 90 L170 80 L230 110 L250 130" stroke="#8B4513" stroke-width="3" stroke-dasharray="5,5" fill="none"/>
+  <path d="M70 120 L120 130 L180 110 L240 150" stroke="#8B4513" stroke-width="3" stroke-dasharray="5,5" fill="none"/>
+  
+  <!-- 宝箱 -->
+  <rect x="180" y="90" width="40" height="30" fill="#8B4513"/>
+  <rect x="180" y="85" width="40" height="10" fill="#A0522D"/>
+  <rect x="195" y="90" width="10" height="5" fill="#FFD700"/>
+  
+  <!-- 金币 -->
+  <circle cx="100" cy="60" r="8" fill="#FFD700"/>
+  <circle cx="130" cy="110" r="8" fill="#FFD700"/>
+  <circle cx="80" cy="130" r="8" fill="#FFD700"/>
+  <circle cx="210" cy="140" r="8" fill="#FFD700"/>
+  <circle cx="240" cy="80" r="8" fill="#FFD700"/>
+  
+  <!-- X标记 -->
+  <path d="M235 140 L255 160 M235 160 L255 140" stroke="#FF0000" stroke-width="4"/>
+  
+  <!-- 玩家指示器 -->
+  <polygon points="70,60 80,70 70,80 60,70" fill="#32CD32"/>
+  <polygon points="160,90 170,100 160,110 150,100" fill="#FF69B4"/>
+  
+  <!-- 标题 -->
+  <text x="150" y="180" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle">Treasure Hunt</text>
+</svg> 
